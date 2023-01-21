@@ -1,9 +1,9 @@
-import { composeSubscribe, Optional, Unsubscriber } from '@ts-pipeline/ts-core'
+import { composeSubscribe, type Optional, type Unsubscriber } from '@ts-pipeline/ts-core'
 import { action, makeObservable, observable, reaction, runInAction } from 'mobx'
 import { createTerminal } from 'terminal-kit'
 
 import { PipelineRegistryStore } from '../../registry/PipelineRegistryStore'
-import { AppRender } from '../AppRender'
+import { type AppRender } from '../AppRender'
 
 import { TerminalRenderers } from './TerminalRenderers'
 

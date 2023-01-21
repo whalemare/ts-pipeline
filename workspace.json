@@ -2,7 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "ts-core": "libs/ts-core",
-    "core": "libs/ts-pipeline"
+    "core": "libs/core",
+    "steps-shell": "libs/steps/shell",
+    "ts-core": "libs/ts-core"
   }
 }

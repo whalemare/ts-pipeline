@@ -17,8 +17,9 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "@ts-pipeline/ts-core": ["libs/ts-core/src/index.ts"],
-      "@ts-pipeline/ts-pipeline": ["libs/ts-pipeline/src/index.ts"]
+      "@ts-pipeline/core": ["libs/core/src/index.ts"],
+      "@ts-pipeline/step-shell": ["libs/steps/shell/src/index.ts"],
+      "@ts-pipeline/ts-core": ["libs/ts-core/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

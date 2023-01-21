@@ -1,4 +1,4 @@
-import { pipeline } from '@ts-pipeline/ts-pipeline'
+import { pipeline } from '@ts-pipeline/core'
 
 import { progress } from './steps/progress'
 import { sum } from './steps/sum'

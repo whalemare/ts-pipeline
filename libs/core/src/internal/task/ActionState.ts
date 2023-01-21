@@ -1,4 +1,3 @@
-import { Keyable } from '@ts-pipeline/ts-core'
 import { RequestStoreState } from 'mobx-request'
 
 export interface ActionState {

@@ -1,32 +1,32 @@
 {
-  "name": "ts-core",
+  "name": "core",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/ts-core/src",
+  "sourceRoot": "libs/core/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/ts-core",
-        "tsConfig": "libs/ts-core/tsconfig.lib.json",
-        "packageJson": "libs/ts-core/package.json",
-        "main": "libs/ts-core/src/index.ts",
-        "assets": ["libs/ts-core/*.md"]
+        "outputPath": "dist/libs/core",
+        "tsConfig": "libs/core/tsconfig.lib.json",
+        "packageJson": "libs/core/package.json",
+        "main": "libs/core/src/index.ts",
+        "assets": ["libs/core/*.md"]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/ts-core/**/*.ts"]
+        "lintFilePatterns": ["libs/core/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/ts-core/jest.config.ts",
+        "jestConfig": "libs/core/jest.config.ts",
         "passWithNoTests": true
       }
     }
