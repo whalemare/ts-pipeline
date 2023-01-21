@@ -32,7 +32,11 @@ export class TaskStore<A extends any[] = any, R = any> {
   })
 
   onData = (msg: string | number) => {
-    this.history.enqueue(`${msg}`)
+    const string = `${msg}`
+    const array = string.split('\n')
+    for (const item of array) {
+      this.history.enqueue(item)
+    }
   }
 
   constructor(private props: TaskStoreProps<A, R>) {

@@ -22,14 +22,13 @@ export class TerminalRenderStore implements AppRender {
       frame => {
         this.terminal.clear()
 
-        const header = `Tasks: ${this.registry.tasks.length}`
         const lines = this.registry.tasks
           .map(task => {
             return this.renderers['task'].render(task, frame)
           })
           .join('\n')
 
-        this.terminal(header + '\n\n\n' + lines)
+        this.terminal(lines)
       },
     )
 

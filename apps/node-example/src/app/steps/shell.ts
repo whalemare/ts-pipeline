@@ -40,8 +40,8 @@ interface ShellOptions {
 
 export const shell = createStep({
   name: 'shell',
-  action: async (ui, command: string, options: ShellOptions) => {
-    return execAsync(command, {
+  action: async (ui, command: string, options?: ShellOptions) => {
+    await execAsync(command, {
       ...options,
       onMessage: msg => {
         ui.onData(msg)
