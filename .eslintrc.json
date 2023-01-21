@@ -70,10 +70,6 @@
       "extends": [
         "./ts.eslint.js"
       ]
-    },
-    {
-      "files": ["*.test.ts", "*.test.tsx"],
-      "extends": ["./tests.eslint.js"]
     }
   ]
 }

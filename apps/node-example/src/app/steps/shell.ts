@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { exec } from 'node:child_process'
 
 import { createStep } from '@ts-pipeline/ts-pipeline'
@@ -34,7 +35,7 @@ async function execAsync(cmd: string, opts?: ShellOptions): Promise<string> {
 
 interface ShellOptions {
   cwd?: string
-  onMessage?: (message: any) => void
+  onMessage?: (message: string) => void
 }
 
 export const shell = createStep({
