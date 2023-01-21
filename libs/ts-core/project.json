@@ -1,0 +1,24 @@
+{
+  "name": "ts-core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ts-core/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/ts-core/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/ts-core"],
+      "options": {
+        "jestConfig": "libs/ts-core/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "node-example",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/node-example/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/node-example",
+        "format": ["cjs"],
+        "main": "apps/node-example/src/main.ts",
+        "tsConfig": "apps/node-example/tsconfig.app.json",
+        "assets": [
+          "apps/node-example/src/assets"
+        ],
+        "external": [
+          "terminal-kit"
+        ]
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "node-example:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "node-example:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/node-example/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/node-example/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
