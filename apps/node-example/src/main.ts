@@ -1,25 +1,19 @@
-import { pipeline } from '@ts-pipeline/core'
-
-import { shell } from './app/steps/shell'
-import { progress } from './steps/progress'
-import { sum } from './steps/sum'
-import { ticker } from './steps/ticker'
-import { tickerLargeHistory } from './steps/tickerLargeHistory'
+import { nestedApp } from './app/nestedApp'
 
 async function run() {
-  await pipeline(async () => {
-    //@ts-ignore
-    console.log('this inside pipeline', this)
-    void ticker(1000)
+  await nestedApp()
 
-    console.log('ticker caller', ticker.caller)
-    const result = await sum(1, 3)
+  // await pipeline(async () => {
+  //   void ticker(1000)
 
-    void tickerLargeHistory(250 * result)
-    void progress(100)
+  //   const result = await sum(1, 3)
+  //   await multiply(result, 2)
 
-    await shell('ls -a')
-  })
+  //   void tickerLargeHistory(250 * result)
+  //   void progress(100)
+
+  //   await shell('ls -a')
+  // })
 }
 
 void run()
