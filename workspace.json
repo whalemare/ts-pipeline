@@ -4,6 +4,7 @@
   "projects": {
     "core": "libs/core",
     "react-renderer": "libs/react-renderer",
+    "steps-increment": "libs/steps/increment",
     "steps-logs": "libs/steps/logs",
     "steps-shell": "libs/steps/shell",
     "ts-core": "libs/ts-core"
