@@ -2,19 +2,33 @@ import { makeObservable, observable, runInAction } from 'mobx'
 
 import { TaskStore } from '../task/TaskStore'
 
+interface PipelineRegistryStoreProps<R> {
+  name: string
+  fn: () => Promise<R>
+}
 export class PipelineRegistryStore {
   @observable
-  tasks: TaskStore[] = []
+  workflowTask: TaskStore
+
+  tasks: TaskStore[] = observable.array<TaskStore>()
 
   add = (item: TaskStore) => {
+    console.log('add task', item.name)
     if (item instanceof TaskStore) {
       runInAction(() => {
         this.tasks.push(item)
+        console.log('this.tasks.length', this.tasks.length)
       })
     }
   }
 
-  constructor(private name: string) {
+  constructor(private props: PipelineRegistryStoreProps<any>) {
     makeObservable(this)
+
+    this.workflowTask = new TaskStore({
+      name: props.name,
+      action: props.fn,
+      historySize: Infinity,
+    })
   }
 }

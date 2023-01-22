@@ -1,12 +1,13 @@
 import { createStep } from '@ts-pipeline/core'
 
+/**
+ * Never resolve or reject, just counting
+ */
 export const ticker = createStep({
   name: 'ticker',
   historySize: 1,
   action: async (ui, ms: number) => {
     let ticks = 0
-
-    console.log('this inside ticked', this)
 
     setInterval(() => {
       ui.onData(ticks++)

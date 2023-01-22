@@ -12,6 +12,7 @@ export const task = <
     ...args: OmitFirst<Parameters<Props['action']>>
   ): Promise<Awaited<ReturnType<Props['action']>>> => {
     const store = new TaskStore(props)
+
     getRegistry().add(store)
 
     return store.request.fetch(args)

@@ -1,7 +1,17 @@
+import { endlessApp } from './app/endlessApp'
 import { nestedApp } from './app/nestedApp'
+import { workflowApp } from './app/workflowApp'
 
 async function run() {
-  await nestedApp()
+  const examples = {
+    nestedApp,
+    workflowApp,
+    endlessApp,
+  }
+
+  const program = examples['endlessApp']
+
+  await program()
 }
 
 void run()

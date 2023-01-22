@@ -1,18 +1,32 @@
 import { PipelineRegistryStore } from '../internal/registry/PipelineRegistryStore'
-
-import { rendererInstance } from './global/rendererInstance'
+import { overrideRegistry } from '../internal/registry/getRegistry'
+import { AppRender } from '../internal/renderer/AppRender'
+import { TerminalRenderStore } from '../internal/renderer/terminal/TerminalRenderStore'
 
 interface WorkflowProps {
   name: string
-  registry?: PipelineRegistryStore
 }
 
-export const workflow = async (func: () => Promise<void>, props?: WorkflowProps) => {
-  if (props?.registry) {
-    // TODO: add override pipeline registry root for support sub-pipelines
-  }
+/**
+ * You can use it like a 'white paper' for your steps.
+ *
+ * Write any kind of logic by using whole power of typescript.
+ *
+ * Limitations: all your steps will be displayed as serial chain, without nesting, even when it is.
+ */
+export const workflow = async <R>(func: () => Promise<R>, props?: WorkflowProps) => {
+  const registry = new PipelineRegistryStore({
+    name: props?.name ?? 'workflow',
+    fn: func,
+  })
+  overrideRegistry(registry)
 
-  rendererInstance.render()
+  // const app: AppRender = new ReactAppRender(registry)
+  const app: AppRender = new TerminalRenderStore(registry)
+  const finishRender = app.render()
 
-  await func()
+  await registry.workflowTask.request.fetch([])
+
+  finishRender()
+  process.exit(0)
 }

@@ -1,5 +1,17 @@
-import { registry } from '../../shared/global/registry'
+import { Optional } from '@ts-pipeline/ts-core'
+
+import { PipelineRegistryStore } from './PipelineRegistryStore'
+
+let registryInstance: Optional<PipelineRegistryStore> = undefined
+
+export function overrideRegistry(registry: PipelineRegistryStore) {
+  registryInstance = registry
+}
 
 export function getRegistry() {
-  return registry
+  if (!registryInstance) {
+    throw new Error('You must use your steps inside `workflow` function')
+  }
+
+  return registryInstance
 }
