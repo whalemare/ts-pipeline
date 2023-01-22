@@ -24,7 +24,7 @@ export const workflow = async <R>(func: () => Promise<R>, props?: WorkflowProps)
   overrideRegistry(registry)
 
   const app: AppRender = props?.renderer ? props.renderer : new TerminalRenderStore(registry)
-  const finishRender = app.render()
+  const finishRender = app.render(registry)
 
   await registry.workflowTask.request.fetch([])
 

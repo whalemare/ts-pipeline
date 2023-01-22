@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppRender } from "@ts-pipeline/core"
+import { AppRender, PipelineRegistryStoreType } from "@ts-pipeline/core"
 import { Unsubscriber } from "@ts-pipeline/ts-core"
 import * as ReactDOM from 'react-dom/client'
 import { App } from './App'
@@ -12,16 +12,13 @@ import * as fs from 'fs'
 import * as ReactDOMServer from 'react-dom/server'
 import isbot from 'isbot'
 
-/* eslint-disable-next-line */
-export interface ReactRendererProps {}
-
 export class ReactRenderer implements AppRender {
  port = process.env['PORT'] || 4201
 
  browserDist = path.join(process.cwd(), 'dist/libs/react-renderer')
  indexPath = path.join(this.browserDist, 'index.html')
 
-  render(): Unsubscriber {
+  render(registry: PipelineRegistryStoreType): Unsubscriber {
     const app = express()
     app.use(cors())
     app.get(
@@ -31,7 +28,7 @@ export class ReactRenderer implements AppRender {
       }),
     )
 
-    app.use('*', handleRequest(this.indexPath))
+    app.use('*', handleRequest(this.indexPath, registry))
 
     const server = app.listen(this.port, () => {
       // Server has started
@@ -50,7 +47,7 @@ export class ReactRenderer implements AppRender {
 
 let indexHtml: null | string = null
 
-function handleRequest(indexPath: string) {
+function handleRequest(indexPath: string, registry: PipelineRegistryStoreType) {
   return function render(req: Request, res: Response) {
     let didError = false
 
@@ -64,7 +61,7 @@ function handleRequest(indexPath: string) {
     // For users, content should be streamed to the user as they are ready.
     const callbackName = isbot(req.headers['user-agent']) ? 'onAllReady' : 'onShellReady'
 
-    const stream = ReactDOMServer.renderToPipeableStream(<App />, {
+    const stream = ReactDOMServer.renderToPipeableStream(<App registry={registry} />, {
       [callbackName]() {
         res.statusCode = didError ? 500 : 200
         res.setHeader('Content-type', 'text/html; charset=utf-8')
