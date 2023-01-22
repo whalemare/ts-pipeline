@@ -35,14 +35,21 @@ export const increment = createStep({
   name: 'increment',
   action: async (ui, props: IncrementProps) => {
     const { platform, dir = jetpack.cwd(), type = IncrementType.NONE } = props
-    if (type === IncrementType.NONE) {
-      ui.onData("Increment type is 'none', skipping")
-      return
-    }
 
     const interactor = platformToInteractor[platform](dir)
     const build = await interactor.getBuildNumber()
     const version = await interactor.getVersion()
+
+    const prev: AppVersion = {
+      build: build,
+      marketing: version,
+    }
+
+    if (type === IncrementType.NONE) {
+      ui.onData("Increment type is 'none', skipping")
+
+      return [prev, prev]
+    }
 
     const nextBuild = build + 1
     if (type === IncrementType.BUILD) {
@@ -56,10 +63,6 @@ export const increment = createStep({
       throw new Error(`Invalid version ${version} for type ${type}`)
     }
 
-    const prev: AppVersion = {
-      build: build,
-      marketing: version,
-    }
     const current: AppVersion = {
       build: nextBuild,
       marketing: nextVersion,

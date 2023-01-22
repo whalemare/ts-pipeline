@@ -2,7 +2,7 @@ import { Unsubscriber } from '@ts-pipeline/ts-core'
 import { autorun, computed, makeObservable } from 'mobx'
 import { Terminal } from 'terminal-kit'
 
-import { PipelineRegistryStore } from '../../../registry/PipelineRegistryStore'
+import { PipelineRegistryStore } from '../../../../shared/PipelineRegistryStore'
 import { TaskReactionRender } from '../TaskReactionRender'
 
 export class ReactionRenderEngine {

@@ -1,6 +1,8 @@
-import type { PipelineRegistryStore } from './internal/registry/PipelineRegistryStore'
+import type { PipelineRegistryStore } from './shared/PipelineRegistryStore'
 
 // @index(['./shared/**/*.(ts|tsx)', '!./**/*.d.(ts|tsx)'], f => `export * from '${f.path}'`)
+export * from './shared/getRegistry'
+export * from './shared/PipelineRegistryStore'
 export * from './shared/step/createStep'
 export * from './shared/step/Step'
 export * from './shared/task'

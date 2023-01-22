@@ -4,7 +4,7 @@ import { action, makeObservable } from 'mobx'
 // @ts-ignore
 import { createTerminal } from 'terminal-kit'
 
-import { PipelineRegistryStore } from '../../registry/PipelineRegistryStore'
+import { PipelineRegistryStore } from '../../../shared/PipelineRegistryStore'
 
 import { ReactionRenderEngine } from './engine/ReactionRenderEngine'
 

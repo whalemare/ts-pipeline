@@ -20,7 +20,7 @@ export class NodePlatform implements PlatformActions {
       )
     }
 
-    const prereleaseVersion = semver.prerelease(raw)?.[0]
+    const prereleaseVersion = semver.prerelease(raw)?.[0] || 1
     const buildVersion = prereleaseVersion ? Number(prereleaseVersion) : null
     if (buildVersion === null || buildVersion === undefined) {
       throw new Error(
@@ -50,6 +50,7 @@ export class NodePlatform implements PlatformActions {
 
   private readVersion = async () => {
     const path = `${this.project.cwd()}/package.json`
+    console.log('path', path)
     const packageJson = await jetpack.readAsync(path, 'json')
     const raw = packageJson.version
     return this.validateRawVersion(raw)

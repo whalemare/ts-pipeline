@@ -1,8 +1,9 @@
 import { AppRender } from '@ts-pipeline/renderer/core'
 import { ReactIncRender } from '@ts-pipeline/renderer/react-ink'
 
-import { PipelineRegistryStore } from '../internal/registry/PipelineRegistryStore'
-import { overrideRegistry } from '../internal/registry/getRegistry'
+import { PipelineRegistryStore } from './PipelineRegistryStore'
+
+import { overrideRegistry } from './getRegistry'
 
 interface WorkflowProps {
   name?: string
