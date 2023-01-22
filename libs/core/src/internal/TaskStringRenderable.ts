@@ -1,8 +1,11 @@
+// any required for autotypings
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TaskStore } from '@ts-pipeline/task'
 import chalk from 'chalk'
 import { makeAutoObservable } from 'mobx'
 
-import { Renderable } from '../../renderer/Renderable'
-import { TaskStore } from '../TaskStore'
+import { Renderable } from './renderer/Renderable'
+
 export class TaskStringRenderable implements Renderable<TaskStore, string> {
   render = (item: TaskStore<any, any>, frame: number): string => {
     const title = chalk.bold(item.name)

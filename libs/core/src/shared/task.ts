@@ -1,6 +1,6 @@
+import { TaskStore, TaskStoreProps } from '@ts-pipeline/task'
+
 import { getRegistry } from '../internal/registry/getRegistry'
-import { TaskStore } from '../internal/task/TaskStore'
-import { TaskStoreProps } from '../internal/task/TaskStoreProps'
 
 export const task = <
   Props extends TaskStoreProps = TaskStoreProps,

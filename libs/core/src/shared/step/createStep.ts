@@ -1,4 +1,5 @@
-import { TaskStoreProps } from '../../internal/task/TaskStoreProps'
+import { TaskStoreProps } from '@ts-pipeline/task'
+
 import { task } from '../task'
 
 /**

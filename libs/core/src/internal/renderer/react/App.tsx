@@ -2,10 +2,10 @@ import { Box, Text } from 'ink'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
 
-import { PipelineRegistryStore } from '../../registry/PipelineRegistryStore'
+import { TaskStore } from '@ts-pipeline/task'
 import { getRegistry } from '../../registry/getRegistry'
-import { TaskStore } from '../../task/TaskStore'
-import { TaskStringRenderable } from '../../task/renderable/TaskStringRenderable'
+import { PipelineRegistryStore } from '../../registry/PipelineRegistryStore'
+import { TaskStringRenderable } from '../../TaskStringRenderable'
 
 interface AppProps {
   registry: PipelineRegistryStore

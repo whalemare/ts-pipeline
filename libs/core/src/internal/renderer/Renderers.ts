@@ -1,6 +1,6 @@
-import { TaskStore } from '../task/TaskStore'
+import type { TaskStore } from '@ts-pipeline/task'
 
-import { Renderable } from './Renderable'
+import type { Renderable } from './Renderable'
 
 export interface Renderers<Output> {
   task: Renderable<TaskStore, Output>

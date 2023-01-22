@@ -2,8 +2,8 @@ import { composeSubscribe, Unsubscriber } from '@ts-pipeline/ts-core'
 import { makeObservable, observable, reaction, runInAction } from 'mobx'
 import { Terminal } from 'terminal-kit'
 
+import { TaskStringRenderable } from '../../../TaskStringRenderable'
 import { PipelineRegistryStore } from '../../../registry/PipelineRegistryStore'
-import { TaskStringRenderable } from '../../../task/renderable/TaskStringRenderable'
 
 export class FrameRenderEngine {
   private interval: number

@@ -1,3 +1,4 @@
+import { TaskStore } from '@ts-pipeline/task'
 import { Unsubscriber } from '@ts-pipeline/ts-core'
 import chalk from 'chalk'
 import {
@@ -9,8 +10,6 @@ import {
   reaction,
   runInAction,
 } from 'mobx'
-
-import { TaskStore } from '../../task/TaskStore'
 
 const frames = ['▏', '▎', '▍', '▌', '▋', '▊', '▉', '▊', '▋', '▌', '▍', '▎']
 

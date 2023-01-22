@@ -4,19 +4,20 @@ import { Optional } from '@ts-pipeline/ts-core'
 import { makeObservable, observable, runInAction } from 'mobx'
 import { RequestStore } from 'mobx-request'
 
-import { Queue } from '../queue/Queue'
-
-import { ActionState } from './ActionState'
-import { TaskStoreProps } from './TaskStoreProps'
+import { QueueOutputable } from './QueueOutputable'
+import { ActionState } from './entity/ActionState'
+import { History as History } from './entity/History'
+import { TaskStoreProps } from './entity/TaskStoreProps'
 
 export class TaskStore<A extends any[] = any, R = any> {
   @observable
-  name = 'task:unknown'
+  name
+
+  @observable
+  history: History
 
   @observable
   args: Optional<A> = undefined
-
-  history: Queue<string>
 
   request = new RequestStore<R, A>(async (args, requestState) => {
     runInAction(() => {
@@ -35,19 +36,13 @@ export class TaskStore<A extends any[] = any, R = any> {
     const string = `${msg}`
     const array = string.split('\n')
     for (const item of array) {
-      this.history.enqueue(item)
+      this.history.push(item)
     }
   }
 
   constructor(private props: TaskStoreProps<A, R>) {
-    if (props.name) {
-      this.name = props.name
-    }
-    if (props.historySize) {
-      this.history = new Queue<string>(props.historySize)
-    } else {
-      this.history = new Queue<string>(5)
-    }
+    this.name = props?.name ?? 'task:unknown'
+    this.history = new QueueOutputable(props?.historySize ?? 5)
 
     makeObservable(this)
   }

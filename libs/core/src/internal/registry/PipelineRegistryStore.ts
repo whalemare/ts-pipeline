@@ -1,6 +1,5 @@
+import { TaskStore } from '@ts-pipeline/task'
 import { makeObservable, observable, runInAction } from 'mobx'
-
-import { TaskStore } from '../task/TaskStore'
 
 interface PipelineRegistryStoreProps<R> {
   name: string
