@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "core": "libs/core",
+    "steps-logs": "libs/steps/logs",
     "steps-shell": "libs/steps/shell",
     "ts-core": "libs/ts-core"
   }
