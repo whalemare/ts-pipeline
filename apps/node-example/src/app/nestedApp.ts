@@ -1,4 +1,4 @@
-import { pipeline } from '@ts-pipeline/core'
+import { workflow as workflow } from '@ts-pipeline/core'
 import { createStep } from '@ts-pipeline/core'
 import { delay } from '@ts-pipeline/ts-core'
 
@@ -20,7 +20,7 @@ const multiply = createStep({
 })
 
 export async function nestedApp() {
-  await pipeline(async () => {
+  await workflow(async () => {
     await multiply(2, 4)
   })
 }
