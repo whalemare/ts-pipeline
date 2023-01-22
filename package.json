@@ -79,6 +79,7 @@
     "@vitejs/plugin-react": "^3.0.0",
     "@vitest/coverage-c8": "~0.25.8",
     "@vitest/ui": "^0.25.8",
+    "ansi-styles": "6.2.1",
     "axios-logger": "2.6.2",
     "babel-jest": "28.1.1",
     "cypress": "^12.2.0",

@@ -13,4 +13,10 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../coverage/libs/steps/increment',
+  transformIgnorePatterns: [
+    // "../../node_modules/(?!chalk/.*)",
+  ],
+  moduleNameMapper: {
+    '#(.*)': '<rootDir>/../../../node_modules/$1',
+  },
 }
