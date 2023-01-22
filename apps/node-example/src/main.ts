@@ -8,7 +8,11 @@ import { tickerLargeHistory } from './steps/tickerLargeHistory'
 
 async function run() {
   await pipeline(async () => {
+    //@ts-ignore
+    console.log('this inside pipeline', this)
     void ticker(1000)
+
+    console.log('ticker caller', ticker.caller)
     const result = await sum(1, 3)
 
     void tickerLargeHistory(250 * result)

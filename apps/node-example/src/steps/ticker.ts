@@ -6,6 +6,8 @@ export const ticker = createStep({
   action: async (ui, ms: number) => {
     let ticks = 0
 
+    console.log('this inside ticked', this)
+
     setInterval(() => {
       ui.onData(ticks++)
     }, Number(ms))

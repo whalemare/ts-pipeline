@@ -1,4 +1,4 @@
-import { makeObservable, observable } from 'mobx'
+import { makeObservable, observable, runInAction } from 'mobx'
 
 import { TaskStore } from '../task/TaskStore'
 
@@ -8,7 +8,9 @@ export class PipelineRegistryStore {
 
   add = (item: TaskStore) => {
     if (item instanceof TaskStore) {
-      this.tasks.push(item)
+      runInAction(() => {
+        this.tasks.push(item)
+      })
     }
   }
 
