@@ -7,6 +7,7 @@ import { TaskStringRenderable } from '../../../task/renderable/TaskStringRendera
 
 export class FrameRenderEngine {
   private interval: number
+  private prevOutputLengthLine = 0
 
   @observable
   frame = 0
@@ -19,14 +20,18 @@ export class FrameRenderEngine {
     const frameRenderer = reaction(
       () => this.frame,
       frame => {
-        this.terminal.clear()
+        if (this.prevOutputLengthLine) {
+          this.terminal.eraseLine()
+        }
         const main = this.renderers['task'].render(this.registry.workflowTask, frame)
         const lines = this.registry.tasks
           .map(task => {
             return this.renderers['task'].render(task, frame)
           })
           .join('\n')
-        this.terminal(`${main}\n\n${lines}`)
+        const output = `${main}\n\n${lines}`
+        this.prevOutputLengthLine = output.split('\n').length
+        this.terminal(output)
       },
     )
 

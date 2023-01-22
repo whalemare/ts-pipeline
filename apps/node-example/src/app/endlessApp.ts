@@ -7,7 +7,7 @@ export async function endlessApp() {
     let tick = 0
     setInterval(() => {
       console.log('tick', tick++)
-    }, 500)
+    }, 5000)
     await Promise.all([ticker(1000), ticker(500)])
   })
 }

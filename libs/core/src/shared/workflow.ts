@@ -1,6 +1,6 @@
 import { PipelineRegistryStore } from '../internal/registry/PipelineRegistryStore'
 import { overrideRegistry } from '../internal/registry/getRegistry'
-import { TerminalRenderStore } from '../internal/renderer/terminal/TerminalRenderStore'
+import { ReactIncRender as ReactIncRender } from '../internal/renderer/react/ReactIncRender'
 
 import { AppRender } from './AppRender'
 
@@ -23,7 +23,7 @@ export const workflow = async <R>(func: () => Promise<R>, props?: WorkflowProps)
   })
   overrideRegistry(registry)
 
-  const app: AppRender = props?.renderer ? props.renderer : new TerminalRenderStore(registry)
+  const app: AppRender = props?.renderer ? props.renderer : new ReactIncRender()
   const finishRender = app.render(registry)
 
   await registry.workflowTask.request.fetch([])

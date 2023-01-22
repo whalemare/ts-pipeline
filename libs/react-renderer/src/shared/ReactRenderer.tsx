@@ -1,22 +1,22 @@
-import React from 'react'
-import { AppRender, PipelineRegistryStoreType } from "@ts-pipeline/core"
-import { Unsubscriber } from "@ts-pipeline/ts-core"
-import * as ReactDOM from 'react-dom/client'
-import { App } from './App'
+import * as fs from 'fs'
 import * as path from 'path'
 
+import { AppRender, PipelineRegistryStoreType } from '@ts-pipeline/core'
+import { Unsubscriber } from '@ts-pipeline/ts-core'
 import cors from 'cors'
 import express from 'express'
 import type { Request, Response } from 'express'
-import * as fs from 'fs'
-import * as ReactDOMServer from 'react-dom/server'
 import isbot from 'isbot'
+import React from 'react'
+import * as ReactDOMServer from 'react-dom/server'
+
+import { App } from './App'
 
 export class ReactRenderer implements AppRender {
- port = process.env['PORT'] || 4201
+  port = process.env['PORT'] || 4201
 
- browserDist = path.join(process.cwd(), 'dist/libs/react-renderer')
- indexPath = path.join(this.browserDist, 'index.html')
+  browserDist = path.join(process.cwd(), 'dist/libs/react-renderer')
+  indexPath = path.join(this.browserDist, 'index.html')
 
   render(registry: PipelineRegistryStoreType): Unsubscriber {
     const app = express()
@@ -34,7 +34,7 @@ export class ReactRenderer implements AppRender {
       // Server has started
     })
 
-    console.info("Server started ", server.address())
+    console.info('Server started ', server.address())
 
     server.on('error', console.error)
 

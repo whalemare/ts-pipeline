@@ -11,7 +11,7 @@ async function run() {
     workflowReactApp,
   }
 
-  const program = examples['endlessApp']
+  const program = examples['nestedApp']
 
   await program()
 }
