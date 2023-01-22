@@ -3,8 +3,6 @@
   "version": 2,
   "projects": {
     "core": "libs/core",
-    "my-app": "apps/my-app",
-    "my-app-e2e": "apps/my-app-e2e",
     "react-renderer": "libs/react-renderer",
     "steps-logs": "libs/steps/logs",
     "steps-shell": "libs/steps/shell",

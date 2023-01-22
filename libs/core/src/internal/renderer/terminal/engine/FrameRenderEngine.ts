@@ -20,15 +20,12 @@ export class FrameRenderEngine {
       () => this.frame,
       frame => {
         this.terminal.clear()
-
         const main = this.renderers['task'].render(this.registry.workflowTask, frame)
-
         const lines = this.registry.tasks
           .map(task => {
             return this.renderers['task'].render(task, frame)
           })
           .join('\n')
-
         this.terminal(`${main}\n\n${lines}`)
       },
     )
