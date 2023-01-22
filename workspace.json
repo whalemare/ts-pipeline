@@ -4,6 +4,8 @@
   "projects": {
     "core": "libs/core",
     "react-renderer": "libs/react-renderer",
+    "renderer-core": "libs/renderer/core",
+    "renderer-react-ink": "libs/renderer/react-ink",
     "steps-increment": "libs/steps/increment",
     "steps-logs": "libs/steps/logs",
     "steps-shell": "libs/steps/shell",

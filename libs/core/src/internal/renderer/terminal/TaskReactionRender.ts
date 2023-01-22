@@ -76,8 +76,6 @@ export class TaskReactionRender {
         loading => {
           if (loading) {
             interval = setInterval(() => {
-              console.log('onBecomeObserved')
-
               runInAction(() => {
                 this.frame++
               })

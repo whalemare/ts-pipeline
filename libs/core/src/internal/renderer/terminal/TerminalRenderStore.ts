@@ -1,12 +1,11 @@
+import { AppRender } from '@ts-pipeline/renderer/core'
 import { type Unsubscriber } from '@ts-pipeline/ts-core'
 import { action, makeObservable } from 'mobx'
 // @ts-ignore
 import { createTerminal } from 'terminal-kit'
 
-import { type AppRender } from '../../../shared/AppRender'
 import { PipelineRegistryStore } from '../../registry/PipelineRegistryStore'
 
-import { FrameRenderEngine } from './engine/FrameRenderEngine'
 import { ReactionRenderEngine } from './engine/ReactionRenderEngine'
 
 export class TerminalRenderStore implements AppRender {
@@ -14,7 +13,6 @@ export class TerminalRenderStore implements AppRender {
 
   @action
   render = (): Unsubscriber => {
-    return new FrameRenderEngine(this.terminal, this.registry, 25).render()
     return new ReactionRenderEngine(this.terminal, this.registry).render()
   }
 

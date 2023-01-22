@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TaskStore, TaskStoreProps } from '@ts-pipeline/task'
 
 import { getRegistry } from '../internal/registry/getRegistry'

@@ -1,7 +1,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { AppRender, PipelineRegistryStoreType } from '@ts-pipeline/core'
+import { PipelineRegistryStoreType } from '@ts-pipeline/core'
+import { AppRender } from '@ts-pipeline/renderer/core'
 import { Unsubscriber } from '@ts-pipeline/ts-core'
 import cors from 'cors'
 import express from 'express'
