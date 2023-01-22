@@ -3,7 +3,7 @@ import { render } from 'ink'
 import { makeAutoObservable } from 'mobx'
 import React from 'react';
 import {App} from './App'
-import { AppRender } from '../AppRender'
+import { AppRender } from '../../../shared/AppRender'
 import { PipelineRegistryStore } from '../../registry/PipelineRegistryStore';
 
 export class ReactAppRender implements AppRender {

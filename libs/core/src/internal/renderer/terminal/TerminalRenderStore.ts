@@ -3,8 +3,8 @@ import { action, makeObservable } from 'mobx'
 // @ts-ignore
 import { createTerminal } from 'terminal-kit'
 
+import { type AppRender } from '../../../shared/AppRender'
 import { PipelineRegistryStore } from '../../registry/PipelineRegistryStore'
-import { type AppRender } from '../AppRender'
 
 import { FrameRenderEngine } from './engine/FrameRenderEngine'
 import { ReactionRenderEngine } from './engine/ReactionRenderEngine'
