@@ -12,7 +12,8 @@
         "format": ["cjs"],
         "main": "apps/deploy/src/main.ts",
         "tsConfig": "apps/deploy/tsconfig.app.json",
-        "assets": ["apps/deploy/src/assets"]
+        "assets": ["apps/deploy/src/assets"],
+        "external": ["shelljs"]
       }
     },
     "serve": {

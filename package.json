@@ -1,11 +1,11 @@
 {
   "name": "core",
   "description": "Setup your pipelines as code",
-  "version": "0.0.0-1",
+  "version": "0.0.1-2",
   "license": "MIT",
   "scripts": {
     "start": "nx run node-example:build && node dist/apps/node-example/main.cjs",
-    "deploy": "yarn nx run deploy:build && node dist/apps/deploy/main.cjs",
+    "deploy": "yarn nx run deploy:build && node dist/apps/deploy/main.cjs patch",
     "build": "nx run-many --target build --exclude deploy,node-example",
     "publish": "nx run-many --target publish --exclude deploy,node-example",
     "test": "nx test",
