@@ -1,6 +1,6 @@
 import jetpack = require('fs-jetpack')
 // @ts-ignore no types :(
-import g2js from 'gradle-to-js'
+import * as g2js from 'gradle-to-js'
 
 import { MarketingVersion } from '../entity/MarketingVersion'
 import { PlatformActions } from '../entity/PlatformActions'

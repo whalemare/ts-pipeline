@@ -62,7 +62,7 @@ export const increment = createStep({
     if (props.version) {
       await interactor.setVersion(props.version.marketing)
       await interactor.setBuildNumber(props.version.build)
-      return [prev, props.version]
+      return [prev, props.version] as const
     } else if (!isExist(type)) {
       throw new Error("You must provide 'type' or 'version' to increment step")
     }
@@ -70,20 +70,18 @@ export const increment = createStep({
     if (type === IncrementType.NONE) {
       ui.onData("Increment type is 'none', skipping")
 
-      return [prev, prev]
+      return [prev, prev] as const
     }
 
     const nextBuild = build + 1
     if (type === IncrementType.BUILD) {
       await interactor.setBuildNumber(nextBuild)
       await interactor.setVersion(version)
-      return [
-        prev,
-        {
-          build: nextBuild,
-          marketing: version,
-        },
-      ]
+      const next: AppVersion = {
+        build: nextBuild,
+        marketing: version,
+      }
+      return [prev, next] as const
     }
 
     // TODO: add handle 1, 1.0 - its semver but without 0
@@ -95,12 +93,10 @@ export const increment = createStep({
     await interactor.setBuildNumber(nextBuild)
     await interactor.setVersion(nextVersion)
 
-    return [
-      prev,
-      {
-        build: nextBuild,
-        marketing: nextVersion,
-      },
-    ]
+    const next = {
+      build: nextBuild,
+      marketing: nextVersion,
+    }
+    return [prev, next] as const
   },
 })

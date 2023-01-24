@@ -21,7 +21,7 @@ async function deploy() {
   const type = incrementTypeRaw as IncrementType
 
   await workflow(async () => {
-    const [prev, current] = await increment({
+    const [prev, nextVersion] = await increment({
       platform: 'node',
       type: type,
     })
@@ -40,13 +40,13 @@ async function deploy() {
       }),
     )
 
-    ui.success(`Success increment version ${prev.marketing} -> ${current.marketing}`)
+    ui.success(`Success increment version ${prev.marketing} -> ${nextVersion.marketing}`)
 
     ui.success('Start generating index files')
     await execAsync(`yarn generate:index`)
 
-    git.commit(`🎉 Increment version ${current.marketing}`)
-    git.tag(current.marketing, 'increment')
+    git.commit(`🎉 Increment version ${nextVersion.marketing}`)
+    git.tag(nextVersion.marketing, 'increment')
 
     await execAsync('yarn build')
     await execAsync('yarn release')
