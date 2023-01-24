@@ -29,15 +29,15 @@ async function deploy() {
       .filter(it => !it.startsWith('.'))
       .map(lib => jetpack.cwd(`libs/${lib}`))
 
-    // await Promise.all(
-    //   libs.map(async lib => {
-    //     return increment({
-    //       platform: 'node',
-    //       type: type,
-    //       dir: lib.cwd(),
-    //     })
-    //   }),
-    // )
+    await Promise.all(
+      libs.map(async lib => {
+        return increment({
+          platform: 'node',
+          type: type,
+          dir: lib.cwd(),
+        })
+      }),
+    )
   })
 }
 
