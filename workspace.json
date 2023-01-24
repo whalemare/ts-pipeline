@@ -7,9 +7,9 @@
     "react-renderer": "libs/react-renderer",
     "renderer-core": "libs/renderer/core",
     "renderer-react-ink": "libs/renderer/react-ink",
-    "steps-increment": "libs/steps/increment",
-    "steps-logs": "libs/steps/logs",
-    "steps-shell": "libs/steps/shell",
+    "step-increment": "libs/step-increment",
+    "step-logs": "libs/step-logs",
+    "step-shell": "libs/step-shell",
     "task": "libs/task",
     "ts-core": "libs/ts-core"
   }

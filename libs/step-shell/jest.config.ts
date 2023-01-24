@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'steps-shell',
-  preset: '../../../jest.preset.js',
+  displayName: 'step-shell',
+  preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -12,5 +12,5 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/steps/shell',
+  coverageDirectory: '../../coverage/libs/step-shell',
 }

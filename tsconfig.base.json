@@ -21,9 +21,6 @@
       "@ts-pipeline/react-renderer": ["libs/react-renderer/src/index.ts"],
       "@ts-pipeline/renderer/core": ["libs/renderer/core/src/index.ts"],
       "@ts-pipeline/renderer/react-ink": ["libs/renderer/react-ink/src/index.ts"],
-      "@ts-pipeline/step-increment": ["libs/steps/increment/src/index.ts"],
-      "@ts-pipeline/step-logs": ["libs/steps/logs/src/index.ts"],
-      "@ts-pipeline/step-shell": ["libs/steps/shell/src/index.ts"],
       "@ts-pipeline/task": ["libs/task/src/index.ts"],
       "@ts-pipeline/ts-core": ["libs/ts-core/src/index.ts"]
     }

@@ -1,21 +1,21 @@
 {
-  "name": "steps-logs",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/steps/logs/src",
+  "name": "step-logs",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/step-logs/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/steps/logs/**/*.ts"]
+        "lintFilePatterns": ["libs/step-logs/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/steps/logs/jest.config.ts",
+        "jestConfig": "libs/step-logs/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -23,11 +23,11 @@
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/steps/logs",
-        "tsConfig": "libs/steps/logs/tsconfig.lib.json",
-        "packageJson": "libs/steps/logs/package.json",
-        "main": "libs/steps/logs/src/index.ts",
-        "assets": ["libs/steps/logs/*.md"]
+        "outputPath": "dist/libs/step-logs",
+        "tsConfig": "libs/step-logs/tsconfig.lib.json",
+        "packageJson": "libs/step-logs/package.json",
+        "main": "libs/step-logs/src/index.ts",
+        "assets": ["libs/step-logs/*.md"]
       }
     }
   },
