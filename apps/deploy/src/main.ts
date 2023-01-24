@@ -49,7 +49,7 @@ async function deploy() {
     git.tag(current.marketing, 'increment')
 
     await execAsync('yarn build')
-    await execAsync('yarn publish')
+    await execAsync('yarn release')
   })
 }
 

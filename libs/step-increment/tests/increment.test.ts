@@ -40,4 +40,15 @@ describe('increment', () => {
       dir: jetpack.path('libs/step-increment/tests/assets/ReactNativeApp'),
     })
   })
+
+  test('should allow pass custom version', async () => {
+    await increment({
+      platform: 'ios',
+      dir: jetpack.path('libs/step-increment/tests/assets/ReactNativeApp'),
+      version: {
+        build: 2,
+        marketing: '0.0.2',
+      },
+    })
+  })
 })

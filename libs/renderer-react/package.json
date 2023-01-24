@@ -1,6 +1,6 @@
 {
   "name": "@ts-pipeline/renderer-react",
-  "version": "0.0.3-3",
+  "version": "0.0.4-4",
   "main": "./index.js",
   "types": "./index.d.ts",
   "exports": {

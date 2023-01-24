@@ -1,5 +1,5 @@
 import { createStep } from '@ts-pipeline/core'
-import { Optional } from '@ts-pipeline/ts-core'
+import { isExist, Optional } from '@ts-pipeline/ts-core'
 import * as jetpack from 'fs-jetpack'
 import { inc } from 'semver'
 
@@ -11,15 +11,26 @@ import { NodePlatform } from '../internal/node/NodePlatform'
 
 import { IncrementType } from './IncrementType'
 
-interface IncrementProps {
+export type IncrementProps = {
   dir?: string
-
-  /**
-   * @default 'none'
-   */
-  type?: IncrementType
   platform: 'ios' | 'android' | 'node'
-}
+} & (
+  | {
+      /**
+       * Pass type to increment version
+       */
+      type: IncrementType
+      version?: undefined
+    }
+  | {
+      type?: undefined
+
+      /**
+       * Pass specific version to set it
+       */
+      version: AppVersion
+    }
+)
 
 const platformToInteractor = {
   ios: (dir: string) => {
@@ -36,7 +47,7 @@ const platformToInteractor = {
 export const increment = createStep({
   name: 'increment',
   action: async (ui, props: IncrementProps) => {
-    const { platform, dir = jetpack.cwd(), type = IncrementType.NONE } = props
+    const { platform, dir = jetpack.cwd(), type } = props
     ui.onData('Working at path: ' + dir)
 
     const interactor = platformToInteractor[platform](dir)
@@ -46,6 +57,14 @@ export const increment = createStep({
     const prev: AppVersion = {
       build: build,
       marketing: version,
+    }
+
+    if (props.version) {
+      await interactor.setVersion(props.version.marketing)
+      await interactor.setBuildNumber(props.version.build)
+      return [prev, props.version]
+    } else if (!isExist(type)) {
+      throw new Error("You must provide 'type' or 'version' to increment step")
     }
 
     if (type === IncrementType.NONE) {
@@ -76,10 +95,12 @@ export const increment = createStep({
     await interactor.setBuildNumber(nextBuild)
     await interactor.setVersion(nextVersion)
 
-    const current: AppVersion = {
-      build: nextBuild,
-      marketing: nextVersion,
-    }
-    return [prev, current]
+    return [
+      prev,
+      {
+        build: nextBuild,
+        marketing: nextVersion,
+      },
+    ]
   },
 })
