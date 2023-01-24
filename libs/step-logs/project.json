@@ -4,6 +4,12 @@
   "sourceRoot": "libs/step-logs/src",
   "projectType": "library",
   "targets": {
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "cd dist/libs/step-logs && npm publish --registry=https://registry.npmjs.org --access public"
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

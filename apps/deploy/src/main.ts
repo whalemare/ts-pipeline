@@ -1,7 +1,8 @@
+import { git, ui } from '@lamantin/fastpush'
 import { workflow } from '@ts-pipeline/core'
 import { increment, IncrementType } from '@ts-pipeline/step-increment'
+import { execAsync } from '@ts-pipeline/step-shell'
 import jetpack from 'fs-jetpack'
-
 /**
  * Increment, build and deploy libraries
  *
@@ -38,6 +39,17 @@ async function deploy() {
         })
       }),
     )
+
+    ui.success(`Success increment version ${prev.marketing} -> ${current.marketing}`)
+
+    ui.success('Start generating index files')
+    await execAsync(`yarn generate:index`)
+
+    git.commit(`🎉 Increment version ${current.marketing}`)
+    git.tag(current.marketing, 'increment')
+
+    await execAsync('yarn build')
+    await execAsync('yarn publish')
   })
 }
 
