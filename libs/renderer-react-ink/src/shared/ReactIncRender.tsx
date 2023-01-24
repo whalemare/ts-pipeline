@@ -1,4 +1,4 @@
-import { AppRender } from '@ts-pipeline/renderer/core'
+import { AppRender } from '@ts-pipeline/renderer-core'
 import { Registry } from '@ts-pipeline/task'
 import { Unsubscriber } from '@ts-pipeline/ts-core'
 import { render } from 'ink'

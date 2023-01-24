@@ -18,9 +18,9 @@
     "baseUrl": ".",
     "paths": {
       "@ts-pipeline/core": ["libs/core/src/index.ts"],
-      "@ts-pipeline/react-renderer": ["libs/react-renderer/src/index.ts"],
-      "@ts-pipeline/renderer/core": ["libs/renderer/core/src/index.ts"],
-      "@ts-pipeline/renderer/react-ink": ["libs/renderer/react-ink/src/index.ts"],
+      "@ts-pipeline/renderer-core": ["libs/renderer-core/src/index.ts"],
+      "@ts-pipeline/renderer-react": ["libs/renderer-react/src/index.ts"],
+      "@ts-pipeline/renderer-react-ink": ["libs/renderer-react-ink/src/index.ts"],
       "@ts-pipeline/task": ["libs/task/src/index.ts"],
       "@ts-pipeline/ts-core": ["libs/ts-core/src/index.ts"]
     }

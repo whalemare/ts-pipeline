@@ -1,5 +1,5 @@
-import { AppRender } from '@ts-pipeline/renderer/core'
-import { ReactIncRender } from '@ts-pipeline/renderer/react-ink'
+import { AppRender } from '@ts-pipeline/renderer-core'
+import { ReactIncRender } from '@ts-pipeline/renderer-react-ink'
 
 import { PipelineRegistryStore } from './PipelineRegistryStore'
 import { overrideRegistry } from './getRegistry'

@@ -1,4 +1,4 @@
-import { AppRender } from '@ts-pipeline/renderer/core'
+import { AppRender } from '@ts-pipeline/renderer-core'
 import { type Unsubscriber } from '@ts-pipeline/ts-core'
 import { action, makeObservable } from 'mobx'
 // @ts-ignore

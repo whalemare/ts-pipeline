@@ -1,32 +1,32 @@
 {
   "name": "renderer-core",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/renderer/core/src",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/renderer-core/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/renderer/core",
-        "tsConfig": "libs/renderer/core/tsconfig.lib.json",
-        "packageJson": "libs/renderer/core/package.json",
-        "main": "libs/renderer/core/src/index.ts",
-        "assets": ["libs/renderer/core/*.md"]
+        "outputPath": "dist/libs/renderer-core",
+        "tsConfig": "libs/renderer-core/tsconfig.lib.json",
+        "packageJson": "libs/renderer-core/package.json",
+        "main": "libs/renderer-core/src/index.ts",
+        "assets": ["libs/renderer-core/*.md"]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/renderer/core/**/*.ts"]
+        "lintFilePatterns": ["libs/renderer-core/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/renderer/core/jest.config.ts",
+        "jestConfig": "libs/renderer-core/jest.config.ts",
         "passWithNoTests": true
       }
     }

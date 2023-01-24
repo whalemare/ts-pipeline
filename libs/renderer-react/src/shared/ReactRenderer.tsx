@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 import { PipelineRegistryStoreType } from '@ts-pipeline/core'
-import { AppRender } from '@ts-pipeline/renderer/core'
+import { AppRender } from '@ts-pipeline/renderer-core'
 import { Unsubscriber } from '@ts-pipeline/ts-core'
 import cors from 'cors'
 import express from 'express'

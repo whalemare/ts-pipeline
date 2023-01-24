@@ -1,6 +1,6 @@
 // any required for autotypings
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Renderable } from '@ts-pipeline/renderer/core'
+import { Renderable } from '@ts-pipeline/renderer-core'
 import { TaskStore } from '@ts-pipeline/task'
 import chalk from 'chalk'
 import { makeAutoObservable } from 'mobx'

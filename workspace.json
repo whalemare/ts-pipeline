@@ -4,9 +4,9 @@
   "projects": {
     "core": "libs/core",
     "deploy": "apps/deploy",
-    "react-renderer": "libs/react-renderer",
-    "renderer-core": "libs/renderer/core",
-    "renderer-react-ink": "libs/renderer/react-ink",
+    "renderer-core": "libs/renderer-core",
+    "renderer-react": "libs/renderer-react",
+    "renderer-react-ink": "libs/renderer-react-ink",
     "step-increment": "libs/step-increment",
     "step-logs": "libs/step-logs",
     "step-shell": "libs/step-shell",
