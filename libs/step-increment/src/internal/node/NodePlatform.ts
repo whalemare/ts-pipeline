@@ -50,7 +50,6 @@ export class NodePlatform implements PlatformActions {
 
   private readVersion = async () => {
     const path = `${this.project.cwd()}/package.json`
-    console.log('path', path)
     const packageJson = await jetpack.readAsync(path, 'json')
     const raw = packageJson.version
     return this.validateRawVersion(raw)

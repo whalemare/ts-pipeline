@@ -71,6 +71,9 @@ export const increment = createStep({
       throw new Error(`Invalid version ${version} for type ${type}`)
     }
 
+    await interactor.setBuildNumber(nextBuild)
+    await interactor.setVersion(nextVersion)
+
     const current: AppVersion = {
       build: nextBuild,
       marketing: nextVersion,
