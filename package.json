@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nx run node-example:build && node dist/apps/node-example/main.cjs",
     "deploy": "yarn nx run deploy:build && node dist/apps/deploy/main.cjs",
-    "build": "nx build",
+    "build": "nx run-many --target build",
     "test": "nx test",
     "graph": "yarn nx graph",
     "lint": "nx run-many --target=lint --parallel 3",

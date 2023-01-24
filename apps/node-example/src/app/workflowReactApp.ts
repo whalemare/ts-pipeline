@@ -1,5 +1,5 @@
 import { workflow } from '@ts-pipeline/core'
-import { ReactRenderer } from '@ts-pipeline/react-renderer'
+import { ReactRenderer } from '@ts-pipeline/renderer-react'
 
 import { sum } from '../steps/sum'
 import { ticker } from '../steps/ticker'
