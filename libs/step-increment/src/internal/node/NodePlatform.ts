@@ -35,7 +35,7 @@ export class NodePlatform implements PlatformActions {
   }
 
   private writeFullVersion = async (version: AppVersion) => {
-    const path = `${this.project.cwd()}/package.json`
+    const path = `${this.project.path()}/package.json`
     const packageJson = jetpack.read(path, 'json')
 
     await jetpack.writeAsync(
@@ -49,7 +49,7 @@ export class NodePlatform implements PlatformActions {
   }
 
   private readVersion = async () => {
-    const path = `${this.project.cwd()}/package.json`
+    const path = `${this.project.path()}/package.json`
     const packageJson = await jetpack.readAsync(path, 'json')
     const raw = packageJson.version
     return this.validateRawVersion(raw)
@@ -77,5 +77,5 @@ export class NodePlatform implements PlatformActions {
     return [current.build, newBuildNumber]
   }
 
-  constructor(private dir: string = jetpack.cwd()) {}
+  constructor(private dir: string = jetpack.path()) {}
 }

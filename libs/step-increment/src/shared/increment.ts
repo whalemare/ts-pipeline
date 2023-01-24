@@ -6,6 +6,7 @@ import { inc } from 'semver'
 import { AndroidPlatform } from '../internal/android/AndroidPlatform'
 import { AppVersion } from '../internal/entity/AppVersion'
 import { MarketingVersion } from '../internal/entity/MarketingVersion'
+import { IOSPlatform } from '../internal/ios/IOSPlatform'
 import { NodePlatform } from '../internal/node/NodePlatform'
 
 import { IncrementType } from './IncrementType'
@@ -22,7 +23,7 @@ interface IncrementProps {
 
 const platformToInteractor = {
   ios: (dir?: string) => {
-    throw new Error('Not implemented')
+    return new IOSPlatform(dir)
   },
   android: (dir?: string) => {
     return new AndroidPlatform(dir)
