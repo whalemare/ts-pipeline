@@ -22,13 +22,13 @@ interface IncrementProps {
 }
 
 const platformToInteractor = {
-  ios: (dir?: string) => {
-    return new IOSPlatform(dir)
+  ios: (dir: string) => {
+    return new IOSPlatform(jetpack.cwd(dir).path('ios'))
   },
-  android: (dir?: string) => {
+  android: (dir: string) => {
     return new AndroidPlatform(dir)
   },
-  node: (dir?: string) => {
+  node: (dir: string) => {
     return new NodePlatform(dir)
   },
 }
@@ -67,9 +67,10 @@ export const increment = createStep({
       ]
     }
 
+    // TODO: add handle 1, 1.0 - its semver but without 0
     const nextVersion = inc(version, type) as Optional<MarketingVersion>
     if (!nextVersion) {
-      throw new Error(`Invalid version ${version} for type ${type}`)
+      throw new Error(`Invalid version ${version} for type ${type}, it should be major.minor.patch`)
     }
 
     await interactor.setBuildNumber(nextBuild)

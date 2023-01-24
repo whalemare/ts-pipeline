@@ -11,18 +11,15 @@ export async function execAsync(cmd: string, opts?: ShellOptions): Promise<strin
       return resolve(stdout.toString())
     })
 
-    process.addListener('message', (message, handle) => {
-      console.log('message', message, handle)
-    })
-    process.addListener('error', err => {
-      console.error('err', err)
-    })
-    process.addListener('close', code => {
-      console.error('close', code)
-    })
-    process.addListener('exit', code => {
-      console.error('exit', code)
-    })
+    // process.addListener('error', err => {
+    // console.error('err', err)
+    // })
+    // process.addListener('close', code => {
+    // console.error('close', code)
+    // })
+    // process.addListener('exit', code => {
+    // console.error('exit', code)
+    // })
 
     if (opts?.onMessage) {
       process.stdout?.on('data', data => {

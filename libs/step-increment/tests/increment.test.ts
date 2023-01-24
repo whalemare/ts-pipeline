@@ -6,8 +6,6 @@ import { IncrementType } from '../src/shared/IncrementType'
 import { increment } from '../src/shared/increment'
 
 describe('increment', () => {
-  const dir = jetpack.cwd('libs/steps/increment/tests/assets/0.0.1-1').path()
-
   beforeEach(() => {
     overrideRegistry(
       new PipelineRegistryStore({
@@ -20,12 +18,26 @@ describe('increment', () => {
   })
 
   test('should none', async () => {
-    const result = await increment({
+    await increment({
       type: IncrementType.NONE,
       platform: 'node',
-      dir,
+      dir: jetpack.path('libs/step-increment/tests/assets/0.0.1-1'),
     })
+  })
 
-    console.log(result)
+  test('should increment android', async () => {
+    await increment({
+      type: IncrementType.NONE,
+      platform: 'android',
+      dir: jetpack.path('libs/step-increment/tests/assets/ReactNativeApp'),
+    })
+  })
+
+  test('should increment ios', async () => {
+    await increment({
+      type: IncrementType.PATCH,
+      platform: 'ios',
+      dir: jetpack.path('libs/step-increment/tests/assets/ReactNativeApp'),
+    })
   })
 })

@@ -5,16 +5,11 @@ import { MarketingVersion } from '../entity/MarketingVersion'
 import { PlatformActions } from '../entity/PlatformActions'
 
 export class IOSPlatform implements PlatformActions {
-  private projectDirectory: string
   private iosDirectory: string
 
   name = 'ios'
 
-  constructor(
-    projectDirectory: string = jetpack.path(),
-    iosDirectory: string = jetpack.path('ios'),
-  ) {
-    this.projectDirectory = projectDirectory
+  constructor(iosDirectory: string = jetpack.path()) {
     this.iosDirectory = iosDirectory
   }
 
