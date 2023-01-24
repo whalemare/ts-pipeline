@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx run node-example:build && node dist/apps/node-example/main.cjs",
+    "deploy": "yarn nx run deploy:build && node dist/apps/deploy/main.cjs",
     "build": "nx build",
     "test": "nx test",
     "graph": "yarn nx graph",

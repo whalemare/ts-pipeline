@@ -1,0 +1,46 @@
+{
+  "name": "deploy",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/deploy/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/deploy",
+        "format": ["cjs"],
+        "main": "apps/deploy/src/main.ts",
+        "tsConfig": "apps/deploy/tsconfig.app.json",
+        "assets": ["apps/deploy/src/assets"]
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "deploy:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "deploy:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/deploy/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/deploy/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

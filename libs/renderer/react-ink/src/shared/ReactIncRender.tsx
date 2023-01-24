@@ -2,7 +2,6 @@ import { AppRender } from '@ts-pipeline/renderer/core'
 import { Registry } from '@ts-pipeline/task'
 import { Unsubscriber } from '@ts-pipeline/ts-core'
 import { render } from 'ink'
-import { makeAutoObservable } from 'mobx'
 import React from 'react'
 
 import { App } from './App'
@@ -14,9 +13,5 @@ export class ReactIncRender implements AppRender {
     return () => {
       instance.unmount()
     }
-  }
-
-  constructor() {
-    makeAutoObservable(this)
   }
 }

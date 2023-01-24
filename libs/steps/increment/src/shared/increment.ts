@@ -5,9 +5,10 @@ import { inc } from 'semver'
 
 import { AndroidPlatform } from '../internal/android/AndroidPlatform'
 import { AppVersion } from '../internal/entity/AppVersion'
-import { IncrementType } from '../internal/entity/IncrementType'
 import { MarketingVersion } from '../internal/entity/MarketingVersion'
 import { NodePlatform } from '../internal/node/NodePlatform'
+
+import { IncrementType } from './IncrementType'
 
 interface IncrementProps {
   dir?: string
@@ -35,6 +36,7 @@ export const increment = createStep({
   name: 'increment',
   action: async (ui, props: IncrementProps) => {
     const { platform, dir = jetpack.cwd(), type = IncrementType.NONE } = props
+    ui.onData('Working at path: ' + dir)
 
     const interactor = platformToInteractor[platform](dir)
     const build = await interactor.getBuildNumber()
@@ -55,7 +57,13 @@ export const increment = createStep({
     if (type === IncrementType.BUILD) {
       await interactor.setBuildNumber(nextBuild)
       await interactor.setVersion(version)
-      return
+      return [
+        prev,
+        {
+          build: nextBuild,
+          marketing: version,
+        },
+      ]
     }
 
     const nextVersion = inc(version, type) as Optional<MarketingVersion>

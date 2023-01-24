@@ -33,7 +33,19 @@ export class TaskStringRenderable implements Renderable<TaskStore, string> {
       )
     }
 
-    const args = item.args ? chalk.dim(`(${item.args.join(', ')})`) : ''
+    const args = item.args
+      ? chalk.dim(
+          `(${item.args
+            .map((arg: unknown) => {
+              if (typeof arg === 'object') {
+                return JSON.stringify(arg)
+              }
+
+              return arg
+            })
+            .join(', ')})`,
+        )
+      : ''
     const history = chalk.dim(item.history.items.map(it => `    -> ${it}`).join('\n'))
 
     return `${prefix} ${title}${args} ${percent}${result}\n${history}`
