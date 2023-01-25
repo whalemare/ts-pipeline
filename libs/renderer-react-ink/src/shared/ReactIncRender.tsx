@@ -9,9 +9,10 @@ import { App } from './App'
 export class ReactIncRender implements AppRender {
   render(registry: Registry): Unsubscriber {
     process.stdin.addListener('data', input => {
+      console.log('input', input.toJSON())
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      if (input === '\x03') {
+      if (input === '\x03' || input.toJSON().data[0] === 3) {
         registry.process.cancel()
         registry.tasks.forEach(task => task.request.cancel())
       }

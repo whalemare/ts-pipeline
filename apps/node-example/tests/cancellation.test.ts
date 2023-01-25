@@ -1,7 +1,22 @@
+import { workflow } from '@ts-pipeline/core'
 import { overrideRegistry } from '@ts-pipeline/core'
 import { PipelineRegistryStore } from '@ts-pipeline/core'
+import { shell } from '@ts-pipeline/step-shell'
+import { stdin } from 'mock-stdin'
 
-import { shell } from '../src/shared/shell'
+test('should cancel when ctrl+c', async () => {
+  const mocked = stdin()
+
+  setTimeout(() => {
+    mocked.send('\x03')
+  }, 2000)
+
+  await expect(
+    workflow(async () => {
+      await shell('sleep 10')
+    }),
+  ).rejects.toBeTruthy()
+})
 
 test('shell should cancel when main cancel', async () => {
   const main = jest.fn()

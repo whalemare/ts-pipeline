@@ -1,3 +1,3 @@
-import { Renderers } from '../Renderers'
+// import { Renderers } from '../Renderers'
 
-export type TerminalRenderers = Renderers<string>
+// export type TerminalRenderers = Renderers<string>

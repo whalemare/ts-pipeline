@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { createStep } from '@ts-pipeline/core'
 
 import { ShellOptions } from './ShellOptions'
