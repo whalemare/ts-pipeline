@@ -8,6 +8,15 @@ import { App } from './App'
 
 export class ReactIncRender implements AppRender {
   render(registry: Registry): Unsubscriber {
+    process.stdin.addListener('data', input => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (input === '\x03') {
+        registry.process.cancel()
+        registry.tasks.forEach(task => task.request.cancel())
+      }
+    })
+
     const instance = render(<App registry={registry} />)
 
     return () => {

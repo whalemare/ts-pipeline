@@ -10,8 +10,8 @@ export const shell = createStep({
   action: async (ui, command: string, options: ShellOptions) => {
     return execAsync(command, {
       ...options,
-      onMessage: msg => {
-        ui.onData(msg)
+      onMessage: (msg, source) => {
+        ui.onData(`${source}: ${msg}`)
       },
     })
   },

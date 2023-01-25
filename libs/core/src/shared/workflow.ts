@@ -26,7 +26,7 @@ export const workflow = async <R>(func: () => Promise<R>, props?: WorkflowProps)
   const app: AppRender = props?.renderer ? props.renderer : new ReactIncRender()
   const finishRender = app.render(registry)
 
-  await registry.workflowTask.request.fetch([])
+  await registry.process.fetch()
 
   finishRender()
   process.exit(0)

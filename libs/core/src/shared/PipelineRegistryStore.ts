@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TaskStore, Registry } from '@ts-pipeline/task'
 import { makeObservable, observable, runInAction } from 'mobx'
+import { RequestStore } from 'mobx-request'
 
 interface PipelineRegistryStoreProps<R> {
   name: string
   fn: () => Promise<R>
 }
 export class PipelineRegistryStore implements Registry {
-  @observable
-  workflowTask: TaskStore
+  process: RequestStore<void>
 
   tasks: TaskStore[] = observable.array<TaskStore>()
 
@@ -21,12 +21,15 @@ export class PipelineRegistryStore implements Registry {
   }
 
   constructor(private props: PipelineRegistryStoreProps<any>) {
-    makeObservable(this)
+    makeObservable(this, { process: true, tasks: true, add: true })
 
-    this.workflowTask = new TaskStore({
-      name: props.name,
-      action: props.fn,
-      historySize: Infinity,
+    this.process = new RequestStore(props.fn, {
+      onError: e => {
+        console.error(e)
+        this.tasks.forEach(task => {
+          task.request.cancel()
+        })
+      },
     })
   }
 }

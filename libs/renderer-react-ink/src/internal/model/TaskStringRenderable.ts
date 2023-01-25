@@ -38,6 +38,7 @@ export class TaskStringRenderable implements Renderable<TaskStore, string> {
           `(${item.args
             .map((arg: unknown) => {
               if (typeof arg === 'object') {
+                // TODO: add only first level stringify, because it can be huge and have some sensitive data
                 return JSON.stringify(arg)
               }
 
