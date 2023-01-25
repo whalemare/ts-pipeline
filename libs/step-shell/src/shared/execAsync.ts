@@ -1,8 +1,11 @@
-import { exec } from 'node:child_process'
+import { exec, ExecOptions } from 'node:child_process'
 
 import { ShellOptions } from './ShellOptions'
 
-export async function execAsync(cmd: string, opts?: ShellOptions): Promise<string> {
+export async function execAsync(
+  cmd: string,
+  opts?: ExecOptions & Pick<ShellOptions, 'onMessage'>,
+): Promise<string> {
   return new Promise(function (resolve, reject) {
     const listenerStdout = (data: string) => {
       opts?.onMessage?.(data, 'stdout')

@@ -7,9 +7,10 @@ import { execAsync } from './execAsync'
 
 export const shell = createStep({
   name: 'shell',
-  action: async (ui, command: string, options: ShellOptions) => {
+  action: async (ui, command: string, options?: ShellOptions) => {
     return execAsync(command, {
       ...options,
+      signal: ui.signal,
       onMessage: (msg, source) => {
         ui.onData(`${source}: ${msg}`)
       },
