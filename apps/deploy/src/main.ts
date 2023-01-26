@@ -48,8 +48,8 @@ async function deploy() {
     git.commit(`🎉 Increment version ${nextVersion.marketing}`)
     git.tag(nextVersion.marketing, 'increment')
 
-    await execAsync('yarn build')
-    await execAsync('yarn release')
+    await execAsync('yarn build', { onMessage: ui.message })
+    await execAsync('yarn release', { onMessage: ui.message })
   })
 }
 
