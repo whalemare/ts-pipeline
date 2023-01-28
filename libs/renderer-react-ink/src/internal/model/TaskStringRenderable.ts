@@ -7,7 +7,7 @@ import { makeAutoObservable } from 'mobx'
 
 export class TaskStringRenderable implements Renderable<TaskStore, string> {
   render = (item: TaskStore<any, any>, frame: number): string => {
-    const title = chalk.bold(item.name)
+    // const title = chalk.bold(item.name)
     let result = ''
     let prefix = ''
     let percent = ''
@@ -33,23 +33,23 @@ export class TaskStringRenderable implements Renderable<TaskStore, string> {
       )
     }
 
-    const args = item.args
-      ? chalk.dim(
-          `(${item.args
-            .map((arg: unknown) => {
-              if (typeof arg === 'object') {
-                // TODO: add only first level stringify, because it can be huge and have some sensitive data
-                return JSON.stringify(arg)
-              }
+    // const args = item.args
+    //   ? chalk.dim(
+    //       `(${item.args
+    //         .map((arg: unknown) => {
+    //           if (typeof arg === 'object') {
+    //             // TODO: add only first level stringify, because it can be huge and have some sensitive data
+    //             return JSON.stringify(arg)
+    //           }
 
-              return arg
-            })
-            .join(', ')})`,
-        )
-      : ''
+    //           return arg
+    //         })
+    //         .join(', ')})`,
+    //     )
+    //   : ''
     const history = chalk.dim(item.history.items.map(it => `    -> ${it}`).join('\n'))
 
-    return `${prefix} ${title}${args} ${percent}${result}\n${history}`
+    return `${prefix} ${percent}${result}\n${history}`
   }
 
   constructor() {

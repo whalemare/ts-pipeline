@@ -17,11 +17,15 @@ export class TaskStore<A = any, R = any> {
   history: History
 
   @observable
-  args: Optional<A> = undefined
+  args: Optional<unknown> = undefined
 
   request = new RequestStore<R, A>(async (args, requestState) => {
     runInAction(() => {
-      this.args = args
+      if (this.props.formatArgs) {
+        this.args = this.props.formatArgs(args)
+      } else {
+        this.args = args
+      }
     })
     const state: ActionState = {
       onProgress: requestState.onProgress,
@@ -43,6 +47,9 @@ export class TaskStore<A = any, R = any> {
   constructor(private props: TaskStoreProps<A, R>) {
     this.name = props?.name ?? 'task:unknown'
     this.history = new QueueOutputable(props?.historySize ?? 5)
+    if (props.formatArgs) {
+      this.args = props.formatArgs(undefined)
+    }
 
     makeObservable(this)
   }

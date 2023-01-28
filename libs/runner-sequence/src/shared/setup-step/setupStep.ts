@@ -22,6 +22,12 @@ export const setupStep = <
 ) => {
   return declareStep<NewInput, StepOutput>({
     name: step.name,
+    formatArgs: args => {
+      return {
+        ...setupArgs,
+        ...args,
+      }
+    },
     action: async (ui, input) => {
       return step.action(ui, { ...setupArgs, ...input })
     },
