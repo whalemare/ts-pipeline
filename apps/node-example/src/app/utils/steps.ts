@@ -7,14 +7,14 @@ export const steps = {
     name: 'lint',
     action: async ui => {
       ui.onData('do some linting')
-      await simulateWork(5, ui)
+      await simulateWork(20, ui)
     },
   }),
   build: declareStep({
     name: 'build',
     action: async ui => {
       ui.onData(`do some building`)
-      await simulateWork(10, ui)
+      await simulateWork(40, ui)
       return {
         artifactPath: 'some/path/to/my/build.tar',
       }
@@ -29,7 +29,7 @@ export const steps = {
       },
     ) => {
       ui.onData(`deploy to ${props.registry}`)
-      await simulateWork(20, ui)
+      await simulateWork(80, ui)
 
       return props.registry
     },

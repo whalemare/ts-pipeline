@@ -6,7 +6,7 @@ import React from 'react'
 
 import { App } from './App'
 
-export class ReactIncRender implements AppRender {
+export class ReactInkRender implements AppRender {
   render(registry: Registry): Unsubscriber {
     process.stdin.addListener('data', input => {
       console.log('input', input.toJSON())
