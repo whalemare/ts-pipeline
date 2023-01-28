@@ -1,5 +1,5 @@
 import { git, ui } from '@lamantin/fastpush'
-import { workflow } from '@ts-pipeline/core'
+import { workflow } from '@ts-pipeline/runner-workflow'
 import { increment, IncrementType } from '@ts-pipeline/step-increment'
 import { execAsync } from '@ts-pipeline/step-shell'
 import jetpack from 'fs-jetpack'

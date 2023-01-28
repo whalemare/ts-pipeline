@@ -7,6 +7,7 @@
     "renderer-core": "libs/renderer-core",
     "renderer-react": "libs/renderer-react",
     "renderer-react-ink": "libs/renderer-react-ink",
+    "runner-parallel": "libs/runner-parallel",
     "runner-sequence": "libs/runner-sequence",
     "runner-workflow": "libs/runner-workflow",
     "step-increment": "libs/step-increment",

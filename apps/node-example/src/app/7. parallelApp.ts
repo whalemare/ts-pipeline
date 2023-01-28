@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { declareStep } from '@ts-pipeline/core'
 import { render } from '@ts-pipeline/renderer-react-ink'
+import { parallel } from '@ts-pipeline/runner-parallel'
 import { sequence, setupStep } from '@ts-pipeline/runner-sequence'
 
 import { simulateWork } from './utils/simulateWork'
@@ -16,13 +17,16 @@ const deployPath = declareStep({
   },
 })
 
-export async function pipelineApp() {
+export async function parallelApp() {
   await render(
     sequence(
       // create sequence of steps
       steps.lint,
       steps.build,
-      setupStep(deployPath, { registry: 'yarn' }),
+      parallel(
+        setupStep(deployPath, { registry: 'yarn' }),
+        setupStep(deployPath, { registry: 'npm' }),
+      ),
     ),
   )
 }

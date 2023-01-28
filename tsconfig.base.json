@@ -21,6 +21,7 @@
       "@ts-pipeline/renderer-core": ["libs/renderer-core/src/index.ts"],
       "@ts-pipeline/renderer-react": ["libs/renderer-react/src/index.ts"],
       "@ts-pipeline/renderer-react-ink": ["libs/renderer-react-ink/src/index.ts"],
+      "@ts-pipeline/runner-parallel": ["libs/runner-parallel/src/index.ts"],
       "@ts-pipeline/runner-sequence": ["libs/runner-sequence/src/index.ts"],
       "@ts-pipeline/runner-workflow": ["libs/runner-workflow/src/index.ts"],
       "@ts-pipeline/step-increment": ["libs/step-increment/src/index.ts"],
