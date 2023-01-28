@@ -19,6 +19,7 @@ const deployPath = declareStep({
 export async function pipelineApp() {
   await render(
     sequence(
+      'pipeline',
       // create sequence of steps
       steps.lint,
       steps.build,

@@ -6,6 +6,7 @@ import { steps } from './utils/steps'
 
 export async function manualRenderApp() {
   const runnable = sequence(
+    'manualRenderApp',
     // create sequence of steps
     steps.lint,
     steps.build,

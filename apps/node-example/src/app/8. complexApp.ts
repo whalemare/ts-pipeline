@@ -21,11 +21,23 @@ const build = declareStep({
   name: 'build',
   action: async (ui, props: { platform: 'android' | 'ios' | 'web' }) => {
     ui.onData(`start building for platform ${props.platform}`)
-    await simulateWork(1000 * props.platform.length, ui)
+    await simulateWork(10000 * props.platform.length, ui)
 
     return {
       platform: props.platform,
       buildPath: `some/path/to/my/build/${props.platform}.zip`,
+    }
+  },
+})
+
+const upload = declareStep({
+  name: 'upload',
+  action: async (ui, props: { buildPath: string; retryCount?: number }) => {
+    ui.onData(`uploading ${props.buildPath}`)
+    await simulateWork(1000 * props.buildPath.length, ui)
+
+    return {
+      url: `https://my-build-server.com/${props.buildPath}`,
     }
   },
 })
@@ -36,16 +48,29 @@ export async function complexApp() {
 
   await render(
     sequence(
-      parallel(
-        //
-        lint,
-        tests,
-      ),
+      'deploy react-native application',
 
       parallel(
-        setupStep(build, { platform: 'android' }),
-        setupStep(build, { platform: 'ios' }),
-        setupStep(build, { platform: 'web' }),
+        'build for all platforms',
+
+        parallel('lint and tests', lint, tests),
+
+        sequence(
+          'build and upload android app to server <3',
+          setupStep(build, { platform: 'android' }),
+          // android can hangup sometimes, so we retry 10 times
+          setupStep(upload, { retryCount: 10 }),
+        ),
+        sequence(
+          'build and upload ios to server <3',
+          setupStep(build, { platform: 'ios' }),
+          upload,
+        ),
+        sequence(
+          'build and upload web to server <3',
+          setupStep(build, { platform: 'web' }),
+          upload,
+        ),
       ),
     ),
   )

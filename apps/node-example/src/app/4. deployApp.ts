@@ -9,7 +9,7 @@ export async function deployApp() {
   )
 
   const runnable = sequence(
-    //
+    'deploy app',
     steps.lint,
     steps.build,
     setupStep(steps.deploy, { registry: 'yarn' }),

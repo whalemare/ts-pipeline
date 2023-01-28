@@ -7,13 +7,13 @@ export const steps = {
     name: 'lint',
     action: async ui => {
       ui.onData('do some linting')
-      await simulateWork(20, ui)
+      await simulateWork(5000, ui)
     },
   }),
   tests: declareStep({
     name: 'tests',
     action: async (ui, _props?: { allowPercentage?: number }) => {
-      await simulateWork(1000, ui)
+      await simulateWork(30000, ui)
     },
   }),
   build: declareStep({

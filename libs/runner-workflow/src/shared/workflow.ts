@@ -16,8 +16,7 @@ interface WorkflowProps {
  * Limitations: all your steps will be displayed as serial chain, without nesting, even when it is.
  */
 export const workflow = async <R>(func: () => Promise<R>, props?: WorkflowProps) => {
-  const registry = sequence({
-    name: props?.name ?? 'workflow',
+  const registry = sequence(props?.name ?? 'workflow', {
     action: func,
   })
   // overrideRegistry(registry)

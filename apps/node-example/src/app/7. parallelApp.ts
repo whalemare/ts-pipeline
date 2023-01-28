@@ -20,10 +20,12 @@ const deployPath = declareStep({
 export async function parallelApp() {
   await render(
     sequence(
+      'parallel app',
       // create sequence of steps
       steps.lint,
       steps.build,
       parallel(
+        'deploy to npm and yarn',
         setupStep(deployPath, { registry: 'yarn' }),
         setupStep(deployPath, { registry: 'npm' }),
       ),
