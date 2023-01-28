@@ -80,7 +80,7 @@ const TaskArgView = observer<TaskTitleViewProps>(({ task }) => {
           {args.map(arg => {
             return (
               <Box key={arg.key}>
-                <Text dimColor>{arg.key}: </Text>
+                <Text>{chalk.blackBright(arg.key)}: </Text>
                 <Text>{arg.value}</Text>
               </Box>
             )

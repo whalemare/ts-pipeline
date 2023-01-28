@@ -5,11 +5,7 @@ import { computed, makeObservable, observable } from 'mobx'
 export class SequenceRunnerStore<I = any, O = any> implements Registry<I, O> {
   @computed
   get name(): string {
-    if (this.nested?.length > 0) {
-      return `sequence(${this.nested.map(task => task.name).join(', ')})`
-    }
-
-    return `sequence()`
+    return `sequence`
   }
 
   mainTask = new TaskStore<I, O>({
