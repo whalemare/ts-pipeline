@@ -1,7 +1,26 @@
-import { declareStep, workflow } from '@ts-pipeline/core'
+/* eslint-disable no-console */
+import { declareStep } from '@ts-pipeline/core'
 import { sequence, setupStep } from '@ts-pipeline/runner-sequence'
 import { ActionState } from '@ts-pipeline/task'
 import { delay } from '@ts-pipeline/ts-core'
+
+export async function deployApp() {
+  console.warn(
+    'WARN! This example no render anything, just display result of raw sequence run. Explore code for details',
+  )
+
+  const { promise } = sequence(
+    //
+    lint,
+    build,
+    setupStep(deploy, { registry: 'yarn' }),
+  )
+  const result = await promise
+
+  console.log(`result "${result}"`)
+}
+
+// region: some stuff for example
 
 const simulateWork = async (cycles: number, ui: ActionState) => {
   let cycle = 0
@@ -47,16 +66,3 @@ const deploy = declareStep({
     return props.registry
   },
 })
-
-export async function deployApp() {
-  await workflow(async () => {
-    const { promise } = sequence(
-      //
-      lint,
-      build,
-      setupStep(deploy, { registry: 'yarn' }),
-    )
-    const result = await promise
-    console.log('result', result)
-  })
-}
