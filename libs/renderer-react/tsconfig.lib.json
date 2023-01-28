@@ -12,7 +12,7 @@
     "../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
     "../../node_modules/@nrwl/react/typings/image.d.ts",
     "./src/shared/App.tsx",
-    "./src/index.html"
+    "./public/index.html"
   ],
   "exclude": [
     "**/*.spec.ts",
