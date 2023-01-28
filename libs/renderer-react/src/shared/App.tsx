@@ -1,4 +1,4 @@
-import { Registry } from '@ts-pipeline/task'
+import { Registry } from '@ts-pipeline/core'
 import React from 'react'
 
 export interface ReactRendererProps {

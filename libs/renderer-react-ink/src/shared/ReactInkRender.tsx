@@ -1,5 +1,5 @@
 import { AppRender } from '@ts-pipeline/renderer-core'
-import { Registry } from '@ts-pipeline/task'
+import { Registry } from '@ts-pipeline/core'
 import { Unsubscriber } from '@ts-pipeline/ts-core'
 import { render } from 'ink'
 import React from 'react'

@@ -1,5 +1,5 @@
 // import { Step } from '@ts-pipeline/core'
-// import { Registry, TaskStore } from '@ts-pipeline/task'
+// import { Registry, TaskStore } from '@ts-pipeline/core'
 // import { computed, makeObservable, observable } from 'mobx'
 
 // export class SequenceRunnerStore<I = any, O = any> implements Registry<I, O> {

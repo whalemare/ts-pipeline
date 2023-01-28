@@ -1,4 +1,4 @@
-import { Registry } from '@ts-pipeline/task'
+import { Registry } from '@ts-pipeline/core'
 import { Box, useStdin } from 'ink'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'

@@ -1,5 +1,5 @@
 import { Step } from '@ts-pipeline/core'
-import { ActionState, TaskStore } from '@ts-pipeline/task'
+import { ActionState, TaskStore } from '@ts-pipeline/core'
 import { computed, observable, makeObservable } from 'mobx'
 
 export interface RunnerStoreProps<I, O> {

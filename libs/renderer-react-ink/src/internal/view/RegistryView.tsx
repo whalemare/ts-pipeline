@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { RootTaskStore } from '@ts-pipeline/runner-sequence'
-import { Registry, TaskStore } from '@ts-pipeline/task'
+import { Registry, TaskStore } from '@ts-pipeline/core'
 import { Box } from 'ink'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

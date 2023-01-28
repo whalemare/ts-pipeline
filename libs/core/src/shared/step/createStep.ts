@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TaskStoreProps } from '@ts-pipeline/task'
+import { TaskStoreProps } from '@ts-pipeline/core'
 
-import { task } from '../task'
+import { task } from '../task/task'
 
 /**
  * Fabric function used for step manipulation

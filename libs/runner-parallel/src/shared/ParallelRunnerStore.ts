@@ -1,5 +1,5 @@
 // import { Step } from '@ts-pipeline/core'
-// import { ActionState, Registry, TaskStore } from '@ts-pipeline/task'
+// import { ActionState, Registry, TaskStore } from '@ts-pipeline/core'
 // import { computed, makeObservable, observable } from 'mobx'
 
 // export class ParallelRunnerStore<I> implements Registry<I, I>, Step<I> {

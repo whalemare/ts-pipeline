@@ -1,6 +1,6 @@
 import { isPrimitive } from 'util'
 
-import { TaskStore } from '@ts-pipeline/task'
+import { TaskStore } from '@ts-pipeline/core'
 import chalk from 'chalk'
 import { Box, Text } from 'ink'
 import { observer } from 'mobx-react-lite'

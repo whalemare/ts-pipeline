@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prettier/prettier */
 import { Step } from '@ts-pipeline/core'
-import { Registry, TaskStore } from '@ts-pipeline/task'
+import { Registry } from '@ts-pipeline/core'
 
 import { RootTaskStore } from './RootTaskStore'
 
@@ -75,10 +75,7 @@ export function sequence<TIn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12,
 export function sequence<TIn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30, T31, T32, T33, T34, T35, T36, T37, T38, T39, T40, T41, T42, T43, T44, T45, T46, T47, T48, T49, T50, T51, T52, T53, T54, T55, T56, T57, T58, T59, T60, T61, T62, T63, TOut>(f0: Step<TIn, T1>, f1: SingleArgStep<T1, T2>, f2: SingleArgStep<T2, T3>, f3: SingleArgStep<T3, T4>, f4: SingleArgStep<T4, T5>, f5: SingleArgStep<T5, T6>, f6: SingleArgStep<T6, T7>, f7: SingleArgStep<T7, T8>, f8: SingleArgStep<T8, T9>, f9: SingleArgStep<T9, T10>, f10: SingleArgStep<T10, T11>, f11: SingleArgStep<T11, T12>, f12: SingleArgStep<T12, T13>, f13: SingleArgStep<T13, T14>, f14: SingleArgStep<T14, T15>, f15: SingleArgStep<T15, T16>, f16: SingleArgStep<T16, T17>, f17: SingleArgStep<T17, T18>, f18: SingleArgStep<T18, T19>, f19: SingleArgStep<T19, T20>, f20: SingleArgStep<T20, T21>, f21: SingleArgStep<T21, T22>, f22: SingleArgStep<T22, T23>, f23: SingleArgStep<T23, T24>, f24: SingleArgStep<T24, T25>, f25: SingleArgStep<T25, T26>, f26: SingleArgStep<T26, T27>, f27: SingleArgStep<T27, T28>, f28: SingleArgStep<T28, T29>, f29: SingleArgStep<T29, T30>, f30: SingleArgStep<T30, T31>, f31: SingleArgStep<T31, T32>, f32: SingleArgStep<T32, T33>, f33: SingleArgStep<T33, T34>, f34: SingleArgStep<T34, T35>, f35: SingleArgStep<T35, T36>, f36: SingleArgStep<T36, T37>, f37: SingleArgStep<T37, T38>, f38: SingleArgStep<T38, T39>, f39: SingleArgStep<T39, T40>, f40: SingleArgStep<T40, T41>, f41: SingleArgStep<T41, T42>, f42: SingleArgStep<T42, T43>, f43: SingleArgStep<T43, T44>, f44: SingleArgStep<T44, T45>, f45: SingleArgStep<T45, T46>, f46: SingleArgStep<T46, T47>, f47: SingleArgStep<T47, T48>, f48: SingleArgStep<T48, T49>, f49: SingleArgStep<T49, T50>, f50: SingleArgStep<T50, T51>, f51: SingleArgStep<T51, T52>, f52: SingleArgStep<T52, T53>, f53: SingleArgStep<T53, T54>, f54: SingleArgStep<T54, T55>, f55: SingleArgStep<T55, T56>, f56: SingleArgStep<T56, T57>, f57: SingleArgStep<T57, T58>, f58: SingleArgStep<T58, T59>, f59: SingleArgStep<T59, T60>, f60: SingleArgStep<T60, T61>, f61: SingleArgStep<T61, T62>, f62: SingleArgStep<T62, T63>, f63: SingleArgStep<T63, TOut>): Result<TIn,TOut>
 
 export function sequence(...steps: Step[]): Result<any, any> {
-  // const store = new SequenceRunnerStore(steps)
-  const tasks = steps.map(step => new TaskStore(step))
-
-  return new RootTaskStore({
+  return new RootTaskStore((tasks) => ({
     name: "sequence",
     action: async (ui, input) => {
       let prevResult = input
@@ -90,5 +87,5 @@ export function sequence(...steps: Step[]): Result<any, any> {
 
       return prevResult
     },
-  }, tasks)
+  }), steps)
 }

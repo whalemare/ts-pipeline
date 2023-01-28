@@ -1,4 +1,4 @@
-import { Registry } from '@ts-pipeline/task'
+import { Registry } from '@ts-pipeline/core'
 
 import { ReactInkRender } from './ReactInkRender'
 

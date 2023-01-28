@@ -1,5 +1,6 @@
 // any required for autotypings
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Step } from '@ts-pipeline/core'
 import { Optional } from '@ts-pipeline/ts-core'
 import { makeObservable, observable, runInAction } from 'mobx'
 import { RequestStore } from 'mobx-request'
@@ -9,7 +10,7 @@ import { ActionState } from './entity/ActionState'
 import { History as History } from './entity/History'
 import { TaskStoreProps } from './entity/TaskStoreProps'
 
-export class TaskStore<A = any, R = any> {
+export class TaskStore<A = any, R = any> implements Step<A, R> {
   @observable
   name
 
@@ -34,8 +35,12 @@ export class TaskStore<A = any, R = any> {
       onData: this.onData,
     }
 
-    return this.props.action(state, args)
+    return this.action(state, args)
   })
+
+  action = async (ui: ActionState, input: A): Promise<R> => {
+    return this.props.action(ui, input)
+  }
 
   onData = (msg: string | number) => {
     const string = `${msg}`

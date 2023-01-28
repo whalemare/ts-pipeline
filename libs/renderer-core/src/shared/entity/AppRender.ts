@@ -1,4 +1,4 @@
-import type { Registry } from '@ts-pipeline/task'
+import type { Registry } from '@ts-pipeline/core'
 import type { Unsubscriber } from '@ts-pipeline/ts-core'
 
 export interface AppRender {

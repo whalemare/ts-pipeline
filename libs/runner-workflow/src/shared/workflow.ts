@@ -1,4 +1,4 @@
-import { overrideRegistry } from '@ts-pipeline/core'
+// import { overrideRegistry } from '@ts-pipeline/core'
 import { AppRender } from '@ts-pipeline/renderer-core'
 import { ReactInkRender } from '@ts-pipeline/renderer-react-ink'
 import { sequence } from '@ts-pipeline/runner-sequence'
@@ -20,7 +20,7 @@ export const workflow = async <R>(func: () => Promise<R>, props?: WorkflowProps)
     name: props?.name ?? 'workflow',
     action: func,
   })
-  overrideRegistry(registry)
+  // overrideRegistry(registry)
 
   const app: AppRender = props?.renderer ? props.renderer : new ReactInkRender()
   const finishRender = app.render(registry)

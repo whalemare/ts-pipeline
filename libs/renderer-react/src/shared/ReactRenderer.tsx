@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 import { AppRender } from '@ts-pipeline/renderer-core'
-import { Registry } from '@ts-pipeline/task'
+import { Registry } from '@ts-pipeline/core'
 import { Unsubscriber } from '@ts-pipeline/ts-core'
 import cors from 'cors'
 import express from 'express'

@@ -1,4 +1,4 @@
-import { ActionState } from '@ts-pipeline/task'
+import { ActionState } from '@ts-pipeline/core'
 import { delay } from '@ts-pipeline/ts-core'
 
 export const simulateWork = async (cycles: number, ui: ActionState) => {

@@ -1,8 +1,7 @@
+import { TaskStore } from './TaskStore'
+import { TaskStoreProps } from './entity/TaskStoreProps'
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TaskStore, TaskStoreProps } from '@ts-pipeline/task'
-
-import { getRegistry } from './getRegistry'
-
 export const task = <
   Props extends TaskStoreProps = TaskStoreProps,
   // Fetch = Props extends TaskStoreProps<infer A, infer R> ? (...args: A) => Promise<R> : never,
@@ -15,7 +14,7 @@ export const task = <
     const store = new TaskStore(props)
 
     // TODO ? how to avoid this ?
-    getRegistry().nested.push(store)
+    // getRegistry().nested.push(store)
 
     return store.request.fetch(args)
   }

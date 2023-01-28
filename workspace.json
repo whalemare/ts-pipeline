@@ -13,7 +13,6 @@
     "step-increment": "libs/step-increment",
     "step-logs": "libs/step-logs",
     "step-shell": "libs/step-shell",
-    "task": "libs/task",
     "ts-core": "libs/ts-core"
   }
 }

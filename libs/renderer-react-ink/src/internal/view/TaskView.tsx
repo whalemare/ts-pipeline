@@ -1,4 +1,4 @@
-import { TaskStore } from '@ts-pipeline/task'
+import { TaskStore } from '@ts-pipeline/core'
 import { Box } from 'ink'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
