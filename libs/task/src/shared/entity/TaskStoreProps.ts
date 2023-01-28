@@ -1,6 +1,6 @@
 import { ActionState } from './ActionState'
 
-export interface TaskStoreProps<A extends any[] = any, R = any> {
+export interface TaskStoreProps<I = any, O = any> {
   name?: string
 
   /**
@@ -10,5 +10,5 @@ export interface TaskStoreProps<A extends any[] = any, R = any> {
    */
   historySize?: number
 
-  action: (state: ActionState, ...args: A) => Promise<R>
+  action: (state: ActionState, input: I) => Promise<O>
 }

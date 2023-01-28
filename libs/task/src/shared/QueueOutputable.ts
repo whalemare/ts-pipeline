@@ -1,8 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx'
 
-import { History } from './entity/History'
-
-export class QueueOutputable<T extends string = string> implements History {
+export class QueueOutputable<T> {
   @observable
   private storage: T[] = []
 
@@ -15,8 +13,8 @@ export class QueueOutputable<T extends string = string> implements History {
     this.storage.push(item)
   }
 
-  push = (data: string): void => {
-    this.enqueue(data as T)
+  push = (data: T): void => {
+    this.enqueue(data)
   }
 
   dequeue(): T | undefined {

@@ -29,7 +29,7 @@ export class TaskStore<A extends any[] = any, R = any> {
       onData: this.onData,
     }
 
-    return this.props.action(state, ...args)
+    return this.props.action(state, args)
   })
 
   onData = (msg: string | number) => {
