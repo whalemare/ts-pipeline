@@ -1,7 +1,7 @@
 /**
  * You can use is as runner
  */
-export interface Runner<I = any, O = any> {
+export interface Runnable<I = any, O = any> {
   name: string
 
   /**

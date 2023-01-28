@@ -7,9 +7,7 @@ import { SequenceRunnerStore } from './SequenceRunnerStore'
 
 export type SingleArgStep<TIn,TOut> = Step<TIn,TOut>
 
-interface Result<TIn, TOut> {
-  registry: Registry<TIn, TOut>
-}
+type Result<TIn, TOut> = Registry<TIn, TOut>
 
 export function sequence<TIn, TOut>(f0: Step<TIn,TOut>): Result<TIn,TOut>
 export function sequence<TIn, T1, TOut>(f0: Step<TIn, T1>, f1: SingleArgStep<T1, TOut>): Result<TIn,TOut>
@@ -79,7 +77,5 @@ export function sequence<TIn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12,
 export function sequence(...steps: Step[]): Result<any, any> {
   const store = new SequenceRunnerStore(steps)
 
-  return {
-    registry: store
-  }
+  return store
 }

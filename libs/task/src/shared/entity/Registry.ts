@@ -1,8 +1,8 @@
 import { TaskStore } from '../TaskStore'
 
-import { Runner } from './Runner'
+import { Runnable } from './Runnable'
 
-export type Registry<I = any, O = any> = Runner<I, O> & {
+export type Registry<I = any, O = any> = Runnable<I, O> & {
   mainTask: TaskStore<I, O>
   nested: TaskStore[]
 }

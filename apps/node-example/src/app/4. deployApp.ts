@@ -8,12 +8,13 @@ export async function deployApp() {
     'WARN! This example no render anything, just display result of raw sequence run. Explore code for details',
   )
 
-  const { registry } = sequence(
+  const runnable = sequence(
+    //
     steps.lint,
     steps.build,
     setupStep(steps.deploy, { registry: 'yarn' }),
   )
   // TODO: improve typings for allow pass nothing
-  const result = await registry.run(void 0)
+  const result = await runnable.run(void 0)
   console.log(`result "${result}"`)
 }
