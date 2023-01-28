@@ -19,7 +19,7 @@ async function run() {
     parallelApp,
   }
 
-  const program = examples['parallelApp']
+  const program = examples['pipelineApp']
 
   await program()
 }

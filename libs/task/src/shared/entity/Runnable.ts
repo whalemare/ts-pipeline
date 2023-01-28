@@ -10,4 +10,6 @@ export interface Runnable<I = any, O = any> {
    * Usually is't just shortcut for internal logic that run your pipeline
    */
   run: (input: I) => Promise<O>
+
+  cancel: () => void
 }

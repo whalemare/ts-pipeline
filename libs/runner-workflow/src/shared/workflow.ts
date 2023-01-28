@@ -1,7 +1,7 @@
 import { overrideRegistry } from '@ts-pipeline/core'
 import { AppRender } from '@ts-pipeline/renderer-core'
 import { ReactInkRender } from '@ts-pipeline/renderer-react-ink'
-import { SequenceRunnerStore } from '@ts-pipeline/runner-sequence'
+import { sequence } from '@ts-pipeline/runner-sequence'
 
 interface WorkflowProps {
   name?: string
@@ -16,18 +16,16 @@ interface WorkflowProps {
  * Limitations: all your steps will be displayed as serial chain, without nesting, even when it is.
  */
 export const workflow = async <R>(func: () => Promise<R>, props?: WorkflowProps) => {
-  const registry = new SequenceRunnerStore<void, R>([
-    {
-      name: props?.name ?? 'workflow',
-      action: func,
-    },
-  ])
+  const registry = sequence({
+    name: props?.name ?? 'workflow',
+    action: func,
+  })
   overrideRegistry(registry)
 
   const app: AppRender = props?.renderer ? props.renderer : new ReactInkRender()
   const finishRender = app.render(registry)
 
-  await registry.run()
+  await registry.run(void 0)
 
   finishRender()
   process.exit(0)
