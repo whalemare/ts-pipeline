@@ -19,7 +19,7 @@ export const App = observer<AppProps>(({ registry }) => {
   }, [isRawModeSupported])
 
   return (
-    <Box flexDirection="column" borderColor={'white'} borderStyle="classic" flexGrow={1}>
+    <Box flexDirection="column" borderStyle="round" borderColor="green" flexGrow={1}>
       {registry.mainTask && <TaskView task={registry.mainTask} />}
       <Box flexDirection="column" marginLeft={2}>
         {registry.nested.map((task, index) => {

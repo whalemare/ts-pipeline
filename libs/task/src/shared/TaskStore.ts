@@ -23,6 +23,7 @@ export class TaskStore<A = any, R = any> {
     runInAction(() => {
       if (this.props.formatArgs) {
         this.args = this.props.formatArgs(args)
+        console.log('format this.args', this.args)
       } else {
         this.args = args
       }

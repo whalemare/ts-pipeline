@@ -1,10 +1,10 @@
+import { isPrimitive } from 'util'
+
 import { TaskStore } from '@ts-pipeline/task'
 import chalk from 'chalk'
 import { Box, Text } from 'ink'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
-
-import { stringifyFirstLevel } from '../model/stringifyFirstLevel'
 
 interface TaskTitleViewProps {
   task: TaskStore
@@ -21,8 +21,6 @@ export const TaskTitleView = observer<TaskTitleViewProps>(({ task }) => {
     title = chalk.dim(title)
   }
 
-  const args = task.args ? stringifyFirstLevel(task.args) : ''
-
   return (
     <Box>
       <Text>{title}</Text>
@@ -33,24 +31,38 @@ export const TaskTitleView = observer<TaskTitleViewProps>(({ task }) => {
 
 interface ArgumentVo {
   key: string
-  value: unknown
+  value: string
 }
 
 const TaskArgView = observer<TaskTitleViewProps>(({ task }) => {
-  // const args: ArgumentVo[] = useMemo(() => {
-  //   const items: ArgumentVo[] = []
-  //   if (isPrimitive(task.args)) {
-  //     items.push({ key: '', value: task.args })
-  //   } else {
-  //     for (const key in task.args) {
-  //       const value = task.args[key]
+  const args: ArgumentVo[] = useMemo(() => {
+    if (!task.args) {
+      return []
+    }
 
-  //       items.push({ key, value: value })
-  //     }
-  //   }
+    const items: ArgumentVo[] = []
 
-  //   return items
-  // }, [])
+    if (isPrimitive(task.args)) {
+      items.push({ key: '', value: String(task.args) })
+    } else {
+      if (task.args && typeof task.args === 'object') {
+        for (const key in task.args) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          const value = task.args[key]
+          // console.log('TaskArgView', key, value)
+
+          if (isPrimitive(value)) {
+            items.push({ key, value: String(value) })
+          } else {
+            items.push({ key, value: '...' })
+          }
+        }
+      }
+    }
+
+    return items
+  }, [task.args])
 
   const percent = useMemo(() => {
     if (task.request.progress !== 0 && task.request.progress !== 1) {
@@ -61,18 +73,20 @@ const TaskArgView = observer<TaskTitleViewProps>(({ task }) => {
   }, [task.request.progress])
 
   return (
-    <Box flexDirection="column">
+    <Box>
       {!!percent && <Text dimColor> {percent}</Text>}
-      <Text>{JSON.stringify(task.args)}</Text>
-      {/* {args.map(it => {
-        return (
-          <Text>
-            <>
-              {it.key} ${it.value}
-            </>
-          </Text>
-        )
-      })} */}
+      {args.length > 0 && (
+        <Box marginLeft={1} flexDirection="column" alignItems="flex-start">
+          {args.map(arg => {
+            return (
+              <Box key={arg.key}>
+                <Text dimColor>{arg.key}: </Text>
+                <Text>{arg.value}</Text>
+              </Box>
+            )
+          })}
+        </Box>
+      )}
     </Box>
   )
 })
