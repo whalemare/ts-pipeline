@@ -1,8 +1,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { PipelineRegistryStoreType } from '@ts-pipeline/core'
 import { AppRender } from '@ts-pipeline/renderer-core'
+import { Registry } from '@ts-pipeline/task'
 import { Unsubscriber } from '@ts-pipeline/ts-core'
 import cors from 'cors'
 import express from 'express'
@@ -19,7 +19,7 @@ export class ReactRenderer implements AppRender {
   browserDist = path.join(process.cwd(), 'dist/libs/react-renderer')
   indexPath = path.join(this.browserDist, 'index.html')
 
-  render(registry: PipelineRegistryStoreType): Unsubscriber {
+  render(registry: Registry): Unsubscriber {
     const app = express()
     app.use(cors())
     app.get(
@@ -48,7 +48,7 @@ export class ReactRenderer implements AppRender {
 
 let indexHtml: null | string = null
 
-function handleRequest(indexPath: string, registry: PipelineRegistryStoreType) {
+function handleRequest(indexPath: string, registry: Registry) {
   return function render(req: Request, res: Response) {
     let didError = false
 

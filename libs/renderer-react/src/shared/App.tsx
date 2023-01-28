@@ -1,8 +1,8 @@
-import { PipelineRegistryStoreType } from '@ts-pipeline/core'
+import { Registry } from '@ts-pipeline/task'
 import React from 'react'
 
 export interface ReactRendererProps {
-  registry: PipelineRegistryStoreType
+  registry: Registry
 }
 
 export function App(props: ReactRendererProps) {

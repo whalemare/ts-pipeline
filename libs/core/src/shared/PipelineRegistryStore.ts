@@ -7,8 +7,13 @@ interface PipelineRegistryStoreProps<R> {
   name: string
   fn: () => Promise<R>
 }
+
+/**
+ * @deprecate use SequenceRegistryStore
+ */
 export class PipelineRegistryStore implements Registry {
-  process: RequestStore<void>
+  // @ts-ignore
+  request: RequestStore<void>
 
   tasks: TaskStore[] = observable.array<TaskStore>()
 
@@ -20,8 +25,8 @@ export class PipelineRegistryStore implements Registry {
     }
   }
 
-  constructor(private props: PipelineRegistryStoreProps<any>) {
-    this.process = new RequestStore(props.fn, {
+  constructor(props: PipelineRegistryStoreProps<any>) {
+    this.request = new RequestStore(props.fn, {
       onError: e => {
         console.error(e)
         this.tasks.forEach(task => {

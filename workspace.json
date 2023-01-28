@@ -8,6 +8,7 @@
     "renderer-react": "libs/renderer-react",
     "renderer-react-ink": "libs/renderer-react-ink",
     "runner-sequence": "libs/runner-sequence",
+    "runner-workflow": "libs/runner-workflow",
     "step-increment": "libs/step-increment",
     "step-logs": "libs/step-logs",
     "step-shell": "libs/step-shell",

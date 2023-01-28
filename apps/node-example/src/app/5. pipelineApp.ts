@@ -3,17 +3,16 @@ import { sequence, setupStep } from '@ts-pipeline/runner-sequence'
 
 import { steps } from './utils/steps'
 
+const pipeline = (...steps: any[]) => {}
+
 export async function pipelineApp() {
-  console.warn(
-    'WARN! This example no render anything, just display result of raw sequence run. Explore code for details',
+  pipeline(
+    // we can put sequence to pipeline
+    sequence(
+      // with some steps
+      steps.lint,
+      steps.build,
+      setupStep(steps.deploy, { registry: 'yarn' }),
+    ),
   )
-
-  const { promise } = sequence(
-    steps.lint,
-    steps.build,
-    setupStep(steps.deploy, { registry: 'yarn' }),
-  )
-  const result = await promise
-
-  console.log(`result "${result}"`)
 }

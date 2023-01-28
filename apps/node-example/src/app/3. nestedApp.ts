@@ -1,5 +1,5 @@
-import { workflow as workflow } from '@ts-pipeline/core'
 import { createStep } from '@ts-pipeline/core'
+import { workflow } from '@ts-pipeline/runner-workflow'
 import { delay } from '@ts-pipeline/ts-core'
 
 import { sum } from '../steps/sum'

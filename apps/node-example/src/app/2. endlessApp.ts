@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import { workflow } from '@ts-pipeline/core'
+
+import { workflow } from '@ts-pipeline/runner-workflow'
 
 import { ticker } from '../steps/ticker'
 

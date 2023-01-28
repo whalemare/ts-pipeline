@@ -1,0 +1,35 @@
+{
+  "name": "runner-workflow",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/runner-workflow/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/runner-workflow",
+        "tsConfig": "libs/runner-workflow/tsconfig.lib.json",
+        "packageJson": "libs/runner-workflow/package.json",
+        "main": "libs/runner-workflow/src/index.ts",
+        "assets": ["libs/runner-workflow/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/runner-workflow/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/runner-workflow/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["ts"]
+}

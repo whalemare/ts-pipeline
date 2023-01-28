@@ -1,10 +1,9 @@
+import { Registry } from '@ts-pipeline/task'
 import { Optional } from '@ts-pipeline/ts-core'
 
-import { PipelineRegistryStore } from './PipelineRegistryStore'
+let registryInstance: Optional<Registry> = undefined
 
-let registryInstance: Optional<PipelineRegistryStore> = undefined
-
-export function overrideRegistry(registry: PipelineRegistryStore) {
+export function overrideRegistry(registry: Registry) {
   registryInstance = registry
 }
 

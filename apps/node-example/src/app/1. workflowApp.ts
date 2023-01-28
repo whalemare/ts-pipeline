@@ -1,4 +1,4 @@
-import { workflow } from '@ts-pipeline/core'
+import { workflow } from '@ts-pipeline/runner-workflow'
 
 import { sum } from '../steps/sum'
 

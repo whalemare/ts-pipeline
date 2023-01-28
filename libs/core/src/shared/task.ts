@@ -14,7 +14,8 @@ export const task = <
   ): Promise<Awaited<ReturnType<Props['action']>>> => {
     const store = new TaskStore(props)
 
-    getRegistry().add(store)
+    // TODO ? how to avoid this ?
+    getRegistry().tasks.push(store)
 
     return store.request.fetch(args)
   }

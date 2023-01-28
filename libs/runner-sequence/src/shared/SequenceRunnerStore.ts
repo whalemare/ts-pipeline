@@ -4,12 +4,12 @@ import { isExist } from '@ts-pipeline/ts-core'
 import { makeAutoObservable } from 'mobx'
 import { RequestStore } from 'mobx-request'
 
-export class SequenceRunnerStore implements Registry {
+export class SequenceRunnerStore<I = any, O = any> implements Registry<I, O> {
   private queue = new QueueOutputable<TaskStore>()
 
   tasks: TaskStore[] = []
 
-  process = new RequestStore(async () => {
+  request = new RequestStore<O, [I]>(async () => {
     let store = this.queue.dequeue()
     let prevResult: any = []
 

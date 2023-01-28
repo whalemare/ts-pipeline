@@ -20,11 +20,14 @@ export const steps = {
       }
     },
   }),
-  deploy: declareStep<{
-    registry: 'npm' | 'yarn' | 'github'
-  }>({
+  deploy: declareStep({
     name: 'deploy',
-    action: async (ui, props) => {
+    action: async (
+      ui,
+      props: {
+        registry: 'npm' | 'yarn' | 'github'
+      },
+    ) => {
       ui.onData(`deploy to ${props.registry}`)
       await simulateWork(20, ui)
 
