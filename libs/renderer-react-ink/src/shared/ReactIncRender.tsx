@@ -13,8 +13,8 @@ export class ReactIncRender implements AppRender {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       if (input === '\x03' || input.toJSON().data[0] === 3) {
-        registry.request.cancel()
-        registry.tasks.forEach(task => task.request.cancel())
+        registry.mainTask.request.cancel()
+        registry.nested.forEach(task => task.request.cancel())
       }
     })
 

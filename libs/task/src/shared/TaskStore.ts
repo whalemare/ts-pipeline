@@ -9,7 +9,7 @@ import { ActionState } from './entity/ActionState'
 import { History as History } from './entity/History'
 import { TaskStoreProps } from './entity/TaskStoreProps'
 
-export class TaskStore<A extends any[] = any, R = any> {
+export class TaskStore<A = any, R = any> {
   @observable
   name
 

@@ -1,34 +1,45 @@
 import { Step } from '@ts-pipeline/core'
-import { QueueOutputable, Registry, TaskStore } from '@ts-pipeline/task'
-import { isExist } from '@ts-pipeline/ts-core'
-import { makeAutoObservable } from 'mobx'
-import { RequestStore } from 'mobx-request'
+import { Registry, TaskStore } from '@ts-pipeline/task'
+import { computed, makeObservable, observable } from 'mobx'
 
 export class SequenceRunnerStore<I = any, O = any> implements Registry<I, O> {
-  private queue = new QueueOutputable<TaskStore>()
-
-  tasks: TaskStore[] = []
-
-  request = new RequestStore<O, [I]>(async () => {
-    let store = this.queue.dequeue()
-    let prevResult: any = []
-
-    while (isExist(store)) {
-      prevResult = await store.request.fetch(prevResult)
-
-      store = this.queue.dequeue()
+  @computed
+  get name(): string {
+    if (this.nested?.length > 0) {
+      return `sequence(${this.nested.map(task => task.name).join(', ')})`
     }
 
-    return prevResult
+    return `sequence()`
+  }
+
+  mainTask = new TaskStore<I, O>({
+    name: this.name,
+    action: async (ui, input): Promise<O> => {
+      let prevResult = input
+
+      // TODO: ui.onProgress can track here
+      for (const task of this.nested) {
+        prevResult = await task.request.fetch(prevResult)
+      }
+
+      return prevResult as unknown as O
+    },
   })
 
-  constructor(steps: Step[]) {
-    for (const step of steps) {
-      const taskStore = new TaskStore(step)
-      this.queue.push(taskStore)
-      this.tasks.push(taskStore)
-    }
+  @observable
+  nested: TaskStore[] = []
 
-    makeAutoObservable(this)
+  run = async (input: I): Promise<O> => {
+    return this.mainTask.request.fetch(input)
   }
+
+  constructor(steps: Step[]) {
+    this.nested = steps.map(stepToTaskStore)
+
+    makeObservable(this)
+  }
+}
+
+const stepToTaskStore = <I, O>(step: Step<I, O>): TaskStore<I, O> => {
+  return new TaskStore(step)
 }

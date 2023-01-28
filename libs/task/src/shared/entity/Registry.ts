@@ -1,8 +1,8 @@
-import { RequestStore } from 'mobx-request'
-
 import { TaskStore } from '../TaskStore'
 
-export interface Registry<I = any, O = any> {
-  tasks: TaskStore[]
-  request: RequestStore<O, [I]>
+import { Runner } from './Runner'
+
+export type Registry<I = any, O = any> = Runner<I, O> & {
+  mainTask: TaskStore<I, O>
+  nested: TaskStore[]
 }

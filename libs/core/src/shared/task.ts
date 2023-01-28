@@ -15,7 +15,7 @@ export const task = <
     const store = new TaskStore(props)
 
     // TODO ? how to avoid this ?
-    getRegistry().tasks.push(store)
+    getRegistry().nested.push(store)
 
     return store.request.fetch(args)
   }

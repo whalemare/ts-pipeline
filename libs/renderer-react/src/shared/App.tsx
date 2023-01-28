@@ -10,7 +10,7 @@ export function App(props: ReactRendererProps) {
     <div>
       <h1>Welcome to ReactRenderer!</h1>
       <h1>
-        {props.registry.tasks
+        {props.registry.nested
           .map(it => {
             return it.name
           })

@@ -13,7 +13,7 @@ export const steps = {
   build: declareStep({
     name: 'build',
     action: async ui => {
-      ui.onData('do some building')
+      ui.onData(`do some building`)
       await simulateWork(10, ui)
       return {
         artifactPath: 'some/path/to/my/build.tar',

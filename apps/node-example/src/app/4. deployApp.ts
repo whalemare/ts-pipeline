@@ -14,7 +14,6 @@ export async function deployApp() {
     setupStep(steps.deploy, { registry: 'yarn' }),
   )
   // TODO: improve typings for allow pass nothing
-  const result = await registry.request.fetch([{}])
-
+  const result = await registry.run(void 0)
   console.log(`result "${result}"`)
 }

@@ -1,9 +1,9 @@
 import { declareStep, Step } from '@ts-pipeline/core'
 
+import { ExcludeArgsFromStep } from './ExcludeArgsFromStep'
+
 type InferStepInput<S> = S extends Step<infer I> ? I : never
 type InferStepOutput<S> = S extends Step<infer I, infer O> ? O : never
-
-type ExcludeArgsFromStep<OriginalArgs, SetupArgs> = Omit<OriginalArgs, keyof SetupArgs>
 
 /**
  * Allow to prefill `step` with some arguments, when previous step is not returned required arguments

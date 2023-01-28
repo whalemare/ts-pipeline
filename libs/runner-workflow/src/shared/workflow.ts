@@ -27,8 +27,7 @@ export const workflow = async <R>(func: () => Promise<R>, props?: WorkflowProps)
   const app: AppRender = props?.renderer ? props.renderer : new ReactIncRender()
   const finishRender = app.render(registry)
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  await registry.request.fetch(undefined as any)
+  await registry.run()
 
   finishRender()
   process.exit(0)
