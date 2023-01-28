@@ -23,7 +23,7 @@ export class TaskStringRenderable implements Renderable<TaskStore, string> {
     }
 
     if (item.request.progress !== 0 && item.request.progress !== 1) {
-      percent = chalk.dim(`${Math.round(item.request.progress * 100)}%`)
+      // percent = chalk.dim(`${Math.round(item.request.progress * 100)}%`)
     }
 
     if (item.request.error) {

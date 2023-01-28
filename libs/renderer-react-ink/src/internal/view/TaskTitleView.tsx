@@ -2,7 +2,7 @@ import { TaskStore } from '@ts-pipeline/task'
 import chalk from 'chalk'
 import { Box, Text } from 'ink'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { stringifyFirstLevel } from '../model/stringifyFirstLevel'
 
@@ -52,8 +52,17 @@ const TaskArgView = observer<TaskTitleViewProps>(({ task }) => {
   //   return items
   // }, [])
 
+  const percent = useMemo(() => {
+    if (task.request.progress !== 0 && task.request.progress !== 1) {
+      return `${Math.round(task.request.progress * 100)}%`
+    }
+
+    return ''
+  }, [task.request.progress])
+
   return (
     <Box flexDirection="column">
+      {!!percent && <Text dimColor> {percent}</Text>}
       <Text>{JSON.stringify(task.args)}</Text>
       {/* {args.map(it => {
         return (
