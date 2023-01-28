@@ -1,8 +1,12 @@
 import { createStep } from '@ts-pipeline/core'
 
+interface SumProps {
+  left: number
+  right: number
+}
 export const sum = createStep({
   name: 'sum',
-  action: async (ui, a: number, b: number) => {
-    return a + b
+  action: async (ui, { left, right }: SumProps) => {
+    return left + right
   },
 })

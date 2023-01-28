@@ -1,12 +1,7 @@
-import { declareStep, Step } from '@ts-pipeline/core'
+import { declareStep } from '@ts-pipeline/core'
 
 import { sequence } from '../src/shared/sequence'
-
-export type StepDeclaration<I = any, O = any, S extends Partial<I> = I> = Step<I, O> & {
-  setup?: (props: S) => I
-
-  (props: S): Step<I, O>
-}
+import { setupStep } from '../src/shared/setup-step/setupStep'
 
 describe('step-declaration', () => {
   const noInputOutput = declareStep({
@@ -31,33 +26,10 @@ describe('step-declaration', () => {
     )
   })
 
-  type InferStepInput<S> = S extends Step<infer I> ? I : never
-  type InferStepOutput<S> = S extends Step<infer I, infer O> ? O : never
-
-  type ExcludeArgsFromStep<OriginalArgs, SetupArgs> = Omit<OriginalArgs, keyof SetupArgs>
-
-  const setupStep = <
-    S extends Step = Step,
-    StepInput extends InferStepInput<S> = InferStepInput<S>,
-    StepOutput extends InferStepOutput<S> = InferStepOutput<S>,
-    SetupInput extends Partial<StepInput> = Partial<StepInput>,
-    NewInput = ExcludeArgsFromStep<StepInput, SetupInput>,
-  >(
-    step: S,
-    setupArgs: SetupInput,
-  ) => {
-    return declareStep<NewInput, StepOutput>({
-      name: step.name,
-      action: async (ui, input) => {
-        return step.action(ui, { ...setupArgs, ...input })
-      },
-    })
-  }
-
-  test('we can setup that step with some primitive data', async () => {
+  test('primitive data as input not supported', async () => {
     await sequence(
       noInputOutput,
-      // can use stringInput because it prefilled with 'data'
+      // @ts-ignore primitive data as input not supported
       setupStep(stringInput, 'data'),
     )
   })
@@ -67,9 +39,9 @@ describe('step-declaration', () => {
       size: number
       command: string
     }
-    const complexPropsInput = declareStep({
+    const complexPropsInput = declareStep<ComplexProps>({
       name: 'complex-props',
-      action: async (ui, props: ComplexProps) => {
+      action: async () => {
         //
       },
     })

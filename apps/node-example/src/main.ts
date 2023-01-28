@@ -1,3 +1,4 @@
+import { deployApp } from './app/deployApp'
 import { endlessApp } from './app/endlessApp'
 import { nestedApp } from './app/nestedApp'
 import { workflowApp } from './app/workflowApp'
@@ -9,9 +10,10 @@ async function run() {
     workflowApp,
     endlessApp,
     workflowReactApp,
+    deployApp,
   }
 
-  const program = examples['nestedApp']
+  const program = examples['deployApp']
 
   await program()
 }
