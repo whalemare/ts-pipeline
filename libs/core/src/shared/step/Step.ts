@@ -1,7 +1,7 @@
 // any required for autotypings
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ActionState } from '@ts-pipeline/core'
+import { ActionState } from '../task/entity/ActionState'
 
 /**
  * Step - it's just a regular function that you can use in your pipeline

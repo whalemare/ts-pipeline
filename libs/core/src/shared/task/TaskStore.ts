@@ -1,9 +1,10 @@
 // any required for autotypings
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Step } from '@ts-pipeline/core'
 import { Optional } from '@ts-pipeline/ts-core'
 import { makeObservable, observable, runInAction } from 'mobx'
 import { RequestStore } from 'mobx-request'
+
+import { Step } from '../step/Step'
 
 import { QueueOutputable } from './QueueOutputable'
 import { ActionState } from './entity/ActionState'

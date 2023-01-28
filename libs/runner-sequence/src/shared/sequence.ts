@@ -5,7 +5,7 @@ import { Registry } from '@ts-pipeline/core'
 
 import { RootTaskStore } from './RootTaskStore'
 
-export type SingleArgStep<TIn,TOut> = Step<TIn,TOut>
+export type SingleArgStep<TIn,TOut> = Step<TIn, TOut>
 
 type Result<TIn, TOut> = Registry<TIn, TOut>
 

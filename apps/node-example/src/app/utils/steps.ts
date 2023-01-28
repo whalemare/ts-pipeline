@@ -10,6 +10,12 @@ export const steps = {
       await simulateWork(20, ui)
     },
   }),
+  tests: declareStep({
+    name: 'tests',
+    action: async (ui, _props?: { allowPercentage?: number }) => {
+      await simulateWork(1000, ui)
+    },
+  }),
   build: declareStep({
     name: 'build',
     action: async ui => {

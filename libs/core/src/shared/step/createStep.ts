@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TaskStoreProps } from '@ts-pipeline/core'
-
+import { TaskStoreProps } from '../task/entity/TaskStoreProps'
 import { task } from '../task/task'
 
 /**

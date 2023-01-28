@@ -1,7 +1,9 @@
 import { ActionState } from '@ts-pipeline/core'
 import { delay } from '@ts-pipeline/ts-core'
 
-export const simulateWork = async (cycles: number, ui: ActionState) => {
+export const simulateWork = async (ms: number, ui: ActionState) => {
+  const cycles = ms / 100
+
   let cycle = 0
   while (cycle < cycles) {
     const cycleSize = 100 / cycles

@@ -5,6 +5,7 @@ import { deployApp } from './app/4. deployApp'
 import { manualRenderApp } from './app/5. manualRenderApp'
 import { pipelineApp } from './app/6. pipelineApp'
 import { parallelApp } from './app/7. parallelApp'
+import { complexApp } from './app/8. complexApp'
 import { workflowReactApp } from './app/workflowReactApp'
 
 async function run() {
@@ -17,9 +18,10 @@ async function run() {
     manualRenderApp,
     pipelineApp,
     parallelApp,
+    complexApp,
   }
 
-  const program = examples['parallelApp']
+  const program = examples['complexApp']
 
   await program()
 }
