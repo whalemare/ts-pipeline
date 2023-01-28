@@ -14,10 +14,10 @@ export class TaskStringRenderable implements Renderable<TaskStore, string> {
 
     if (item.request.isSuccess) {
       percent = ''
-      prefix = '✅'
+      // prefix = '✅'
       result = chalk.green(JSON.stringify(item.request.value))
     } else if (item.request.isLoading) {
-      prefix = frames[frame % frames.length]
+      // prefix = frames[frame % frames.length]
     } else {
       prefix = ''
     }
@@ -27,7 +27,7 @@ export class TaskStringRenderable implements Renderable<TaskStore, string> {
     }
 
     if (item.request.error) {
-      prefix = '❌'
+      // prefix = '❌'
       result = chalk.red(
         item.request.error.toString?.() ?? (JSON.stringify(item.request.error) || 'unknown error'),
       )
@@ -57,4 +57,4 @@ export class TaskStringRenderable implements Renderable<TaskStore, string> {
   }
 }
 
-const frames = ['▏', '▎', '▍', '▌', '▋', '▊', '▉', '▊', '▋', '▌', '▍', '▎']
+// const frames = ['▏', '▎', '▍', '▌', '▋', '▊', '▉', '▊', '▋', '▌', '▍', '▎']

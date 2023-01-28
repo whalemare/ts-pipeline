@@ -5,11 +5,14 @@ import React, { useMemo } from 'react'
 
 import { TaskStringRenderable } from '../model/TaskStringRenderable'
 
+import { ProgressBar } from './ProgressBar'
+
 export const TaskView = observer<{ task: TaskStore }>(({ task }) => {
   const renderer = useMemo(() => new TaskStringRenderable(), [])
 
   return (
     <Box>
+      <ProgressBar request={task.request} />
       <Text>{renderer.render(task, Date.now())}</Text>
     </Box>
   )

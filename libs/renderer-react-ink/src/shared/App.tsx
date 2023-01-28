@@ -20,9 +20,12 @@ export const App = observer<AppProps>(({ registry }) => {
 
   return (
     <Box flexDirection="column" borderColor={'white'} borderStyle="classic" flexGrow={1}>
-      {registry.nested.map((task, index) => {
-        return <TaskView key={index} task={task} />
-      })}
+      {registry.mainTask && <TaskView task={registry.mainTask} />}
+      <Box flexDirection="column" marginLeft={2}>
+        {registry.nested.map((task, index) => {
+          return <TaskView key={index} task={task} />
+        })}
+      </Box>
     </Box>
   )
 })
