@@ -1,4 +1,5 @@
-import { IsEqual, ConditionalExcept } from 'type-fest'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { IsEqual, ConditionalExcept, HasRequiredKeys } from 'type-fest'
 
 type OmitNever<T> = ConditionalExcept<T, never>
 
@@ -16,4 +17,11 @@ export type ExcludeArgsFromStep<
   OriginalArgs,
   SetupArgs extends Partial<OriginalArgs> = Partial<OriginalArgs>,
   R = OmitTyped<OriginalArgs, SetupArgs>,
-> = R extends Record<string, never> ? any : R
+> = R extends Record<string, never> // empty object
+  ? any
+  : R extends void
+  ? any
+  : // @ts-ignore
+  HasRequiredKeys<R> extends true
+  ? R
+  : any

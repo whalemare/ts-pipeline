@@ -1,7 +1,9 @@
-import { git, ui } from '@lamantin/fastpush'
-import { workflow } from '@ts-pipeline/runner-workflow'
+import { git } from '@lamantin/fastpush'
+import { render } from '@ts-pipeline/renderer-react-ink'
+import { parallel } from '@ts-pipeline/runner-parallel'
+import { sequence, setupStep } from '@ts-pipeline/runner-sequence'
 import { increment, IncrementType } from '@ts-pipeline/step-increment'
-import { execAsync } from '@ts-pipeline/step-shell'
+import { shell } from '@ts-pipeline/step-shell'
 import jetpack from 'fs-jetpack'
 
 /**
@@ -21,37 +23,59 @@ async function deploy() {
 
   const type = incrementTypeRaw as IncrementType
 
-  await workflow(async () => {
-    const [prev, nextVersion] = await increment({
-      platform: 'node',
-      type: type,
+  const incrementBuild = setupStep(increment, {
+    //
+    type,
+    platform: 'node',
+    noBuildIncrement: true,
+  })
+
+  const incrementLibs = (jetpack.list('libs') || [])
+    .filter(it => !it.startsWith('.'))
+    .map(lib => jetpack.cwd(`libs/${lib}`))
+    .map(cwd => {
+      return setupStep(increment, {
+        dir: cwd.path(),
+      })
     })
 
-    const libs = (jetpack.list('libs') || [])
-      .filter(it => !it.startsWith('.'))
-      .map(lib => jetpack.cwd(`libs/${lib}`))
+  await render(
+    sequence(
+      'deploy @ts-pipeline',
 
-    await Promise.all(
-      libs.map(async lib => {
-        return increment({
-          platform: 'node',
-          type: type,
-          dir: lib.cwd(),
-        })
-      }),
-    )
+      incrementBuild,
+      {
+        name: 'map-props',
+        action: async (_, [, current]) => {
+          return {
+            platform: 'node' as const,
+            version: current,
+          }
+        },
+      },
 
-    ui.success(`Success increment version ${prev.marketing} -> ${nextVersion.marketing}`)
+      parallel(
+        'set version to libraries',
 
-    ui.success('Start generating index files')
-    await execAsync(`yarn generate:index`)
+        ...incrementLibs,
 
-    git.commit(`🎉 Increment version ${nextVersion.marketing}`)
-    git.tag(nextVersion.marketing, 'increment')
+        setupStep(shell, {
+          command: `yarn generate:index`,
+        }),
+      ),
 
-    await execAsync('yarn build', { onMessage: ui.message })
-    await execAsync('yarn release', { onMessage: ui.message })
-  })
+      {
+        name: 'git commit',
+        action: async (ui, { version }) => {
+          git.commit(`🎉 Increment version ${version?.marketing}`)
+          git.tag(`${version?.marketing}`, 'increment')
+        },
+      },
+
+      setupStep(shell, { command: 'yarn build' }),
+      setupStep(shell, { command: 'yarn release' }),
+    ),
+  )
 }
 
 void deploy()
