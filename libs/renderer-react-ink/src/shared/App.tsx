@@ -1,7 +1,7 @@
 import { Registry } from '@ts-pipeline/core'
-import { Box, useStdin } from 'ink'
+import { Box, useInput, useApp } from 'ink'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { RegistryView } from '../internal/view/RegistryView'
 
@@ -10,16 +10,20 @@ interface AppProps {
 }
 
 export const App = observer<AppProps>(({ registry }) => {
-  const { setRawMode, isRawModeSupported } = useStdin()
-
-  useEffect(() => {
-    if (isRawModeSupported) {
-      setRawMode(true)
+  const app = useApp()
+  useInput((input, key) => {
+    const isExit = (key.ctrl && input === 'c') || (key.ctrl && input === 'q') || input === 'œ'
+    if (isExit) {
+      registry.cancel()
+      app.exit()
+      setTimeout(() => {
+        process.exit(-1)
+      }, 1000)
     }
-  }, [isRawModeSupported])
+  })
 
   return (
-    <Box flexDirection="column" borderStyle="round" borderColor="green" flexGrow={1}>
+    <Box flexDirection="column-reverse" borderStyle="round" borderColor="green">
       <RegistryView registry={registry} />
     </Box>
   )

@@ -1,7 +1,7 @@
 // any required for autotypings
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Optional } from '@ts-pipeline/ts-core'
-import { makeObservable, observable, runInAction } from 'mobx'
+import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RequestStore } from 'mobx-request'
 
 import { Step } from '../step/Step'
@@ -41,6 +41,7 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
     return this.props.action(ui, input)
   }
 
+  @action
   onData = (msg: DataMessage | DataMessage['value']) => {
     if (msg && typeof msg === 'object') {
       this.history.push(msg)

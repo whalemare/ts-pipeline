@@ -1,7 +1,7 @@
 {
   "name": "core",
   "description": "Setup your pipelines as code",
-  "version": "0.0.26",
+  "version": "0.0.32",
   "license": "MIT",
   "scripts": {
     "start": "nx run node-example:build && node dist/apps/node-example/main.cjs",
@@ -29,7 +29,7 @@
     "fp-ts": "^2.13.1",
     "fs-jetpack": "^5.1.0",
     "gradle-to-js": "^2.0.1",
-    "ink": "^3.2.0",
+    "ink": "3.2.0",
     "inquirer": "9.1.4",
     "isbot": "^3.6.5",
     "lodash": "4.17.21",

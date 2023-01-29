@@ -11,11 +11,6 @@ interface TaskHistoryViewProps {
 const batchSize = 5
 
 export const TaskHistoryView = observer<TaskHistoryViewProps>(({ task }) => {
-  const isFinished = !(task.request.isSuccess || task.request.error)
-  if (isFinished) {
-    return null
-  }
-
   const batch = task.history.slice(task.history.length - batchSize)
 
   return (
