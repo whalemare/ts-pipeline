@@ -7,9 +7,7 @@ import { RequestStore } from 'mobx-request'
 import { Step } from '../step/Step'
 
 import { DataMessage } from './DataMessage'
-import { QueueOutputable } from './QueueOutputable'
 import { ActionState } from './entity/ActionState'
-import { History as History } from './entity/History'
 import { TaskStoreProps } from './entity/TaskStoreProps'
 
 export class TaskStore<A = any, R = any> implements Step<A, R> {
@@ -17,7 +15,7 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
   name
 
   @observable
-  history: History<DataMessage>
+  history: DataMessage[] = []
 
   @observable
   args: Optional<unknown> = undefined
@@ -57,7 +55,6 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
 
   constructor(private props: TaskStoreProps<A, R>) {
     this.name = props?.name ?? 'task:unknown'
-    this.history = new QueueOutputable<DataMessage>(props?.historySize ?? 5)
     if (props.formatArgs) {
       this.args = props.formatArgs(undefined)
     }

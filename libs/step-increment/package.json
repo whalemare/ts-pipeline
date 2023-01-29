@@ -1,6 +1,6 @@
 {
   "name": "@ts-pipeline/step-increment",
-  "version": "0.0.13",
+  "version": "0.0.16",
   "dependencies": {
     "gradle-to-js": "2.0.1"
   }
