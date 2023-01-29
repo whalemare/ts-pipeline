@@ -6,12 +6,20 @@ import React from 'react'
 
 import { App } from './App'
 
+export interface ReactInkRenderProps {
+  /**
+   * Reverse output order for remove flickering
+   */
+  reverse?: boolean
+}
 export class ReactInkRender implements AppRender {
   render(root: Registry): Unsubscriber {
-    const instance = render(<App registry={root} />)
+    const instance = render(<App props={this.props} registry={root} />)
 
     return () => {
       instance.unmount()
     }
   }
+
+  constructor(private props: ReactInkRenderProps = {}) {}
 }

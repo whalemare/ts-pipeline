@@ -69,5 +69,8 @@ export async function ddosStdout() {
       ddos,
       ddos,
     ),
+
+    // pass reverse flag to remove flickering
+    { reverse: true },
   )
 }
