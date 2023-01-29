@@ -1,22 +1,22 @@
-import { declareStep } from '@ts-pipeline/core'
+import { createStep } from '@ts-pipeline/core'
 
 import { simulateWork } from './simulateWork'
 
 export const steps = {
-  lint: declareStep({
+  lint: createStep({
     name: 'lint',
     action: async ui => {
       ui.onData('do some linting')
-      await simulateWork(5000, ui)
+      await simulateWork(1000, ui)
     },
   }),
-  tests: declareStep({
+  tests: createStep({
     name: 'tests',
     action: async (ui, _props?: { allowPercentage?: number }) => {
-      await simulateWork(30000, ui)
+      await simulateWork(1000, ui)
     },
   }),
-  build: declareStep({
+  build: createStep({
     name: 'build',
     action: async ui => {
       ui.onData(`do some building`)
@@ -26,7 +26,7 @@ export const steps = {
       }
     },
   }),
-  deploy: declareStep({
+  deploy: createStep({
     name: 'deploy',
     action: async (
       ui,

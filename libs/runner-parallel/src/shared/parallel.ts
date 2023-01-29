@@ -7,13 +7,13 @@ export const parallel = <I, O extends any[] = any>(
   initial: Step<I>,
   ...steps: Step<I>[]
 ) => {
-  return new RootTaskStore<I, O[]>(
+  return new RootTaskStore<I>(
     nested => ({
       name: name,
       action: async (ui, input) => {
         const results = await Promise.all(nested.map(async it => it.request.fetch(input)))
 
-        return results
+        // return results
       },
     }),
     [initial, ...steps],

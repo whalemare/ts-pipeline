@@ -1,4 +1,4 @@
-import { declareStep, Step } from '@ts-pipeline/core'
+import { createStep, Step } from '@ts-pipeline/core'
 
 import { ExcludeArgsFromStep } from './ExcludeArgsFromStep'
 
@@ -20,7 +20,7 @@ export const setupStep = <
   step: S,
   setupArgs: SetupInput,
 ) => {
-  return declareStep<NewInput, StepOutput>({
+  return createStep<NewInput, StepOutput>({
     name: step.name,
     formatArgs: args => {
       return {

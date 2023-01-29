@@ -1,32 +1,40 @@
-import { overrideRegistry } from '@ts-pipeline/core'
-import { PipelineRegistryStore } from '@ts-pipeline/core'
+import { makeStepExecutable } from '@ts-pipeline/core'
 import * as jetpack from 'fs-jetpack'
 
 import { IncrementType } from '../src/shared/IncrementType'
 import { increment } from '../src/shared/increment'
 
+const step = makeStepExecutable(increment)
+
 describe('increment', () => {
-  beforeEach(() => {
-    overrideRegistry(
-      new PipelineRegistryStore({
-        name: 'test',
-        fn: async () => {
-          // do nothing
-        },
-      }),
-    )
+  test('0.0.1 should be parsed', async () => {
+    const [version] = await step({
+      type: IncrementType.NONE,
+      platform: 'node',
+      dir: jetpack.path('libs/step-increment/tests/assets/0.0.1'),
+    })
+
+    expect(version).toStrictEqual({
+      marketing: '0.0.1',
+      build: 0,
+    })
   })
 
-  test('should none', async () => {
-    await increment({
+  test('0.0.1-1 should be parsed', async () => {
+    const [version] = await step({
       type: IncrementType.NONE,
       platform: 'node',
       dir: jetpack.path('libs/step-increment/tests/assets/0.0.1-1'),
     })
+
+    expect(version).toStrictEqual({
+      marketing: '0.0.1',
+      build: 1,
+    })
   })
 
   test('should increment android', async () => {
-    await increment({
+    await step({
       type: IncrementType.NONE,
       platform: 'android',
       dir: jetpack.path('libs/step-increment/tests/assets/ReactNativeApp'),
@@ -34,7 +42,7 @@ describe('increment', () => {
   })
 
   test('should increment ios', async () => {
-    await increment({
+    await step({
       type: IncrementType.PATCH,
       platform: 'ios',
       dir: jetpack.path('libs/step-increment/tests/assets/ReactNativeApp'),
@@ -42,7 +50,7 @@ describe('increment', () => {
   })
 
   test('should allow pass custom version', async () => {
-    await increment({
+    await step({
       platform: 'ios',
       dir: jetpack.path('libs/step-increment/tests/assets/ReactNativeApp'),
       version: {

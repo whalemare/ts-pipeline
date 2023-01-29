@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TaskStoreProps } from '../task/entity/TaskStoreProps'
-import { task } from '../task/task'
 
-/**
- * Fabric function used for step manipulation
- */
-export const createStep = <A = any, R = any>(factory: TaskStoreProps<A, R>) => {
-  return task(factory)
+import { Step } from './Step'
+
+export const createStep = <I = any, O = any>(factory: TaskStoreProps<I, O>): Step<I, O> => {
+  return factory
 }

@@ -1,3 +1,4 @@
+import { isExist } from '@ts-pipeline/ts-core'
 import * as jetpack from 'fs-jetpack'
 import * as semver from 'semver'
 
@@ -20,8 +21,8 @@ export class NodePlatform implements PlatformActions {
       )
     }
 
-    const prereleaseVersion = semver.prerelease(raw)?.[0] || 1
-    const buildVersion = prereleaseVersion ? Number(prereleaseVersion) : null
+    const prereleaseVersion = semver.prerelease(raw)?.[0] || 0
+    const buildVersion = isExist(prereleaseVersion) ? Number(prereleaseVersion) : null
     if (buildVersion === null || buildVersion === undefined) {
       throw new Error(
         `Unable parse 'build' version. Your package.json version should be declared in format like "major.minor.patch-build" ex. "1.2.3-30", but parsed as ${raw}`,

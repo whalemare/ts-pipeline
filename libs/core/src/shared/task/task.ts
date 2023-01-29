@@ -9,7 +9,7 @@ export const task = <
   props: Props,
 ) => {
   const fetch = async (
-    ...args: OmitFirst<Parameters<Props['action']>>
+    args: OmitFirst<Parameters<Props['action']>>,
   ): Promise<Awaited<ReturnType<Props['action']>>> => {
     const store = new TaskStore(props)
 

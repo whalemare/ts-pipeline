@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
-import { declareStep } from '@ts-pipeline/core'
+import { createStep } from '@ts-pipeline/core'
 import { render } from '@ts-pipeline/renderer-react-ink'
 import { sequence, setupStep } from '@ts-pipeline/runner-sequence'
 
 import { simulateWork } from './utils/simulateWork'
 import { steps } from './utils/steps'
 
-const deployPath = declareStep({
+const deployPath = createStep({
   name: 'deploy-path',
   action: async (ui, props: { artifactPath: string; registry: 'yarn' | 'npm' }) => {
     ui.onData(`deploying ${props.artifactPath}`)

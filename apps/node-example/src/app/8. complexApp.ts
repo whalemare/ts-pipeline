@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { declareStep } from '@ts-pipeline/core'
+import { createStep } from '@ts-pipeline/core'
 import { render } from '@ts-pipeline/renderer-react-ink'
 import { parallel } from '@ts-pipeline/runner-parallel'
 import { sequence, setupStep } from '@ts-pipeline/runner-sequence'
@@ -7,7 +7,7 @@ import { sequence, setupStep } from '@ts-pipeline/runner-sequence'
 import { simulateWork } from './utils/simulateWork'
 import { steps } from './utils/steps'
 
-const deployPath = declareStep({
+const deployPath = createStep({
   name: 'deploy-path',
   action: async (ui, props: { artifactPath: string; registry: 'yarn' | 'npm' }) => {
     ui.onData(`deploying ${props.artifactPath}`)
@@ -17,7 +17,7 @@ const deployPath = declareStep({
   },
 })
 
-const build = declareStep({
+const build = createStep({
   name: 'build',
   action: async (ui, props: { platform: 'android' | 'ios' | 'web' }) => {
     ui.onData(`start building for platform ${props.platform}`)
@@ -30,7 +30,7 @@ const build = declareStep({
   },
 })
 
-const upload = declareStep({
+const upload = createStep({
   name: 'upload',
   action: async (ui, props: { buildPath: string; retryCount?: number }) => {
     ui.onData(`uploading ${props.buildPath}`)
@@ -50,10 +50,10 @@ export async function complexApp() {
     sequence(
       'deploy react-native application',
 
+      parallel('lint and tests', lint, tests),
+
       parallel(
         'build for all platforms',
-
-        parallel('lint and tests', lint, tests),
 
         sequence(
           'build and upload android app to server <3',
@@ -61,11 +61,13 @@ export async function complexApp() {
           // android can hangup sometimes, so we retry 10 times
           setupStep(upload, { retryCount: 10 }),
         ),
+
         sequence(
           'build and upload ios to server <3',
           setupStep(build, { platform: 'ios' }),
           upload,
         ),
+
         sequence(
           'build and upload web to server <3',
           setupStep(build, { platform: 'web' }),

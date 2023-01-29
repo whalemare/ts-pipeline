@@ -20,6 +20,12 @@ export type IncrementProps = {
        * Pass type to increment version
        */
       type: IncrementType
+      /**
+       * By default each increment will increment build number by 1
+       * But you can disable it
+       * @default false
+       */
+      noBuildIncrement?: boolean
       version?: undefined
     }
   | {
@@ -28,7 +34,7 @@ export type IncrementProps = {
       /**
        * Pass specific version to set it
        */
-      version: AppVersion
+      version: Partial<AppVersion>
     }
 )
 
@@ -60,8 +66,12 @@ export const increment = createStep({
     }
 
     if (props.version) {
-      await interactor.setVersion(props.version.marketing)
-      await interactor.setBuildNumber(props.version.build)
+      if (props.version.marketing) {
+        await interactor.setVersion(props.version.marketing)
+      }
+      if (props.version.build) {
+        await interactor.setBuildNumber(props.version.build)
+      }
       return [prev, props.version] as const
     } else if (!isExist(type)) {
       throw new Error("You must provide 'type' or 'version' to increment step")
@@ -73,7 +83,7 @@ export const increment = createStep({
       return [prev, prev] as const
     }
 
-    const nextBuild = build + 1
+    const nextBuild = props.noBuildIncrement ? build : build + 1
     if (type === IncrementType.BUILD) {
       await interactor.setBuildNumber(nextBuild)
       await interactor.setVersion(version)
