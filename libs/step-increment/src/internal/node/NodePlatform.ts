@@ -39,11 +39,13 @@ export class NodePlatform implements PlatformActions {
     const path = `${this.project.path()}/package.json`
     const packageJson = jetpack.read(path, 'json')
 
+    const textVersion = version.build ? `${version.marketing}-${version.build}` : version.marketing
+
     await jetpack.writeAsync(
       path,
       {
         ...packageJson,
-        version: `${version.marketing}-${version.build}`,
+        version: textVersion,
       },
       { jsonIndent: 2 },
     )

@@ -23,7 +23,7 @@ async function deploy() {
 
   const type = incrementTypeRaw as IncrementType
 
-  const incrementBuild = setupStep(increment, {
+  const incrementNode = setupStep(increment, {
     //
     type,
     platform: 'node',
@@ -43,13 +43,16 @@ async function deploy() {
     sequence(
       'deploy @ts-pipeline',
 
-      incrementBuild,
+      incrementNode,
       {
         name: 'map-props',
         action: async (_, [, current]) => {
           return {
             platform: 'node' as const,
-            version: current,
+            version: {
+              marketing: current.marketing,
+              build: 0, // no set build version
+            },
           }
         },
       },

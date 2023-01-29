@@ -34,7 +34,7 @@ export type IncrementProps = {
       /**
        * Pass specific version to set it
        */
-      version: Partial<AppVersion>
+      version: AppVersion
     }
 )
 
@@ -66,12 +66,8 @@ export const increment = createStep({
     }
 
     if (props.version) {
-      if (props.version.marketing) {
-        await interactor.setVersion(props.version.marketing)
-      }
-      if (props.version.build) {
-        await interactor.setBuildNumber(props.version.build)
-      }
+      await interactor.setVersion(props.version.marketing)
+      await interactor.setBuildNumber(props.version.build)
       return [prev, props.version] as const
     } else if (!isExist(type)) {
       throw new Error("You must provide 'type' or 'version' to increment step")
