@@ -82,3 +82,5 @@ async function deploy() {
 }
 
 void deploy()
+  .then(() => process.exit(0))
+  .catch(() => process.exit(1))

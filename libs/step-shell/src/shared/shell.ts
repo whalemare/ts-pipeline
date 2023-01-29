@@ -9,12 +9,13 @@ export interface ShellProps {
 }
 export const shell = createStep({
   name: 'shell',
+  historySize: 5,
   action: async (ui, props: ShellProps) => {
-    return execAsync(props.command, {
+    await execAsync(props.command, {
       ...props.options,
       signal: ui.signal,
-      onMessage: (msg, source) => {
-        ui.onData(`${source}: ${msg}`)
+      onMessage: msg => {
+        ui.onData(msg)
       },
     })
   },

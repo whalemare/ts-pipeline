@@ -1,7 +1,7 @@
-export interface History {
-  push(data: string): void
+export interface History<T> {
+  push(data: T): void
 
-  items: string[]
+  items: T[]
 
   size: number
 }
