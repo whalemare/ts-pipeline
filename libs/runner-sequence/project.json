@@ -4,6 +4,12 @@
   "sourceRoot": "libs/runner-sequence/src",
   "projectType": "library",
   "targets": {
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "cd dist/libs/runner-sequence && npm publish --registry=https://registry.npmjs.org --access public"
+      }
+    },
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
