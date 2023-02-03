@@ -1,5 +1,4 @@
 {
   "name": "@ts-pipeline/runner-sequence",
-  "version": "0.0.34",
-  "type": "module"
+  "version": "0.0.35"
 }
