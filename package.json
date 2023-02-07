@@ -8,6 +8,7 @@
     "deploy": "yarn nx run deploy:build && node dist/apps/deploy/main.cjs patch",
     "build": "nx run-many --target build --exclude deploy,node-example",
     "release": "nx run-many --target publish --exclude deploy,node-example",
+    "github:release": "gh release create",
     "test": "nx test",
     "graph": "yarn nx graph",
     "lint": "nx run-many --target=lint --parallel 3",
