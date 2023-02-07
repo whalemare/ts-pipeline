@@ -11,6 +11,11 @@ import { ActionState } from './entity/ActionState'
 import { TaskStoreProps } from './entity/TaskStoreProps'
 
 export class TaskStore<A = any, R = any> implements Step<A, R> {
+  /**
+   * By default we are hide arguments of task
+   */
+  private argsFormatter: TaskStoreProps<A, R>['formatArgs'] = () => ''
+
   @observable
   name
 
@@ -56,9 +61,11 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
 
   constructor(private props: TaskStoreProps<A, R>) {
     this.name = props?.name ?? 'task:unknown'
+
     if (props.formatArgs) {
-      this.args = props.formatArgs(undefined)
+      this.argsFormatter = props.formatArgs
     }
+    this.args = this.argsFormatter?.(undefined)
 
     makeObservable(this)
   }
