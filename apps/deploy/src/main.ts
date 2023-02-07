@@ -1,10 +1,11 @@
 import { git } from '@lamantin/fastpush'
 import { render } from '@ts-pipeline/renderer-react-ink'
 import { parallel } from '@ts-pipeline/runner-parallel'
-import { sequence, setupStep } from '@ts-pipeline/runner-sequence'
+import { sequence, withData, withPrevData } from '@ts-pipeline/runner-sequence'
 import { increment, IncrementType } from '@ts-pipeline/step-increment'
 import { shell } from '@ts-pipeline/step-shell'
 import jetpack from 'fs-jetpack'
+import { AppVersion } from 'libs/step-increment/src/internal/entity/AppVersion'
 
 /**
  * Increment, build and deploy libraries
@@ -23,7 +24,7 @@ async function deploy() {
 
   const type = incrementTypeRaw as IncrementType
 
-  const incrementNode = setupStep(increment, {
+  const incrementNode = withData(increment, {
     //
     type,
     platform: 'node',
@@ -34,9 +35,17 @@ async function deploy() {
     .filter(it => !it.startsWith('.'))
     .map(lib => jetpack.cwd(`libs/${lib}`))
     .map(cwd => {
-      return setupStep(increment, {
-        dir: cwd.path(),
-      })
+      return withPrevData<typeof increment, readonly [AppVersion, AppVersion]>(
+        increment,
+        ([_, currentVersion]) => ({
+          dir: cwd.path(),
+          platform: 'node',
+          version: {
+            marketing: currentVersion.marketing,
+            build: 0, // no set build version
+          },
+        }),
+      )
     })
 
   await render(
@@ -44,39 +53,34 @@ async function deploy() {
       'deploy @ts-pipeline',
 
       incrementNode,
-      {
-        name: 'map-props',
-        action: async (_, [, current]) => {
-          return {
-            platform: 'node' as const,
-            version: {
-              marketing: current.marketing,
-              build: 0, // no set build version
-            },
-          }
-        },
-      },
 
       parallel(
         'set version to libraries',
 
         ...incrementLibs,
 
-        setupStep(shell, {
+        withData(shell, {
           command: `yarn generate:index`,
         }),
       ),
 
       {
         name: 'git commit',
-        action: async (ui, { version }) => {
-          git.commit(`🎉 Increment version ${version?.marketing}`)
+        action: async (ui, props) => {
+          const [prev, version] = props
+
+          git.commit(`🎉 Increment version ${version.marketing}`)
           git.tag(`${version?.marketing}`, 'increment')
+          git.push()
+
+          return version
         },
       },
 
-      setupStep(shell, { command: 'yarn build' }),
-      setupStep(shell, { command: 'yarn release' }),
+      // TODO: for some reason types for `version` is not infered here, need deeging
+      withPrevData<typeof shell, AppVersion>(shell, version => ({
+        command: `yarn github:release ${version.marketing}`,
+      })),
     ),
   )
 }

@@ -1,5 +1,4 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { createStep } from '../../core/src'
+import { createStep } from '@ts-pipeline/core'
 
 interface SumProps {
   left: number
