@@ -1,4 +1,5 @@
 import { workflowApp } from './app/1. workflowApp'
+import { errorablesApp } from './app/10. errorablesApp'
 import { endlessApp } from './app/2. endlessApp'
 import { nestedApp } from './app/3. nestedApp'
 import { deployApp } from './app/4. deployApp'
@@ -21,9 +22,10 @@ async function run() {
     parallelApp,
     complexApp,
     ddosStdout,
+    errorablesApp,
   }
 
-  const program = examples['ddosStdout']
+  const program = examples['errorablesApp']
 
   await program()
 }

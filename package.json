@@ -12,7 +12,7 @@
     "graph": "yarn nx graph",
     "lint": "nx run-many --target=lint --parallel 3",
     "generate:index": "yarn vscode-generate-index-standalone libs/**/src",
-    "generate:step": "npx nx g @nrwl/node:library --directory steps --tags step --publishable --strict --name ",
+    "generate:step": "npx nx g @nrwl/node:library --tags step --publishable --strict --name ",
     "generate:lib": "npx nx g @nrwl/node:library --buildable --strict --name ",
     "reset": "nx reset",
     "postinstall": "yarn patch-package"
