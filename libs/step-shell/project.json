@@ -1,0 +1,41 @@
+{
+  "name": "step-shell",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/step-shell/src",
+  "projectType": "library",
+  "targets": {
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "cd dist/libs/step-shell && npm publish --registry=https://registry.npmjs.org --access public"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/step-shell/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/step-shell/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/step-shell",
+        "tsConfig": "libs/step-shell/tsconfig.lib.json",
+        "packageJson": "libs/step-shell/package.json",
+        "main": "libs/step-shell/src/index.ts",
+        "assets": ["libs/step-shell/*.md"]
+      }
+    }
+  },
+  "tags": ["step"]
+}

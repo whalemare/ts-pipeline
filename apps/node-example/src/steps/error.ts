@@ -1,4 +1,4 @@
-import { createStep } from '@ts-pipeline/ts-pipeline'
+import { createStep } from '@ts-pipeline/core'
 
 export const error = createStep({
   name: 'error',

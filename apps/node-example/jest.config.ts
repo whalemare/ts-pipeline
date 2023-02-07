@@ -9,7 +9,14 @@ export default {
   },
   testEnvironment: 'node',
   transform: {
-    '^.+\\.[tj]s$': 'ts-jest',
+    '^.+\\.[tj]sx?$': 'ts-jest',
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  coverageDirectory: '../../coverage/apps/node-example',
+  transformIgnorePatterns: [
+    // "../../node_modules/(?!chalk/.*)",
+  ],
+  moduleNameMapper: {
+    '#(.*)': '<rootDir>/../../node_modules/$1',
+  },
 }

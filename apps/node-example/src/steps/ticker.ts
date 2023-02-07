@@ -1,17 +1,22 @@
-import { createStep } from '@ts-pipeline/ts-pipeline'
+import { createStep, makeStepExecutable } from '@ts-pipeline/core'
 
-export const ticker = createStep({
-  name: 'ticker',
-  historySize: 1,
-  action: async (ui, ms: number) => {
-    let ticks = 0
+/**
+ * Never resolve or reject, just counting
+ */
+export const ticker = makeStepExecutable(
+  createStep({
+    name: 'ticker',
+    historySize: 1,
+    action: async (ui, ms: number) => {
+      let ticks = 0
 
-    setInterval(() => {
-      ui.onData(ticks++)
-    }, Number(ms))
+      setInterval(() => {
+        ui.onData(ticks++)
+      }, Number(ms))
 
-    return new Promise(() => {
-      // infinite
-    })
-  },
-})
+      return new Promise(() => {
+        // infinite
+      })
+    },
+  }),
+)

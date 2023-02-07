@@ -1,0 +1,41 @@
+{
+  "name": "step-increment",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/step-increment/src",
+  "projectType": "library",
+  "targets": {
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "cd dist/libs/step-increment && npm publish --registry=https://registry.npmjs.org --access public"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/step-increment/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/step-increment/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/step-increment",
+        "tsConfig": "libs/step-increment/tsconfig.lib.json",
+        "packageJson": "libs/step-increment/package.json",
+        "main": "libs/step-increment/src/index.ts",
+        "assets": ["libs/step-increment/*.md"]
+      }
+    }
+  },
+  "tags": ["step"]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "@ts-pipeline/step-increment",
+  "version": "0.0.35",
+  "dependencies": {
+    "gradle-to-js": "2.0.1"
+  }
+}

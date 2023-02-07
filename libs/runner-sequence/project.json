@@ -1,0 +1,41 @@
+{
+  "name": "runner-sequence",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/runner-sequence/src",
+  "projectType": "library",
+  "targets": {
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "cd dist/libs/runner-sequence && npm publish --registry=https://registry.npmjs.org --access public"
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/runner-sequence",
+        "tsConfig": "libs/runner-sequence/tsconfig.lib.json",
+        "packageJson": "libs/runner-sequence/package.json",
+        "main": "libs/runner-sequence/src/index.ts",
+        "assets": ["libs/runner-sequence/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/runner-sequence/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/runner-sequence/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["ts"]
+}

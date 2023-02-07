@@ -1,0 +1,41 @@
+{
+  "name": "runner-parallel",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/runner-parallel/src",
+  "projectType": "library",
+  "targets": {
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "cd dist/libs/runner-parallel && npm publish --registry=https://registry.npmjs.org --access public"
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/runner-parallel",
+        "tsConfig": "libs/runner-parallel/tsconfig.lib.json",
+        "packageJson": "libs/runner-parallel/package.json",
+        "main": "libs/runner-parallel/src/index.ts",
+        "assets": ["libs/runner-parallel/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/runner-parallel/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/runner-parallel/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["ts"]
+}

@@ -1,19 +1,33 @@
-import { pipeline } from '@ts-pipeline/ts-pipeline'
-
-import { progress } from './steps/progress'
-import { sum } from './steps/sum'
-import { ticker } from './steps/ticker'
-import { tickerLargeHistory } from './steps/tickerLargeHistory'
+import { workflowApp } from './app/1. workflowApp'
+import { errorablesApp } from './app/10. errorablesApp'
+import { endlessApp } from './app/2. endlessApp'
+import { nestedApp } from './app/3. nestedApp'
+import { deployApp } from './app/4. deployApp'
+import { manualRenderApp } from './app/5. manualRenderApp'
+import { pipelineApp } from './app/6. pipelineApp'
+import { parallelApp } from './app/7. parallelApp'
+import { complexApp } from './app/8. complexApp'
+import { ddosStdout } from './app/9. ddosStdout'
+import { workflowReactApp } from './app/workflowReactApp'
 
 async function run() {
-  await pipeline(async () => {
-    const result = await sum(1, 3)
+  const examples = {
+    nestedApp,
+    workflowApp,
+    endlessApp,
+    workflowReactApp,
+    deployApp,
+    manualRenderApp,
+    pipelineApp,
+    parallelApp,
+    complexApp,
+    ddosStdout,
+    errorablesApp,
+  }
 
-    void tickerLargeHistory(250 * result)
-    void ticker(500)
-    void progress(100)
-    // void error(3000)
-  })
+  const program = examples['errorablesApp']
+
+  await program()
 }
 
 void run()

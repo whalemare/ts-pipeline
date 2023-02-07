@@ -1,4 +1,4 @@
-import { createStep } from '@ts-pipeline/ts-pipeline'
+import { createStep } from '@ts-pipeline/core'
 
 export const progress = createStep({
   name: 'progress',

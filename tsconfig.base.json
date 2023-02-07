@@ -17,8 +17,18 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
+      "@ts-pipeline/core": ["libs/core/src/index.ts"],
+      "@ts-pipeline/renderer-core": ["libs/renderer-core/src/index.ts"],
+      "@ts-pipeline/renderer-react": ["libs/renderer-react/src/index.ts"],
+      "@ts-pipeline/renderer-react-ink": ["libs/renderer-react-ink/src/index.ts"],
+      "@ts-pipeline/runner-parallel": ["libs/runner-parallel/src/index.ts"],
+      "@ts-pipeline/runner-sequence": ["libs/runner-sequence/src/index.ts"],
+      "@ts-pipeline/runner-workflow": ["libs/runner-workflow/src/index.ts"],
+      "@ts-pipeline/step-increment": ["libs/step-increment/src/index.ts"],
+      "@ts-pipeline/step-logs": ["libs/step-logs/src/index.ts"],
+      "@ts-pipeline/step-shell": ["libs/step-shell/src/index.ts"],
       "@ts-pipeline/ts-core": ["libs/ts-core/src/index.ts"],
-      "@ts-pipeline/ts-pipeline": ["libs/ts-pipeline/src/index.ts"]
+      "@ts-pipeline/with-retry": ["libs/with-retry/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

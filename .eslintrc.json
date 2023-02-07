@@ -64,6 +64,16 @@
     },
     {
       "files": [
+        "*.tsx",
+        "*.jsx"
+      ],
+      "extends": [
+        "./ts.eslint.js",
+        "./react-native.eslint.js"
+      ]
+    },
+    {
+      "files": [
         "*.ts",
         "*.js"
       ],
