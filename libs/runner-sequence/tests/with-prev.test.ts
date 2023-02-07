@@ -15,7 +15,7 @@ const stepSum = createStep({
   },
 })
 
-test('sequence', async () => {
+test('with-prev', async () => {
   const withPrevFn = jest.fn()
   const runner = sequence(
     'sequence',
