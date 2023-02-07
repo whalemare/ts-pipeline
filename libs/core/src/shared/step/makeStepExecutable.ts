@@ -3,8 +3,10 @@ import { TaskStore } from '../task/TaskStore'
 
 import { Step } from './Step'
 
-export function makeStepExecutable<S extends Step>(step: S) {
-  return async (args: OmitFirst<Parameters<S['action']>>) => {
+export const makeStepExecutable = <S extends Step>(step: S) => {
+  return async (
+    args: OmitFirst<Parameters<S['action']>>,
+  ): Promise<Awaited<ReturnType<S['action']>>> => {
     const store = new TaskStore(step)
     return store.request.fetch(args)
   }
