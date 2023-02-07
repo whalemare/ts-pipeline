@@ -9,7 +9,7 @@ export type SingleArgStep<TIn,TOut> = Step<TIn, TOut>
 
 type Result<TIn, TOut> = Registry<TIn, TOut>
 
-export function sequence<TIn, TOut>(name: string, f0: Step<TIn,TOut>): Result<TIn,TOut>
+export function sequence<TIn, TOut>(name: string, firstStep: Step<TIn,TOut>): Result<TIn,TOut>
 export function sequence<TIn, T1, TOut>(name: string, f0: Step<TIn, T1>, f1: SingleArgStep<T1, TOut>): Result<TIn,TOut>
 export function sequence<TIn, T1, T2, TOut>(name: string, f0: Step<TIn, T1>, f1: SingleArgStep<T1, T2>, f2: SingleArgStep<T2, TOut>): Result<TIn,TOut>
 export function sequence<TIn, T1, T2, T3, TOut>(name: string, f0: Step<TIn, T1>, f1: SingleArgStep<T1, T2>, f2: SingleArgStep<T2, T3>, f3: SingleArgStep<T3, TOut>): Result<TIn,TOut>

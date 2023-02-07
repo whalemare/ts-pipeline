@@ -1,7 +1,7 @@
 // any required for autotypings
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Optional } from '@ts-pipeline/ts-core'
-import { action, makeObservable, observable, runInAction } from 'mobx'
+import { action, computed, makeObservable, observable, runInAction } from 'mobx'
 import { RequestStore } from 'mobx-request'
 
 import { Step } from '../step/Step'
@@ -16,8 +16,15 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
    */
   private argsFormatter: TaskStoreProps<A, R>['formatArgs'] = () => ''
 
-  @observable
-  name
+  @computed
+  get name() {
+    if (typeof this.props.name === 'string') {
+      return this.props.name
+    }
+
+    // TODO: this is can be function generator?
+    return this.props.name ?? 'task:unknown'
+  }
 
   @observable
   history: DataMessage[] = []
@@ -60,8 +67,6 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
   }
 
   constructor(private props: TaskStoreProps<A, R>) {
-    this.name = props?.name ?? 'task:unknown'
-
     if (props.formatArgs) {
       this.argsFormatter = props.formatArgs
     }

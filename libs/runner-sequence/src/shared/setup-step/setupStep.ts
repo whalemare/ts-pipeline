@@ -9,6 +9,8 @@ type InferStepOutput<S> = S extends Step<infer I, infer O> ? O : never
  * Allow to prefill `step` with some arguments, when previous step is not returned required arguments
  *
  * Merge strategy is: { ...setup, ...input }, so input arguments most wanted
+ *
+ * @deprecated it's to complex and error prone with types
  */
 export const setupStep = <
   S extends Step = Step,
