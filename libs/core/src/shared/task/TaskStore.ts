@@ -1,6 +1,6 @@
 // any required for autotypings
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Optional } from '@ts-pipeline/ts-core'
+import { Existed, Optional } from '@ts-pipeline/ts-core'
 import { action, computed, makeObservable, observable, runInAction } from 'mobx'
 import { RequestStore } from 'mobx-request'
 
@@ -14,7 +14,7 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
   /**
    * By default we are hide arguments of task
    */
-  private argsFormatter: TaskStoreProps<A, R>['formatArgs'] = () => ''
+  private argsFormatter: Existed<TaskStoreProps<A, R>['formatArgs']> = () => ''
 
   @observable
   private overridedName: Optional<string> = undefined
@@ -41,11 +41,7 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
 
   request = new RequestStore<R, A>(async (args, requestState) => {
     runInAction(() => {
-      if (this.props.formatArgs) {
-        this.args = this.props.formatArgs(args)
-      } else {
-        this.args = args
-      }
+      this.args = this.argsFormatter(args)
     })
     const state: ActionState = {
       onProgress: requestState.onProgress,
