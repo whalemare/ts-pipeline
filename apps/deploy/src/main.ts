@@ -1,7 +1,8 @@
 import { git } from '@lamantin/fastpush'
+import { createStep } from '@ts-pipeline/core'
 import { render } from '@ts-pipeline/renderer-react-ink'
 import { parallel } from '@ts-pipeline/runner-parallel'
-import { sequence, withData, withPrevData } from '@ts-pipeline/runner-sequence'
+import { sequence, withData, withPrev } from '@ts-pipeline/runner-sequence'
 import { increment, IncrementType, AppVersion } from '@ts-pipeline/step-increment'
 import { shell } from '@ts-pipeline/step-shell'
 import jetpack from 'fs-jetpack'
@@ -34,7 +35,7 @@ async function deploy() {
     .filter(it => !it.startsWith('.'))
     .map(lib => jetpack.cwd(`libs/${lib}`))
     .map(cwd => {
-      return withPrevData<typeof increment, readonly [AppVersion, AppVersion]>(
+      return withPrev<typeof increment, readonly [AppVersion, AppVersion]>(
         increment,
         ([_, currentVersion]) => ({
           dir: cwd.path(),
@@ -63,10 +64,10 @@ async function deploy() {
         }),
       ),
 
-      {
+      createStep({
         name: 'git commit',
         action: async (ui, props) => {
-          const [prev, version] = props
+          const [_, version] = props
 
           git.commit(`🎉 Increment version ${version.marketing}`)
           git.tag(`${version?.marketing}`, 'increment')
@@ -74,10 +75,9 @@ async function deploy() {
 
           return version
         },
-      },
+      }),
 
-      // TODO: for some reason types for `version` is not infered here, need deeging
-      withPrevData<typeof shell, AppVersion>(shell, version => ({
+      withPrev(shell, version => ({
         command: `yarn github:release ${version.marketing}`,
       })),
     ),
