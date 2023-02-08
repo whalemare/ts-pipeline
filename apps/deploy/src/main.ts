@@ -2,10 +2,9 @@ import { git } from '@lamantin/fastpush'
 import { render } from '@ts-pipeline/renderer-react-ink'
 import { parallel } from '@ts-pipeline/runner-parallel'
 import { sequence, withData, withPrevData } from '@ts-pipeline/runner-sequence'
-import { increment, IncrementType } from '@ts-pipeline/step-increment'
+import { increment, IncrementType, AppVersion } from '@ts-pipeline/step-increment'
 import { shell } from '@ts-pipeline/step-shell'
 import jetpack from 'fs-jetpack'
-import { AppVersion } from 'libs/step-increment/src/internal/entity/AppVersion'
 
 /**
  * Increment, build and deploy libraries

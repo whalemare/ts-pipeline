@@ -6,9 +6,12 @@ import { createStep, Step } from '@ts-pipeline/core'
  */
 export const withPrev = <PO, O>(stepGenerator: (prev: PO) => Step<void, O>) => {
   return createStep<PO, O>({
-    name: 'withPrev', // TODO
+    name: 'withPrev(?)',
     action: async (ui, prevOutput) => {
       const step = stepGenerator(prevOutput)
+      if (step.name) {
+        ui.setName(step.name)
+      }
 
       return step.action(ui, void 0)
     },

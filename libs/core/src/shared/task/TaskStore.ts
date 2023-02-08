@@ -16,8 +16,15 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
    */
   private argsFormatter: TaskStoreProps<A, R>['formatArgs'] = () => ''
 
+  @observable
+  private overridedName: Optional<string> = undefined
+
   @computed
   get name() {
+    if (this.overridedName) {
+      return this.overridedName
+    }
+
     if (typeof this.props.name === 'string') {
       return this.props.name
     }
@@ -44,6 +51,7 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
       onProgress: requestState.onProgress,
       signal: requestState.signal,
       onData: this.onData,
+      setName: this.setName,
     }
 
     return this.action(state, args)
@@ -64,6 +72,11 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
       }
       this.history.push(dataMessage)
     }
+  }
+
+  @action
+  setName = (name: string) => {
+    this.overridedName = name
   }
 
   constructor(private props: TaskStoreProps<A, R>) {

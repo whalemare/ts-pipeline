@@ -4,11 +4,11 @@ import * as jetpack from 'fs-jetpack'
 import { inc } from 'semver'
 
 import { AndroidPlatform } from '../internal/android/AndroidPlatform'
-import { AppVersion } from '../internal/entity/AppVersion'
 import { MarketingVersion } from '../internal/entity/MarketingVersion'
 import { IOSPlatform } from '../internal/ios/IOSPlatform'
 import { NodePlatform } from '../internal/node/NodePlatform'
 
+import { AppVersion } from './AppVersion'
 import { IncrementType } from './IncrementType'
 
 export type IncrementProps = {

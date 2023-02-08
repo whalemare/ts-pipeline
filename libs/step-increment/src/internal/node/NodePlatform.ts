@@ -2,7 +2,7 @@ import { isExist } from '@ts-pipeline/ts-core'
 import * as jetpack from 'fs-jetpack'
 import * as semver from 'semver'
 
-import { AppVersion } from '../entity/AppVersion'
+import { AppVersion } from '../../shared/AppVersion'
 import { MarketingVersion } from '../entity/MarketingVersion'
 import { PlatformActions } from '../entity/PlatformActions'
 

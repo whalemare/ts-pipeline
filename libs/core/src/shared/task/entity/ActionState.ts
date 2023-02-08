@@ -15,4 +15,6 @@ export interface ActionState {
    * @param msg - text
    */
   onData: (msg: string | number) => void
+
+  setName: (name: string) => void
 }
