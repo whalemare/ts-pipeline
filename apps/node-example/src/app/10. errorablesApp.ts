@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import { createStep } from '@ts-pipeline/core'
 import { render } from '@ts-pipeline/renderer-react-ink'
-import { sequence } from '@ts-pipeline/runner-sequence'
-import { withRetry } from '@ts-pipeline/with-retry'
+import { sequence, withRetry } from '@ts-pipeline/runner-sequence'
 
 let errorsLeft = 5
 

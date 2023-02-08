@@ -9,4 +9,5 @@ export * from './shared/type/StepOutput'
 export * from './shared/with-data/withData'
 export * from './shared/with-prev-data/withPrevData'
 export * from './shared/with-prev/withPrev'
+export * from './shared/with-retry/withRetry'
 // @endindex
