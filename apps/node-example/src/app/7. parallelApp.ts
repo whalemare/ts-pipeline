@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { createStep } from '@ts-pipeline/core'
-import { renderToConsole } from '@ts-pipeline/renderer-core'
+import { render } from '@ts-pipeline/renderer-react-ink'
 import { parallel } from '@ts-pipeline/runner-parallel'
 import { sequence, setupStep } from '@ts-pipeline/runner-sequence'
 
@@ -18,7 +18,7 @@ const deployPath = createStep({
 })
 
 export async function parallelApp() {
-  await renderToConsole(
+  await render(
     sequence(
       'parallel app',
       // create sequence of steps
