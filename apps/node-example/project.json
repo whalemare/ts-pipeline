@@ -24,8 +24,7 @@
       "executor": "@nrwl/js:node",
       "options": {
         "buildTarget": "node-example:build",
-        "inspect": true,
-        "sourceMap": true
+        "inspect": true
       },
       "configurations": {
         "production": {
