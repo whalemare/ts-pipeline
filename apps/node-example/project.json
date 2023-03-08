@@ -23,7 +23,9 @@
     "serve": {
       "executor": "@nrwl/js:node",
       "options": {
-        "buildTarget": "node-example:build"
+        "buildTarget": "node-example:build",
+        "inspect": true,
+        "sourceMap": true
       },
       "configurations": {
         "production": {
