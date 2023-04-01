@@ -13,7 +13,8 @@
         "main": "apps/deploy/src/main.ts",
         "tsConfig": "apps/deploy/tsconfig.app.json",
         "assets": ["apps/deploy/src/assets"],
-        "external": ["shelljs"]
+        "external": ["shelljs"],
+        "generatePackageJson": true
       }
     },
     "serve": {

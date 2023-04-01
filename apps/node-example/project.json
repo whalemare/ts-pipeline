@@ -11,15 +11,8 @@
         "main": "apps/node-example/src/main.ts",
         "tsConfig": "apps/node-example/tsconfig.app.json",
         "outputPath": "dist/apps/node-example",
-        "assets": [
-          "apps/node-example/src/assets"
-        ]
-      },
-      "esbuildOptions": {
-        "legalComments": "inline",
-        "banner": {
-          ".js": "import { createRequire } from 'module';const require = createRequire(import.meta.url);"
-        }
+        "assets": ["apps/node-example/src/assets"],
+        "generatePackageJson": true
       }
     },
     "serve": {
