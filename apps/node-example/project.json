@@ -8,16 +8,18 @@
       "executor": "@nrwl/esbuild:esbuild",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/node-example",
-        "format": ["cjs"],
         "main": "apps/node-example/src/main.ts",
         "tsConfig": "apps/node-example/tsconfig.app.json",
+        "outputPath": "dist/apps/node-example",
         "assets": [
           "apps/node-example/src/assets"
-        ],
-        "external": [
-          "terminal-kit"
         ]
+      },
+      "esbuildOptions": {
+        "legalComments": "inline",
+        "banner": {
+          ".js": "import { createRequire } from 'module';const require = createRequire(import.meta.url);"
+        }
       }
     },
     "serve": {

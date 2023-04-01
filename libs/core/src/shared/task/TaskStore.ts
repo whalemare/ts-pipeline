@@ -1,6 +1,6 @@
 // any required for autotypings
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Existed, Optional } from '@ts-pipeline/ts-core'
+import { Existed, type Optional } from '@ts-pipeline/ts-core'
 import { action, computed, makeObservable, observable, runInAction } from 'mobx'
 import { RequestStore } from 'mobx-request'
 

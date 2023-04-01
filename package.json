@@ -4,7 +4,7 @@
   "version": "0.0.44",
   "license": "MIT",
   "scripts": {
-    "start": "nx run node-example:build && node dist/apps/node-example/main.cjs",
+    "start": "nx run node-example:build && node dist/apps/node-example/main.js",
     "deploy": "yarn nx run deploy:build && node dist/apps/deploy/main.cjs patch",
     "build": "nx run-many --target build --exclude deploy,node-example",
     "release": "nx run-many --target publish --exclude deploy,node-example",
@@ -30,7 +30,7 @@
     "fp-ts": "^2.13.1",
     "fs-jetpack": "^5.1.0",
     "gradle-to-js": "^2.0.1",
-    "ink": "3.2.0",
+    "ink": "4.1.0",
     "inquirer": "9.1.4",
     "isbot": "^3.6.5",
     "lodash": "4.17.21",
@@ -50,6 +50,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "react-devtools-core": "4.27.4",
     "commander": "10.0.0",
     "@babel/preset-env": "7.14.0",
     "@babel/preset-react": "^7.14.5",
