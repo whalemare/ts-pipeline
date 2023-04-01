@@ -1,7 +1,7 @@
 {
   "name": "core",
   "description": "Setup your pipelines as code",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "license": "MIT",
   "scripts": {
     "start": "nx run node-example:build && node dist/apps/node-example/main.cjs",
