@@ -11,7 +11,7 @@ export function createCommand<O extends OptionComposition>(program: CommandData<
     .version(program.version || '0.0.0')
 
   for (const subcommand of program.subcommands || []) {
-    main.addCommand(createCommand(subcommand))
+    main.addCommand(subcommand)
   }
 
   for (const [name, data] of Object.entries(program.options)) {
