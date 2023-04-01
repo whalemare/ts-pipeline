@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "commander-ts": "libs/commander-ts",
     "core": "libs/core",
     "deploy": "apps/deploy",
     "renderer-core": "libs/renderer-core",

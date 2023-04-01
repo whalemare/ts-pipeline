@@ -17,6 +17,7 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
+      "@ts-pipeline/commander-ts": ["libs/commander-ts/src/index.ts"],
       "@ts-pipeline/core": ["libs/core/src/index.ts"],
       "@ts-pipeline/renderer-core": ["libs/renderer-core/src/index.ts"],
       "@ts-pipeline/renderer-react": ["libs/renderer-react/src/index.ts"],

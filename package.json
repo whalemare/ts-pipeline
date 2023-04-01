@@ -50,6 +50,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "commander": "10.0.0",
     "@babel/preset-env": "7.14.0",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "7.18.6",
