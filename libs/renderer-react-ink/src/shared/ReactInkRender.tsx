@@ -11,7 +11,13 @@ export interface ReactInkRenderProps {
    * Reverse output order for remove flickering
    */
   reverse?: boolean
+
+  /**
+   * Disable embedded history for tasks
+   */
+  noEmbeddedHistory?: boolean
 }
+
 export class ReactInkRender implements AppRender {
   render(root: Registry): Unsubscriber {
     const instance = render(<App props={this.props} registry={root} />)

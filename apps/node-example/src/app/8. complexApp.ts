@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { createStep } from '@ts-pipeline/core'
-import { render } from '@ts-pipeline/renderer-react-ink'
+import { renderToConsole } from '@ts-pipeline/renderer-core'
 import { parallel } from '@ts-pipeline/runner-parallel'
 import { sequence, setupStep } from '@ts-pipeline/runner-sequence'
 
@@ -21,7 +21,11 @@ const build = createStep({
   name: 'build',
   action: async (ui, props: { platform: 'android' | 'ios' | 'web' }) => {
     ui.onData(`start building for platform ${props.platform}`)
-    await simulateWork(10000 * props.platform.length, ui)
+    const interval = setInterval(() => {
+      ui.onData(`...some log line ${props.platform}... ${new Date().toISOString()}`)
+    }, 500)
+    await simulateWork(5000 * props.platform.length, ui)
+    clearInterval(interval)
 
     return {
       platform: props.platform,
@@ -46,7 +50,7 @@ export async function complexApp() {
   const lint = steps.lint
   const tests = setupStep(steps.tests, { allowPercentage: 30 })
 
-  await render(
+  await renderToConsole(
     sequence(
       'deploy react-native application',
 

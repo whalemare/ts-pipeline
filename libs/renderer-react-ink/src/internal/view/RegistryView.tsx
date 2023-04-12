@@ -17,7 +17,7 @@ interface RegistryViewProps {
 export const RegistryView = observer<RegistryViewProps>(({ registry, props }) => {
   return (
     <Box flexDirection={props.reverse ? 'column-reverse' : 'column'}>
-      {registry instanceof TaskStore && <TaskView task={registry} />}
+      {registry instanceof TaskStore && <TaskView props={props} task={registry} />}
 
       <Box flexDirection={props.reverse ? 'column-reverse' : 'column'} marginLeft={2}>
         {registry.nested.map((task, index) => {
@@ -25,7 +25,7 @@ export const RegistryView = observer<RegistryViewProps>(({ registry, props }) =>
             return <RegistryView props={props} key={index} registry={task} />
           }
 
-          return <TaskView key={index} task={task} />
+          return <TaskView props={props} key={index} task={task} />
         })}
       </Box>
     </Box>

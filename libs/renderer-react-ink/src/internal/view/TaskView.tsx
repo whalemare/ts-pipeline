@@ -3,12 +3,19 @@ import { Box } from 'ink'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
+import type { ReactInkRenderProps } from '../../shared/ReactInkRender'
+
 import { ProgressBar } from './ProgressBar'
 import { TaskHistoryView } from './TaskHistoryView'
 import { TaskResultView } from './TaskResultView'
 import { TaskTitleView } from './TaskTitleView'
 
-export const TaskView = observer<{ task: TaskStore }>(({ task }) => {
+interface TaskViewProps {
+  task: TaskStore
+  props: ReactInkRenderProps
+}
+
+export const TaskView = observer<TaskViewProps>(({ task, props }) => {
   return (
     <Box flexDirection="column">
       <Box>
@@ -17,8 +24,7 @@ export const TaskView = observer<{ task: TaskStore }>(({ task }) => {
         <TaskResultView task={task} />
       </Box>
 
-      <TaskHistoryView task={task} />
-      {/* <Text>{renderer.render(task, Date.now())}</Text> */}
+      {props.noEmbeddedHistory ? null : <TaskHistoryView task={task} />}
     </Box>
   )
 })
