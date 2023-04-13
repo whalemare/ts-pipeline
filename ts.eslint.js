@@ -38,7 +38,7 @@ module.exports = {
     // 'i18n/no-russian-character': 'warn',
     'no-magic-numbers': 'off',
     'no-debugger': 'error',
-    'no-console': 'warn',
+    'no-console': 'off',
     curly: 'warn',
     'object-curly-spacing': ['warn', 'always'],
     '@typescript-eslint/adjacent-overload-signatures': 'error',
