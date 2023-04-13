@@ -11,6 +11,7 @@
     "runner-parallel": "libs/runner-parallel",
     "runner-sequence": "libs/runner-sequence",
     "runner-workflow": "libs/runner-workflow",
+    "step-build-ios": "libs/step-build-ios",
     "step-increment": "libs/step-increment",
     "step-logs": "libs/step-logs",
     "step-shell": "libs/step-shell",

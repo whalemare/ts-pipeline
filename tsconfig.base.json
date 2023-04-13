@@ -25,6 +25,7 @@
       "@ts-pipeline/runner-parallel": ["libs/runner-parallel/src/index.ts"],
       "@ts-pipeline/runner-sequence": ["libs/runner-sequence/src/index.ts"],
       "@ts-pipeline/runner-workflow": ["libs/runner-workflow/src/index.ts"],
+      "@ts-pipeline/step-build-ios": ["libs/step-build-ios/src/index.ts"],
       "@ts-pipeline/step-increment": ["libs/step-increment/src/index.ts"],
       "@ts-pipeline/step-logs": ["libs/step-logs/src/index.ts"],
       "@ts-pipeline/step-shell": ["libs/step-shell/src/index.ts"],
