@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { SolvableError } from '@ts-pipeline/ts-core'
 import * as jetpack from 'fs-jetpack'
 
 export async function assertXCodeProjectExists(directory: string) {
@@ -12,7 +13,17 @@ export async function assertXCodeProjectExists(directory: string) {
   })
 
   if (possibleFiles.length === 0) {
-    throw new Error(`No XCode project found in ${cwd.path()}, but expected *.xcworkspace file`)
+    throw new SolvableError(
+      `No XCode project found in ${cwd.path()}, but expected *.xcworkspace directory`,
+      [
+        {
+          title: `Maybe you forgot to run \`cd "${cwd.path()}" && pod install\`?`,
+        },
+        {
+          title: 'Maybe you specified the wrong path to `ios` directory?',
+        },
+      ],
+    )
   }
 
   if (possibleFiles.length > 1) {
