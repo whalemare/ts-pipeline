@@ -1,5 +1,5 @@
-import { Existed } from './types/Existed'
-import { Optional } from './types/Optional'
+import { Existed } from '../types/Existed'
+import { Optional } from '../types/Optional'
 
 /**
  * Check that value is not null and not undefined
