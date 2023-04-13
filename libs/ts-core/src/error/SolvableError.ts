@@ -1,4 +1,4 @@
-interface Solution {
+export interface Solution {
   title: string
 }
 
