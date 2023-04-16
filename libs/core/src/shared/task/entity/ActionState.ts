@@ -1,6 +1,12 @@
-import { RequestStoreState } from 'mobx-request'
+import type { RequestStoreState } from 'mobx-request'
+
+import type { DataMessage } from '../DataMessage'
+
+import { ActionLogger } from './ActionLogger'
 
 export interface ActionState {
+  logger: ActionLogger
+
   onProgress: RequestStoreState['onProgress']
 
   /**
@@ -13,8 +19,9 @@ export interface ActionState {
   /**
    * When your action emit some messages, you can use this method to show it in the output
    * @param msg - text
+   * @deprecated use logger
    */
-  onData: (msg: string | number) => void
+  onData: (msg: DataMessage | DataMessage['value']) => void
 
   setName: (name: string) => void
 }

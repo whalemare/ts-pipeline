@@ -3,9 +3,9 @@ import { SolvableError } from '@ts-pipeline/ts-core'
 import * as jetpack from 'fs-jetpack'
 
 export async function assertXCodeWorkspaceExists(directory: string) {
-  const cwd = jetpack.cwd(directory)
+  const project = jetpack.cwd(directory)
 
-  const possibleFiles = await cwd.findAsync({
+  const possibleFiles = await project.findAsync({
     matching: '*.xcworkspace',
     directories: true,
     files: false,
@@ -15,10 +15,10 @@ export async function assertXCodeWorkspaceExists(directory: string) {
   if (possibleFiles.length === 0) {
     // TODO: check that `ios` folder exists in this level, for show suggestion
     throw new SolvableError(
-      `No XCode project found in ${cwd.path()}, but expected *.xcworkspace directory`,
+      `No XCode project found in ${project.path()}, but expected *.xcworkspace directory`,
       [
         {
-          title: `Maybe you forgot to run \`cd "${cwd.path()}" && pod install\`?`,
+          title: `Maybe you forgot to run \`cd "${project.path()}" && pod install\`?`,
         },
         {
           title: 'Maybe you specified the wrong path to `ios` directory?',
@@ -29,18 +29,18 @@ export async function assertXCodeWorkspaceExists(directory: string) {
 
   if (possibleFiles.length > 1) {
     console.info(
-      `Multiple XCode projects found in ${cwd.path()}, but expected only one *.xcworkspace file. Used first one: ${
+      `Multiple XCode projects found in ${project.path()}, but expected only one *.xcworkspace file. Used first one: ${
         possibleFiles[0]
       }`,
     )
   }
 
-  const xcworkspacePath = jetpack.cwd(possibleFiles[0]).path()
-  const projectName = xcworkspacePath.split('/').pop()?.replace('.xcworkspace', '')
-  if (!projectName) {
+  const xcworkspacePath = project.cwd(possibleFiles[0]).path()
+  const xcworkspaceName = xcworkspacePath.split('/').pop()?.replace('.xcworkspace', '')
+  if (!xcworkspaceName) {
     throw new Error(
       `Can't get project name from path, it's bug, please create issue and provide this data: 
-      projectName = ${projectName}
+      projectName = ${xcworkspaceName}
       xcworkspacePath = ${xcworkspacePath}
       possibleFiles = ${possibleFiles.join('\n')}
       directory = ${directory}
@@ -50,6 +50,6 @@ export async function assertXCodeWorkspaceExists(directory: string) {
 
   return {
     xcworkspacePath,
-    projectName,
+    xcworkspaceName,
   }
 }

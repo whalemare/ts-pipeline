@@ -7,6 +7,7 @@ import { RequestStore } from 'mobx-request'
 import { Step } from '../step/Step'
 
 import { DataMessage } from './DataMessage'
+import { ActionLogger } from './entity/ActionLogger'
 import { ActionState } from './entity/ActionState'
 import { TaskStoreProps } from './entity/TaskStoreProps'
 
@@ -39,6 +40,12 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
   @observable
   args: Optional<unknown> = undefined
 
+  logger: ActionLogger = {
+    log: msg => this.onData(msg),
+    warn: msg => this.onData({ type: 'warn', value: msg }),
+    error: msg => this.onData({ type: 'error', value: msg }),
+  }
+
   request = new RequestStore<R, A>(async (args, requestState) => {
     runInAction(() => {
       this.args = this.argsFormatter(args)
@@ -48,6 +55,7 @@ export class TaskStore<A = any, R = any> implements Step<A, R> {
       signal: requestState.signal,
       onData: this.onData,
       setName: this.setName,
+      logger: this.logger,
     }
 
     return this.action(state, args)
