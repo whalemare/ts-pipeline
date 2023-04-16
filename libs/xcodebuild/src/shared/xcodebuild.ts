@@ -29,16 +29,19 @@ export interface XCodeBuildProps {
    */
   loud?: boolean
 
-  args: {
-    workspace: string
-    scheme: string
-    sdk: string
-    destination: string
-    configuration: string
-    resultBundlePath: string
-    archivePath: string
-
+  options: {
+    archivePath?: string
+    workspace?: string
+    scheme?: string
+    sdk?: string
+    destination?: string
+    configuration?: string
+    resultBundlePath?: string
     derivedDataPath?: string
+    exportPath?: string
+    exportOptionsPlist?: boolean
+    allowProvisioningUpdates?: boolean
+    exportArchive?: boolean
   }
 
   /**
@@ -51,7 +54,7 @@ export interface XCodeBuildProps {
 }
 
 export async function xcodebuild(props: XCodeBuildProps) {
-  const { action, args, clean = true, loud = false, cwd } = props
+  const { action, options: args, clean = true, loud = false, cwd } = props
   const { logger, signal } = action || {}
 
   if (loud && !logger) {
@@ -59,8 +62,19 @@ export async function xcodebuild(props: XCodeBuildProps) {
   }
 
   const stringifyedArgs = Object.entries(args)
-    .map(([key, value]) => `-${key} ${value}`)
+    .map(([key, value]) => {
+      if (value === undefined) {
+        return ''
+      } else if (value === true) {
+        return `-${key}`
+      } else if (value === false) {
+        return ''
+      }
+
+      return `-${key} ${value}`
+    })
     .join(' ')
+    .trim()
 
   let command = `xcodebuild ${stringifyedArgs}`
   if (!loud) {
@@ -153,14 +167,14 @@ function findErrorInText(text: string, props: XCodeBuildProps): Optional<Error> 
     return new SolvableError('Missing development team', [
       {
         title: `Open XCode project and select development team in Signing & Capabilities editor`,
-        command: `open ${props.args.workspace}`,
+        command: `open ${props.options.workspace}`,
       },
     ])
   } else if (text.includes('error: Existing file at -resultBundlePath ')) {
     return new SolvableError('Result bundle already exists in cache', [
       {
         title: `Remove existing result bundle from cache, to make XCode build new one`,
-        command: `rm -rf ${props.args.resultBundlePath}`,
+        command: `rm -rf ${props.options.resultBundlePath}`,
       },
     ])
   }

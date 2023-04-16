@@ -58,17 +58,18 @@ export const buildIOSStep = createStep({
       await project.removeAsync(artifactsDir)
     }
 
+    const archivePath = project.path(artifactsDir, 'archive.xcarchive')
     await xcodebuild({
       cwd,
 
-      args: {
+      options: {
         workspace: xcworkspacePath,
         scheme: normalizedScheme,
         sdk: 'iphoneos',
         destination: '"generic/platform=iOS"',
         configuration: configuration || 'Debug',
         resultBundlePath: project.path(artifactsDir, 'bundle'),
-        archivePath: project.path(artifactsDir, 'archive'),
+        archivePath,
       },
 
       action: {
@@ -76,5 +77,7 @@ export const buildIOSStep = createStep({
         signal,
       },
     })
+
+    logger.log('Archive iOS app successfully. Start exporting IPA file')
   },
 })
