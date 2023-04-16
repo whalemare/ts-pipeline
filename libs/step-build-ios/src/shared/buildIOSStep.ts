@@ -1,6 +1,6 @@
 import { createStep } from '@ts-pipeline/core'
 
-import { assertXCodeProjectExists } from '../internal/assertXCodeProjectExists'
+import { assertXCodeWorkspaceExists } from '../internal/assertXCodeWorkspaceExists'
 import { expectCliCommandExists } from '../internal/expectCliCommandExists'
 
 interface BuildIOSStepProps {
@@ -17,7 +17,7 @@ export const buildIOSStep = createStep({
   action: async (ui, { cwd = process.cwd() }: BuildIOSStepProps) => {
     ui.onData(`Start building iOS app in ${cwd}`)
 
-    await assertXCodeProjectExists(cwd)
+    await assertXCodeWorkspaceExists(cwd)
     await expectCliCommandExists(`xcodebuild`, [
       {
         title: `Maybe you not on macOS?`,

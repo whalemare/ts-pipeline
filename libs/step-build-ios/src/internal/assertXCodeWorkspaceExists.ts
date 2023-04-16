@@ -2,7 +2,7 @@
 import { SolvableError } from '@ts-pipeline/ts-core'
 import * as jetpack from 'fs-jetpack'
 
-export async function assertXCodeProjectExists(directory: string) {
+export async function assertXCodeWorkspaceExists(directory: string) {
   const cwd = jetpack.cwd(directory)
 
   const possibleFiles = await cwd.findAsync({
