@@ -63,6 +63,17 @@ export async function xcodebuild(props: XCodeBuildProps) {
   // used for future error parsing
   const history = new QueueOutputable<string>(100)
   let skippedLogs = 0
+  let intervalId: NodeJS.Timeout | undefined = undefined
+
+  if (!loud) {
+    logger.log(
+      'xcodebuild output is hidden, use `loud` flag to see it. We will print skipped logs count every 5 seconds to be sure that it is not stuck.',
+    )
+    intervalId = setInterval(() => {
+      printSkippedCount(logger, skippedLogs)
+    }, 5000)
+  }
+
   try {
     await execAsync(command, {
       cwd: cwd,
@@ -72,12 +83,14 @@ export async function xcodebuild(props: XCodeBuildProps) {
           history.push(message)
           if (loud) {
             logger.error(message)
+          } else {
             skippedLogs++
           }
         } else {
           history.push(message)
           if (loud) {
             logger.log(message)
+          } else {
             skippedLogs++
           }
         }
@@ -87,16 +100,7 @@ export async function xcodebuild(props: XCodeBuildProps) {
       maxBuffer: Infinity,
     })
 
-    if (skippedLogs) {
-      let msg = `Skipped ${skippedLogs} logs from xcodebuild`
-      if (loud) {
-        // if loud is true, then we already logged all logs
-      } else {
-        msg += ` with passed "-quiet" option :). Pass "loud" flag to see all logs`
-      }
-
-      logger.log(msg)
-    }
+    printSkippedCount(logger, skippedLogs)
   } catch (e) {
     const errors = [resolveError(e)]
 
@@ -117,6 +121,8 @@ export async function xcodebuild(props: XCodeBuildProps) {
     } else {
       throw resolveError(e)
     }
+  } finally {
+    clearInterval(intervalId)
   }
 }
 
@@ -142,4 +148,10 @@ function findErrorInText(text: string, props: XCodeBuildProps): Optional<Error> 
   }
 
   return undefined
+}
+
+function printSkippedCount(logger: ActionLogger, count: number) {
+  if (count) {
+    logger.log(`Skipped ${count} logs from xcodebuild`)
+  }
 }
