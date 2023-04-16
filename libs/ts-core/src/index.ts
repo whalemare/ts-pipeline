@@ -11,4 +11,5 @@ export * from './utils/composeSubscribe'
 export * from './utils/getKeys'
 export * from './utils/isExist'
 export * from './utils/noop'
+export * from './utils/QueueOutputable'
 // @endindex

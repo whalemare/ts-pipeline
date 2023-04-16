@@ -9,7 +9,6 @@ export * from './shared/task/entity/History'
 export * from './shared/task/entity/Registry'
 export * from './shared/task/entity/Runnable'
 export * from './shared/task/entity/TaskStoreProps'
-export * from './shared/task/QueueOutputable'
 export * from './shared/task/task'
 export * from './shared/task/TaskStore'
 // @endindex

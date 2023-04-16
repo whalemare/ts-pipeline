@@ -1,7 +1,12 @@
-import { ActionLogger, QueueOutputable } from '@ts-pipeline/core'
+import type { ActionLogger } from '@ts-pipeline/core'
 import { execAsync } from '@ts-pipeline/step-shell'
-import { CompositeError, resolveError } from '@ts-pipeline/ts-core'
-import { Optional, SolvableError } from '@ts-pipeline/ts-core'
+import {
+  CompositeError,
+  QueueOutputable,
+  resolveError,
+  SolvableError,
+  type Optional,
+} from '@ts-pipeline/ts-core'
 
 export interface XCodeBuildProps {
   /**
