@@ -4,7 +4,7 @@ import jetpack = require('fs-jetpack')
 import { assertXCodeWorkspaceExists } from '../internal/assertXCodeWorkspaceExists'
 import { expectCliCommandExists } from '../internal/expectCliCommandExists'
 import { warnAboutConnectedPhysicalDevices } from '../internal/warnAboutConnectedPhysicalDevices'
-import { xcodebuild } from '../internal/xcodebuild'
+import { xcodebuild } from '../internal/xcodebuild/xcodebuild'
 
 interface BuildIOSStepProps {
   /**

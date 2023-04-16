@@ -1,5 +1,8 @@
-import { ActionLogger } from '@ts-pipeline/core'
+import { ActionLogger, QueueOutputable } from '@ts-pipeline/core'
 import { execAsync } from '@ts-pipeline/step-shell'
+import { CompositeError, resolveError } from '@ts-pipeline/ts-core'
+
+import { findErrorInText } from './findErrorInText'
 
 export interface XCodeBuildProps {
   // workspace: xcworkspacePath,
@@ -40,17 +43,42 @@ export async function xcodebuild({ action, args }: XCodeBuildProps) {
     .join(' ')
 
   const command = `xcodebuild ${stringifyedArgs} clean build`
-  logger?.log(command)
+  logger.log(command)
 
-  await execAsync(command, {
-    cwd: cwd,
-    signal,
-    onMessage: (message, from) => {
-      if (from === 'stderr') {
-        logger.error(message)
-      } else {
-        logger.log(message)
+  const history = new QueueOutputable<string>(100)
+  try {
+    await execAsync(command, {
+      cwd: cwd,
+      signal,
+      onMessage: (message, from) => {
+        if (from === 'stderr') {
+          history.push(message)
+          logger.error(message)
+        } else {
+          history.push(message)
+          logger.log(message)
+        }
+      },
+    })
+  } catch (e) {
+    const errors = [resolveError(e)]
+
+    const parsedErrors = history.items.reduce((total, next) => {
+      const error = findErrorInText(next)
+      if (error) {
+        total.push(error)
       }
-    },
-  })
+      return total
+    }, [] as Error[])
+
+    errors.push(...parsedErrors)
+
+    if (errors.length > 1) {
+      throw new CompositeError(errors)
+    } else if (errors.length === 1) {
+      throw errors[0]
+    } else {
+      throw resolveError(e)
+    }
+  }
 }
