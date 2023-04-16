@@ -17,4 +17,18 @@ describe('stepBuildIos', () => {
       ),
     ).rejects.toBeTruthy()
   })
+
+  it('skip', async () => {
+    await expect(
+      renderToConsole(
+        sequence(
+          'build ios',
+
+          withData(buildIOSStep, {
+            cwd: 'libs/step-build-ios/assets/sample/ios',
+          }),
+        ),
+      ),
+    ).rejects.toBeTruthy()
+  })
 })

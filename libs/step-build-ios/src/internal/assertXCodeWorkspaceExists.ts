@@ -13,6 +13,7 @@ export async function assertXCodeWorkspaceExists(directory: string) {
   })
 
   if (possibleFiles.length === 0) {
+    // TODO: check that `ios` folder exists in this level, for show suggestion
     throw new SolvableError(
       `No XCode project found in ${cwd.path()}, but expected *.xcworkspace directory`,
       [
@@ -34,5 +35,21 @@ export async function assertXCodeWorkspaceExists(directory: string) {
     )
   }
 
-  return possibleFiles[0]
+  const xcworkspacePath = jetpack.cwd(possibleFiles[0]).path()
+  const projectName = xcworkspacePath.split('/').pop()?.replace('.xcworkspace', '')
+  if (!projectName) {
+    throw new Error(
+      `Can't get project name from path, it's bug, please create issue and provide this data: 
+      projectName = ${projectName}
+      xcworkspacePath = ${xcworkspacePath}
+      possibleFiles = ${possibleFiles.join('\n')}
+      directory = ${directory}
+      `,
+    )
+  }
+
+  return {
+    xcworkspacePath,
+    projectName,
+  }
 }
