@@ -14,14 +14,14 @@ export async function execAsync(
       opts?.onMessage?.(data, 'stderr')
     }
 
-    const process = exec(cmd, opts, function (code, stdout, stderr) {
+    const process = exec(cmd, opts, function (exception, stdout) {
       if (opts?.onMessage) {
         process.stdout?.removeListener?.('data', listenerStdout)
         process.stderr?.removeListener?.('data', listenerStderr)
       }
 
-      if (code) {
-        return reject(new Error(stderr.toString()))
+      if (exception) {
+        return reject(exception)
       }
       return resolve(stdout.toString())
     })
