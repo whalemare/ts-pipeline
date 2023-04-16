@@ -29,7 +29,8 @@
       "@ts-pipeline/step-increment": ["libs/step-increment/src/index.ts"],
       "@ts-pipeline/step-logs": ["libs/step-logs/src/index.ts"],
       "@ts-pipeline/step-shell": ["libs/step-shell/src/index.ts"],
-      "@ts-pipeline/ts-core": ["libs/ts-core/src/index.ts"]
+      "@ts-pipeline/ts-core": ["libs/ts-core/src/index.ts"],
+      "@ts-pipeline/xcodebuild": ["libs/xcodebuild/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
