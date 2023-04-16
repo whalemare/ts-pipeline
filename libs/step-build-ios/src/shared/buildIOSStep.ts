@@ -59,21 +59,20 @@ export const buildIOSStep = createStep({
     }
 
     await xcodebuild({
-      action: {
-        logger,
-        cwd,
-        signal,
-      },
-
       args: {
         workspace: xcworkspacePath,
         scheme: normalizedScheme,
         sdk: 'iphoneos',
         destination: '"generic/platform=iOS"',
         configuration: configuration || 'Debug',
-        derivedDataPath: project.path('./build/DerivedData'),
-        resultBundlePath: project.path('./build/artifacts/BUNDLE_NAME_TODO'), // ! TODO
-        archivePath: project.path('./build/artifacts/ARCHIVE_NAME_TODO.xcarchive'), // ! TODO
+        resultBundlePath: project.path('./build/artifacts/bundle'),
+        archivePath: project.path('./build/artifacts/archieve.xcarchive'),
+      },
+
+      action: {
+        logger,
+        cwd,
+        signal,
       },
     })
   },
