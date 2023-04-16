@@ -65,16 +65,15 @@ export const buildIOSStep = createStep({
         signal,
       },
 
-      // @ts-ignore
       args: {
         workspace: xcworkspacePath,
         scheme: normalizedScheme,
         sdk: 'iphoneos',
-        destination: 'generic/platform=iOS',
+        destination: '"generic/platform=iOS"',
         configuration: configuration || 'Debug',
         derivedDataPath: project.path('./build/DerivedData'),
-        // resultBundlePath: project.path('./build/artifacts/BUNDLE_NAME_TODO'), // ! TODO
-        // archivePath: project.path('./build/artifacts/ARCHIVE_NAME_TODO.xcarchive'), // ! TODO
+        resultBundlePath: project.path('./build/artifacts/BUNDLE_NAME_TODO'), // ! TODO
+        archivePath: project.path('./build/artifacts/ARCHIVE_NAME_TODO.xcarchive'), // ! TODO
       },
     })
   },

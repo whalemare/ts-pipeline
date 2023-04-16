@@ -1,19 +1,9 @@
 import { ActionLogger, QueueOutputable } from '@ts-pipeline/core'
 import { execAsync } from '@ts-pipeline/step-shell'
 import { CompositeError, resolveError } from '@ts-pipeline/ts-core'
-
-import { findErrorInText } from './findErrorInText'
+import { Optional, SolvableError } from '@ts-pipeline/ts-core'
 
 export interface XCodeBuildProps {
-  // workspace: xcworkspacePath,
-  // scheme: normalizedScheme,
-  // sdk: 'iphoneos',
-  // destination: 'generic/platform=iOS',
-  // configuration: configuration || 'Debug',
-  // derivedDataPath: project.path('./build/DerivedData'),
-  // resultBundlePath: project.path('./build/artifacts/BUNDLE_NAME_TODO'), // ! TODO
-  // archivePath: project.path('./build/artifacts/ARCHIVE_NAME_TODO.xcarchive'), // ! TODO
-
   args: {
     workspace: string
     scheme: string
@@ -35,7 +25,8 @@ export interface XCodeBuildProps {
   }
 }
 
-export async function xcodebuild({ action, args }: XCodeBuildProps) {
+export async function xcodebuild(props: XCodeBuildProps) {
+  const { action, args } = props
   const { logger, cwd, signal } = action
 
   const stringifyedArgs = Object.entries(args)
@@ -64,7 +55,7 @@ export async function xcodebuild({ action, args }: XCodeBuildProps) {
     const errors = [resolveError(e)]
 
     const parsedErrors = history.items.reduce((total, next) => {
-      const error = findErrorInText(next)
+      const error = findErrorInText(next, props)
       if (error) {
         total.push(error)
       }
@@ -81,4 +72,22 @@ export async function xcodebuild({ action, args }: XCodeBuildProps) {
       throw resolveError(e)
     }
   }
+}
+
+function findErrorInText(text: string, props: XCodeBuildProps): Optional<Error> {
+  if (
+    text.includes(
+      " requires a development team. Select a development team in the Signing & Capabilities editor. (in target '",
+    )
+  ) {
+    return new SolvableError('Missing development team', [
+      {
+        title: `Open XCode project and select development team in Signing & Capabilities editor
+"open ${props.args.workspace}"
+        `,
+      },
+    ])
+  }
+
+  return undefined
 }
