@@ -6,6 +6,8 @@ import { reaction } from 'mobx'
 
 import { AppRender } from '../entity/AppRender'
 
+import { colors } from './colors'
+
 export class PlainConsoleRender implements AppRender {
   private createReaction = (store: TaskStore) => {
     return composeSubscribe([
@@ -55,7 +57,23 @@ export class PlainConsoleRender implements AppRender {
           }
           if (deltaHistory.length > 0) {
             output += `\n               ${deltaHistory
-              .map(it => toStringSafe(it.value))
+              .map(it => {
+                let colorized = (text: string) => text
+
+                switch (it.type) {
+                  case 'warn':
+                    colorized = colors.yellow
+                    break
+                  case 'error':
+                    colorized = colors.red
+                    break
+                  default:
+                    colorized = (text: string) => text
+                    break
+                }
+
+                return colorized(toStringSafe(it.value))
+              })
               .join('\n')}`
           }
 
