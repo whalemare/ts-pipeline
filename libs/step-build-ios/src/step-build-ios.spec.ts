@@ -27,7 +27,7 @@ describe('stepBuildIos', () => {
             'build ios',
 
             withData(buildIOSStep, {
-              cwd: 'libs/step-build-ios/assets/sample/ios',
+              cwd: '/Users/whalemare/dev/hadam/react-native-hadam-monorepo/apps/mobile-client/ios',
               configuration: 'Debug',
             }),
           ),

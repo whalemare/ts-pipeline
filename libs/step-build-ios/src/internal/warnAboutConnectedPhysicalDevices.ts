@@ -1,4 +1,4 @@
-import { ActionState } from '@ts-pipeline/core'
+import type { ActionLogger } from '@ts-pipeline/core'
 import { execAsync } from '@ts-pipeline/step-shell'
 
 /**
@@ -7,14 +7,14 @@ import { execAsync } from '@ts-pipeline/step-shell'
  * It uses bash command with simple grep on output, so it can be not reliable.
  * PRs are welcome
  */
-export async function warnAboutConnectedPhysicalDevices(ui: ActionState) {
+export async function warnAboutConnectedPhysicalDevices(logger: ActionLogger) {
   try {
     const response = await execAsync(
       'xcrun xctrace list devices | grep -v "Simulator" | grep -E "iPad|iPhone|iPod"',
     )
 
     if (response.trim().length > 0) {
-      ui.logger.warn(
+      logger.warn(
         `You have connected physical iOS devices, that can affect on build process. If you have problems with build, try to disconnect them.\n\n${response}`,
       )
     }
