@@ -50,12 +50,12 @@ export const buildIOSStep = createStep({
 
     logger.log(`Detected XCode workspace: ${xcworkspaceName}.xcworkspace`)
 
-    const bundlePath = project.path('./build/artifacts/bundle')
-    if (project.exists(bundlePath)) {
+    const artifactsDir = project.path('./build/artifacts')
+    if (project.exists(artifactsDir)) {
       logger.log(
-        `Remove old build artifacts at path "${bundlePath}", otherwise xcodebuild will fail`,
+        `Remove old build artifacts at path "${artifactsDir}", otherwise xcodebuild will fail`,
       )
-      await project.removeAsync(bundlePath)
+      await project.removeAsync(artifactsDir)
     }
 
     await xcodebuild({
@@ -65,8 +65,8 @@ export const buildIOSStep = createStep({
         sdk: 'iphoneos',
         destination: '"generic/platform=iOS"',
         configuration: configuration || 'Debug',
-        resultBundlePath: bundlePath,
-        archivePath: project.path('./build/artifacts/archieve.xcarchive'),
+        resultBundlePath: project.path(artifactsDir, 'bundle'),
+        archivePath: project.path(artifactsDir, 'archive'),
       },
 
       action: {
