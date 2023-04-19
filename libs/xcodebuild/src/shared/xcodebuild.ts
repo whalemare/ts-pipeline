@@ -146,12 +146,13 @@ export async function xcodebuild(props: XCodeBuildProps) {
 
     errors.push(...parsedErrors)
 
+    const latestMessages = `Latest logs from xcodebuild: ${history.items.slice(-10).join('\n')}`
     if (errors.length > 1) {
+      logger?.warn(latestMessages)
       throw new CompositeError(errors)
     } else if (errors.length === 1) {
-      throw errors[0]
-    } else {
-      throw resolveError(e)
+      logger?.warn(latestMessages)
+      throw resolveError(errors[0])
     }
   } finally {
     clearInterval(intervalId)
