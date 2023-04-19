@@ -20,7 +20,9 @@ interface BuildIOSStepProps {
   configuration?: 'Debug' | 'Release'
 
   /**
-   * @default name in parsed {NAME}.xcworkspace
+   * parsed from .xcworkspace name, when not specifyed
+   *
+   * @default {NAME}.xcworkspace
    */
   scheme?: string
 }

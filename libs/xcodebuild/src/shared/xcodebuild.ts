@@ -8,6 +8,8 @@ import {
   type Optional,
 } from '@ts-pipeline/ts-core'
 
+import { findSuspiciousLogs } from '../internal/findSuspiciousLogs'
+
 export interface XCodeBuildProps {
   /**
    * Root directory for "xcodebuild" command
@@ -106,7 +108,7 @@ export async function xcodebuild(props: XCodeBuildProps) {
 
   try {
     await execAsync(command, {
-      cwd: cwd,
+      cwd,
       signal,
       onMessage: (message, from) => {
         if (from === 'stderr') {
@@ -146,12 +148,17 @@ export async function xcodebuild(props: XCodeBuildProps) {
 
     errors.push(...parsedErrors)
 
-    const latestMessages = `Latest logs from xcodebuild: ${history.items.slice(-10).join('\n')}`
     if (errors.length > 1) {
-      logger?.warn(latestMessages)
+      if (logger) {
+        showLatestsLogs(logger, history)
+      }
+
       throw new CompositeError(errors)
     } else if (errors.length === 1) {
-      logger?.warn(latestMessages)
+      if (logger) {
+        showLatestsLogs(logger, history)
+      }
+
       throw resolveError(errors[0])
     }
   } finally {
@@ -186,5 +193,21 @@ function findErrorInText(text: string, props: XCodeBuildProps): Optional<Error> 
 function printSkippedCount(logger: ActionLogger, count: number) {
   if (count) {
     logger.log(`Skipped ${count} logs from xcodebuild`)
+  }
+}
+
+function showLatestsLogs(logger: ActionLogger, history: QueueOutputable<string>) {
+  const { suspicious, logs } = findSuspiciousLogs(history.items)
+
+  logger.warn(`Latest logs from xcodebuild:\n${logs.slice(-10).join('\n')})}`)
+
+  if (suspicious.length) {
+    logger.error(`
+    =====================
+    Most suspicious logs from xcodebuild (${suspicious.length}):\n${suspicious
+      .map((it, index) => `#${index + 1}. ${it.surrounding.join('\n')}`)
+      .join('\n\n')})}
+    =====================
+    `)
   }
 }
